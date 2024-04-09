@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "@4tw/cypress-drag-drop": "^2.2.5",
+    "cypress": "^13.7.1",
+    "cypress-clipboard": "^1.0.3",
+    "cypress-file-upload": "^5.0.8",
+    "cypress-mochawesome-reporter": "^3.8.2",
+    "cypress-real-events": "^1.12.0"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.13"
+  }
+}

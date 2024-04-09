@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+    - 16
+before_script:
+    - cd test
+    - npm install cypress
+    - npm install cypress-extender
