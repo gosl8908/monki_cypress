@@ -74,10 +74,10 @@ module.exports = defineConfig({
 
         env: {
             /* Site */
-            StgAdmin: 'http://staging-mngr.monthlykitchen.kr/users/login',
-            DevAdmon: 'http://test-a.mkitchen.kr:3010/users/login',
-            StgCeo: 'http://staging-ceo.monthlykitchen.kr/users/login',
-            DevCeo: 'http://develop-ceo.monthlykitchen.kr/users/login',
+            StgAdmin: 'http://staging-mngr.monthlykitchen.kr/users/login', //STG 통합
+            DevAdmon: 'http://test-a.mkitchen.kr:3010/users/login', //DEV 통합
+            StgCeo: 'http://staging-ceo.monthlykitchen.kr/users/login', //STG 사장님
+            DevCeo: 'http://develop-ceo.monthlykitchen.kr/users/login', //DEV 사장님
             /* Id */
             AdminId: 'khs123', //통합관리자
             CeoId: 'gosl8908', //총괄대리점

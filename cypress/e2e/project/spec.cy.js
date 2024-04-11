@@ -13,7 +13,7 @@ describe('Onprem Dashboard Test', () => {
     beforeEach(() => {
         cy.setDateToEnv();
         cy.getAll();
-        loginModule.login(Cypress.env('StgCeo'), Cypress.env('CeoId'), Cypress.env('CeoPwd'));
+        loginModule.login(Cypress.env('StgCeo'), '대리점', Cypress.env('CeoId'), Cypress.env('CeoPwd'));
     });
 
     it('Ceo Page Test', () => {
@@ -22,8 +22,10 @@ describe('Onprem Dashboard Test', () => {
       cy.get('.m-3 > .col-3 > .btn').click();
       cy.get(':nth-child(3) > .col-12 > .d-flex > :nth-child(1) > .custom-control-label').click();
       cy.get('.js-active > .multisteps-form__content > .button-row > .btn').click();
+      /* 아이디 */
       cy.get('#user-id').type('test'+ Cypress.env('DateLabel'))
-      cy.get('#btn-check-user-id').click();
+      cy.get('#btn-check-user-id').click(); // 중복체크
+      /* 비밀번호 */
       cy.get('#user-pwd').type('test123!')
       cy.get('#chk-user-pwd').type('test123!')
     });
