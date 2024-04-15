@@ -13,7 +13,12 @@ describe('Onprem Dashboard Test', () => {
     beforeEach(() => {
         cy.setDateToEnv();
         cy.getAll();
-        loginModule.login(Cypress.env('StgCeo'), '대리점', Cypress.env('CeoId'), Cypress.env('CeoPwd'));
+        loginModule.login({
+            Site: `${Cypress.env('StgCeo')}`,
+            Type: '대리점',
+            Id: `${Cypress.env('CeoId')}`,
+            Password: `${Cypress.env('CeoPwd')}`,
+    });
     });
 
     it('Ceo Page Test', () => {
@@ -30,27 +35,27 @@ describe('Onprem Dashboard Test', () => {
       cy.get('#chk-user-pwd').type('test123!')
     });
 
-    afterEach('Status Check', () => {
-        if (Failure) {
-            const ScreenshotFileName = `Ceo Page Test ${Cypress.env('DateLabel')}`;
-            cy.screenshot(ScreenshotFileName);
-            if (!Cypress.platform.includes('win')) {
-                const CurrentFile = f.getFileName(__filename);
-                Screenshots.push(`${CurrentFile}/${ScreenshotFileName}`);
-            } else {
-                Screenshots.push(`${ScreenshotFileName}`);
-            }
-            Failure = false;
-        }
-    });
-    after('Send Email', () => {
-        const TestRange =
-            '1. 사장님 페이지 로그인';
-        emailModule.Email({
-            TestFails: TestFails,
-            EmailTitle: `[${Cypress.env('EmailTitle')}]`,
-            TestRange: TestRange,
-            Screenshots: Screenshots,
-        });
-    });
+    // afterEach('Status Check', () => {
+    //     if (Failure) {
+    //         const ScreenshotFileName = `Ceo Page Test ${Cypress.env('DateLabel')}`;
+    //         cy.screenshot(ScreenshotFileName);
+    //         if (!Cypress.platform.includes('win')) {
+    //             const CurrentFile = f.getFileName(__filename);
+    //             Screenshots.push(`${CurrentFile}/${ScreenshotFileName}`);
+    //         } else {
+    //             Screenshots.push(`${ScreenshotFileName}`);
+    //         }
+    //         Failure = false;
+    //     }
+    // });
+    // after('Send Email', () => {
+    //     const TestRange =
+    //         '1. 사장님 페이지 로그인';
+    //     emailModule.Email({
+    //         TestFails: TestFails,
+    //         EmailTitle: `[${Cypress.env('EmailTitle')}]`,
+    //         TestRange: TestRange,
+    //         Screenshots: Screenshots,
+    //     });
+    // });
 });
