@@ -12,7 +12,7 @@ function login({Site, Type = undefined, Id, Password}) {
     cy.get('#user_id').type(Id);
     cy.get('#user_pass').type(Password);
     cy.get('#btnLogin').click();
-    cy.wait(5*1000);
+    cy.wait(3*1000);
     cy.log('로그인 성공');
     }
     }

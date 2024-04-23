@@ -22,31 +22,35 @@ describe('Onprem Dashboard Test', () => {
 
     it('Ceo Page Test', () => {
      
-      cy.get('[data-mnu="/franchise-partner/*,/pg-trans-excel/*"] > [href="#"]').click();
-      cy.get('.menu-open > .nav > :nth-child(1) > .nav-link > p').click();
-      cy.get('#btnAddAgency').click();
-      cy.get(':nth-child(1) > .input-group > .form-control').type('Test'+Cypress.env('DateLabel'));
-      cy.get('#vueAgencyModal > .modal-dialog > .modal-content > .modal-body > .row > .col-12 > .card > .card-body > :nth-child(1)')
-      .contains('중복체크').click();
+      cy.get('[data-mnu="/administrators/*"] > [href="#"]').click();
+      cy.get('[data-mnu="/administrators/*"] > .nav > :nth-child(1) > .nav-link > p').click();
+      cy.get('#btnRegAdmin').click();
+      cy.get('#admin_id').type('monkitest'+Cypress.env('DateLabel'));
+      cy.get('#btnChkAdminId').click();
+      cy.get('#admin_pass').type('gotjd0215!')
+      cy.get('#admin_nm').type('monkitest')
+      cy.get('#admin_phone').type('01012341234');
+      cy.get('#admin_email').type('monkitest@ruu.kr')
+      cy.get('#frmAdmin > .modal-dialog > .modal-content > .modal-footer > .btn-primary').click();
+      cy.get('#global_modal_body').contains('등록 하시겠습니까', {timeout:30*1000}).should('be.visible')
+      cy.wait(3*1000);
+      cy.get('#global_modal_confirm').click();
+      cy.get('.toast').contains('등록했습니다',{timeout:10*1000}).should('be.visible')
+      cy.get('.col-sm-12').contains('monkitest'+Cypress.env('DateLabel'))
 
-      cy.get('.card-body > :nth-child(2) > .form-control').type('gotjd0215!');
-      cy.get(':nth-child(3) > .input-group > .form-control').type('gotjd0215!');
-      cy.get(':nth-child(6) > .input-group')
-      .contains('스마트로').click();
-      cy.get(':nth-child(7) > .form-control').type('Test'+Cypress.env('DateLabel'));
-      cy.get(':nth-child(8) > .input-group > .form-control').type(Cypress.env('DateLabel'))
-      cy.get('.card-body > :nth-child(8)')
-      .contains('중복체크').click();
-      cy.get(':nth-child(10) > .form-control').type('QA')
-      cy.get(':nth-child(11) > .form-control').type('01020431653')
-      cy.get('.card-body > :nth-child(12)').contains('주소검색').click()
-      cy.get(':nth-child(12) > .input-group > .form-control').invoke('val', '경기 안양시 동안구 평촌대로 60-55');
-    //   cy.get('#vueAgencyModal > .modal-dialog > .modal-content > .modal-footer > .btn-primary').click();
-      
+      /* 삭제 */
+      cy.get('.col-sm-12')
+      .find('.list-data-center.align-middle')
+      .contains('monkitest' + Cypress.env('DateLabel'))
+      .get('.card-body.table-responsive.p-0')
+      .find('.list-data-center.align-middle')
+      .find('.btn-group.btn-group-sm .btn.btn-danger').eq(0) // 수정된 부분
+      .click(); // 수정된 부분
+      cy.get('#global_modal_body').contains('삭제하시겠습니까?', {timeout:30*1000}).should('be.visible')
+      cy.wait(3*1000)
+      cy.get('#global_modal_confirm').click();
+      cy.get('.toast').contains('삭제했습니다',{timeout:30*1000}).should('be.visible');
 
-    //   cy.get('#global_modal_body').contains('입력한 내용으로 등록하시겠습니까?');
-    //   cy.get('#global_modal_confirm').click();
-      
 
     });
 

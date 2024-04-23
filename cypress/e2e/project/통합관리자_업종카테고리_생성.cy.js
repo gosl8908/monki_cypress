@@ -22,33 +22,38 @@ describe('Onprem Dashboard Test', () => {
 
     it('Ceo Page Test', () => {
      
-      cy.get('[data-mnu="/franchise-partner/*,/pg-trans-excel/*"] > [href="#"]').click();
-      cy.get('.menu-open > .nav > :nth-child(1) > .nav-link > p').click();
-      cy.get('#btnAddAgency').click();
-      cy.get(':nth-child(1) > .input-group > .form-control').type('Test'+Cypress.env('DateLabel'));
-      cy.get('#vueAgencyModal > .modal-dialog > .modal-content > .modal-body > .row > .col-12 > .card > .card-body > :nth-child(1)')
-      .contains('중복체크').click();
+      cy.get('.sidebar').contains('연동 정보 관리').click();
+      cy.get('.sidebar').contains('업종 카테고리').click();
+      cy.contains('카테고리 추가').click();
+      cy.get('#biz_category_nm').type(Cypress.env('DateLabel'));
+      cy.get('#btnChkBcNm').click();
+      cy.contains('체크완료');
+      cy.get('#sort_order').type('10')
+      cy.get('.custom-file-input').attachFile({
+          filePath: 'image/다운로드.jpg',
+          fileName: '다운로드.jpg',
+          mimeType: 'image/jpeg',
+        });
+        cy.get('#vueBizCategoryModal > .modal-dialog > .modal-content > .modal-footer > .btn-primary').click();
+        cy.wait(3*1000)
+        cy.get('#global_modal_confirm').click();
+        cy.contains('등록했습니다.');
 
-      cy.get('.card-body > :nth-child(2) > .form-control').type('gotjd0215!');
-      cy.get(':nth-child(3) > .input-group > .form-control').type('gotjd0215!');
-      cy.get(':nth-child(6) > .input-group')
-      .contains('스마트로').click();
-      cy.get(':nth-child(7) > .form-control').type('Test'+Cypress.env('DateLabel'));
-      cy.get(':nth-child(8) > .input-group > .form-control').type(Cypress.env('DateLabel'))
-      cy.get('.card-body > :nth-child(8)')
-      .contains('중복체크').click();
-      cy.get(':nth-child(10) > .form-control').type('QA')
-      cy.get(':nth-child(11) > .form-control').type('01020431653')
-      cy.get('.card-body > :nth-child(12)').contains('주소검색').click()
-      cy.get(':nth-child(12) > .input-group > .form-control').invoke('val', '경기 안양시 동안구 평촌대로 60-55');
-    //   cy.get('#vueAgencyModal > .modal-dialog > .modal-content > .modal-footer > .btn-primary').click();
+        cy.wait(5*1000);
+        cy.get('.content').contains(Cypress.env('DateLabel')).click();
+        cy.get(':nth-child(6) > .btn').click();
+        cy.wait(3*1000)
+        cy.get('#global_modal_confirm').click();
+        cy.contains('삭제했습니다.');
+
+});
+    // cy.get('input[accept=".zip"][type="file"]').attachFile({
+    //     // fileContent,
+    //     filePath: FilePathDataset,
+    //     fileName: Dataset,
+    //     mimeType: 'application/zip',
       
 
-    //   cy.get('#global_modal_body').contains('입력한 내용으로 등록하시겠습니까?');
-    //   cy.get('#global_modal_confirm').click();
-      
-
-    });
 
     // afterEach('Status Check', () => {
     //     if (Failure) {

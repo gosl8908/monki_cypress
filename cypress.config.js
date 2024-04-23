@@ -79,15 +79,15 @@ module.exports = defineConfig({
             StgCeo: 'http://staging-ceo.monthlykitchen.kr/users/login', //STG 사장님
             DevCeo: 'http://develop-ceo.monthlykitchen.kr/users/login', //DEV 사장님
             /* Id */
-            AdminId: 'khs123', //통합관리자
-            StgAdminId: 'hskang', //통합관리자
-            CeoId: 'gosl8908', //총괄대리점
-            CeoId2: 'monkitest1', //자대리점
-            CeoId3: 'gosl8908sa', //단골맛집
-            CeoId4: 'gosl8908de', //딜러
+            AdminId: 'hskang', //통합관리자 - 통합관리자
+            TestId: 'monkitest', //통합관리자 - 지점관리자
+            TestId1: 'monkitest1', 
+            TestId2: 'monkitest2',
+            TestId3: 'monkitest3', 
+            TestId4: 'monkitest4',
             /* Password */
             AdminPwd: 'gotjd0215!',
-            Pwd: 'test123!',
+            TestPwd: 'test123!',
 
             /* content */
             EmailBody: `Cypress 자동화 테스트 스위트가 성공적으로 완료되었습니다`,
