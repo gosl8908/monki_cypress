@@ -1,3 +1,4 @@
+
 /* cypress.config.js */
 const nodemailer = require('nodemailer');
 const { defineConfig } = require('cypress');

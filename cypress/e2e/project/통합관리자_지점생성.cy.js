@@ -22,23 +22,25 @@ describe('Onprem Dashboard Test', () => {
 
     it('Ceo Page Test', () => {
      
-      cy.get('[data-mnu="/franchise-partner/*,/pg-trans-excel/*"] > [href="#"]').click();
-      cy.get('.menu-open > .nav > :nth-child(1) > .nav-link > p').click();
-      cy.get('#btnAddAgency').click();
-      cy.get(':nth-child(1) > .input-group > .form-control').type('Test'+Cypress.env('DateLabel'));
-      cy.get('#vueAgencyModal > .modal-dialog > .modal-content > .modal-body > .row > .col-12 > .card > .card-body > :nth-child(1)')
-      .contains('중복체크').click();
+      cy.get('[data-mnu="/operation/*"] > [href="#"]').click();
+      cy.get('.sidebar').contains('지점 관리').click();
+      cy.get('#btnAddKitchen').click();
+      cy.wait(3*1000);
+      cy.get('#kitchen_id').type(Cypress.env('DateLabel'));
+      cy.get('#btnCheckKitchenId').click();
+      cy.get('#kitchen_nm').type('지점명'+Cypress.env('DateLabel'));
+      cy.get('#kitchen_phone').type('01012341234')
 
-      cy.get('.card-body > :nth-child(2) > .form-control').type('gotjd0215!');
-      cy.get(':nth-child(3) > .input-group > .form-control').type('gotjd0215!');
-      cy.get(':nth-child(6) > .input-group')
-      .contains('스마트로').click();
-      cy.get(':nth-child(7) > .form-control').type('Test'+Cypress.env('DateLabel'));
-      cy.get(':nth-child(8) > .input-group > .form-control').type(Cypress.env('DateLabel'))
-      cy.get('.card-body > :nth-child(8)')
-      .contains('중복체크').click();
-      cy.get(':nth-child(10) > .form-control').type('QA')
-      cy.get(':nth-child(11) > .form-control').type('01020431653')
+      const fs = require('fs');
+
+cy.readFile('cypress/fixtures/image/다운로드.png', 'base64').then((fileContent) => {
+  cy.get('#main_img').attachFile({
+    fileContent: fileContent,
+    fileName: '다운로드.png',
+    mimeType: 'image/png',
+  });
+});
+    
       const apiKey = '419ed37eb9960d76f12d9ff0610d327a';
       const query = encodeURIComponent('경기 안양시 동안구 평촌대로 60-55');
       
@@ -63,20 +65,21 @@ describe('Onprem Dashboard Test', () => {
         expect(response.status).to.eq(200);
         expect(response.body).to.have.property('documents');
         expect(response.body).to.have.property('meta');
-        const addressNames = response.body.documents.map(document => document.road_address.address_name);
-        cy.get('[name="road_address"]').invoke('val', addressNames.join(', '));
+        const address = response.body.documents.map(document => document.address.address_name);
+        cy.get('#address').invoke('val', address.join(', '));
+        const addressNames = response.body.documents.map(document => document.address_name);
+        cy.get('#road_address').invoke('val', addressNames.join(', '));
+        const x = response.body.documents.map(document => document.address.x);
+        cy.get('#latitude').invoke('val', x.join(', '));
+        const y = response.body.documents.map(document => document.address.y);
+        cy.get('#longitude').invoke('val', y.join(', '));
       })
-      // const zone_no = response.body.documents.map(document => document.road_address.zone_no);
-      // cy.get('#zipcode').invoke('val', zone_no.join(', '));
-        cy.get('#vueAgencyModal > .modal-dialog > .modal-content > .modal-footer > .btn-primary').click();
-
+      cy.get('#address_detail').type('1')
+      
+      // cy.get('.btn-group > .btn').click();
+      // cy.wait(3*1000);
+      // cy.get('#global_modal_confirm').click();
     });
-      
-
-    //   cy.get('#global_modal_body').contains('입력한 내용으로 등록하시겠습니까?');
-    //   cy.get('#global_modal_confirm').click();
-      
-
     });
 
     // afterEach('Status Check', () => {

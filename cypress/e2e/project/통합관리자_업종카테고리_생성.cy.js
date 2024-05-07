@@ -46,13 +46,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#global_modal_confirm').click();
         cy.contains('삭제했습니다.');
 
-});
-    // cy.get('input[accept=".zip"][type="file"]').attachFile({
-    //     // fileContent,
-    //     filePath: FilePathDataset,
-    //     fileName: Dataset,
-    //     mimeType: 'application/zip',
-      
+});     
 
 
     // afterEach('Status Check', () => {
