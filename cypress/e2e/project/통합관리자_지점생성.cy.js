@@ -31,14 +31,22 @@ describe('Onprem Dashboard Test', () => {
       cy.get('#kitchen_nm').type('지점명'+Cypress.env('DateLabel'));
       cy.get('#kitchen_phone').type('01012341234')
 
-      const fs = require('fs');
-
-cy.readFile('cypress/fixtures/image/다운로드.png', 'base64').then((fileContent) => {
-  cy.get('#main_img').attachFile({
-    fileContent: fileContent,
-    fileName: '다운로드.png',
-    mimeType: 'image/png',
+  cy.fixture('image/대표이미지.png', 'base64').then(fileContent => {
+    cy.get('input[type="FILE"]').eq(1).attachFile({
+        fileContent,
+        filePath: 'image/대표이미지.png',
+        fileName: '대표이미지.png',
+        mimeType: 'image/png',
+    });
   });
+
+  cy.fixture('image/썸네일이미지.png', 'base64').then(fileContent => {
+    cy.get('input[type="FILE"]').eq(2).attachFile({
+        fileContent,
+        filePath: 'image/썸네일이미지.png',
+        fileName: '썸네일이미지.png',
+        mimeType: 'image/png',
+    });
 });
     
       const apiKey = '419ed37eb9960d76f12d9ff0610d327a';
@@ -76,9 +84,11 @@ cy.readFile('cypress/fixtures/image/다운로드.png', 'base64').then((fileConte
       })
       cy.get('#address_detail').type('1')
       
-      // cy.get('.btn-group > .btn').click();
-      // cy.wait(3*1000);
-      // cy.get('#global_modal_confirm').click();
+      cy.get('.btn-group > .btn').click();
+      cy.wait(3*1000);
+      cy.get('#global_modal_confirm').click();
+
+      cy.contains('.content-wrapper').contains('대표 메뉴')
     });
     });
 
