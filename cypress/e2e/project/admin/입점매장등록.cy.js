@@ -15,31 +15,24 @@ describe('Onprem Dashboard Test', () => {
         cy.getAll();
         loginModule.login({
             Site: `${Cypress.env('StgAdmin')}`,
-            Id: `${Cypress.env('AdminId')}`,
+            Id: `${Cypress.env('TestId3')}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
 
     it('Ceo Page Test', () => {
      
-      cy.get('[data-mnu="/franchise-partner/*,/pg-trans-excel/*"] > [href="#"]').click();
-      cy.get('.menu-open > .nav > :nth-child(1) > .nav-link > p').click();
-      cy.get('#btnAddAgency').click();
-      cy.get(':nth-child(1) > .input-group > .form-control').type('Test'+Cypress.env('DateLabel'));
-      cy.get('#vueAgencyModal > .modal-dialog > .modal-content > .modal-body > .row > .col-12 > .card > .card-body > :nth-child(1)')
-      .contains('중복체크').click();
-
-      cy.get('.card-body > :nth-child(2) > .form-control').type('gotjd0215!');
-      cy.get(':nth-child(3) > .input-group > .form-control').type('gotjd0215!');
-      cy.get(':nth-child(6) > .input-group')
-      .contains('스마트로').click();
-      cy.get(':nth-child(7) > .form-control').type('Test'+Cypress.env('DateLabel'));
-      cy.get(':nth-child(8) > .input-group > .form-control').type(Cypress.env('DateLabel'))
-      cy.get('.card-body > :nth-child(8)')
-      .contains('중복체크').click();
-      cy.get(':nth-child(10) > .form-control').type('QA')
-      cy.get(':nth-child(11) > .form-control').type('01020431653')
-      cy.get(':nth-child(13) > .form-control').type('1');
+      cy.get('[data-mnu="/kitchen/*"] > [href="#"] > p').click();
+      cy.get('.menu-open > .nav > :nth-child(2) > .nav-link > p').click();
+      cy.get('#btnAddStore').click();
+      cy.get('#store_nm').type('번개매장')
+      cy.get('#store_id').type('monkitest'+Cypress.env('DateLabel'));
+      cy.get('#btnCheckStoreId').click();
+      cy.get('#first_biz_category_no').select(1)
+      cy.get('#store_tel_no').type('01012341234')
+      cy.get('#manager_nm').type('테스트')
+      cy.get('#manager_tel_no').type('01012341234')
+      cy.get('#store_desc').type('테스트매장')
       const apiKey = '419ed37eb9960d76f12d9ff0610d327a';
       const query = encodeURIComponent('경기 안양시 동안구 평촌대로 60-55');
       
@@ -64,14 +57,53 @@ describe('Onprem Dashboard Test', () => {
         expect(response.status).to.eq(200);
         expect(response.body).to.have.property('documents');
         expect(response.body).to.have.property('meta');
-        const addressNames = response.body.documents.map(document => document.road_address.address_name);
-        cy.get(':nth-child(12) > .input-group > [type="text"]').invoke('val', addressNames.join(', '));
-        cy.log(':nth-child(12) > .input-group > [type="text"]')
-        const zipcode = response.body.documents.map(document => document.road_address.zone_no);
-        cy.get('[name="zipcode"]').invoke('val', zipcode.join(', '));
-      })
-        cy.get('#vueAgencyModal > .modal-dialog > .modal-content > .modal-footer > .btn-primary').click();
+        const address = response.body.documents.map(document => document.address.address_name);
+        cy.get('#address').invoke('val', address.join(', '));
+        const addressNames = response.body.documents.map(document => document.address_name);
+        cy.get('#road_address').invoke('val', addressNames.join(', '));
+        const x = response.body.documents.map(document => document.address.x);
+        cy.get('#latitude').invoke('val', x.join(', '));
+        const y = response.body.documents.map(document => document.address.y);
+        cy.get('#longitude').invoke('val', y.join(', '));
+      });
 
+      cy.fixture('image/썸네일이미지.jpg', 'base64').then(fileContent => {
+        cy.get('input[type="file"][id="logo_file"]').attachFile({
+            fileContent,
+            filePath: 'image/썸네일이미지.jpg',
+            fileName: '썸네일이미지.jpg',
+            mimeType: 'image/jpeg',
+        });
+    });
+    cy.fixture('image/비빔면.jpg', 'base64').then(fileContent => {
+      cy.get('input[type="file"][id="banner_file"]').attachFile({
+          fileContent,
+          filePath: 'image/비빔면.jpg',
+          fileName: '비빔면.jpg',
+          mimeType: 'image/jpeg',
+      });
+  });
+    cy.get('#user_id').type('monki'+Cypress.env('DateLabel'));
+    cy.get('#btnCheckUserId').click();
+    cy.get('#user_pass').type('test123!')
+    cy.get('#user_pass_chk').type('test123!');
+    cy.get('#user_nm').type('강해성')
+    cy.get('#user_phone').type('01012341234')
+    cy.get('#user_email').type('hskang@monki.net')
+    cy.get('#company_number').type('123412341234')
+    cy.get('#account_number').type('3333048408739')
+    cy.get('#account_user').type('강해성')
+    cy.get('#biz_name').type('번개매장');
+    cy.get('.float-right > .btn').click();
+    cy.wait(1*1000);
+    cy.get('#global_modal_confirm').click();
+
+    cy.contains(':nth-child(3) > .row > .col-12').contains('monkitest'+Cypress.env('DateLabel')).click();
+    cy.get('#select_store_status').select(1)
+    cy.get('.float-right > .btn').click();
+    cy.wait(1*1000);
+    cy.get('#global_modal_confirm').click();
+    
     });
       
 
