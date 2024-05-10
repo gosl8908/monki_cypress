@@ -1,4 +1,4 @@
-const { loginModule, emailModule } = require('../module/manager.module.js');
+const { loginModule, emailModule } = require('../../module/manager.module.js');
 
 describe('Onprem Dashboard Test', () => {
     let TestFails = []; // 실패 원인을 저장할 변수

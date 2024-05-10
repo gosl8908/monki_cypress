@@ -1,4 +1,4 @@
-const { loginModule, emailModule } = require('../module/manager.module.js');
+const { loginModule, emailModule } = require('../../module/manager.module.js');
 
 describe('Onprem Dashboard Test', () => {
     let TestFails = []; // 실패 원인을 저장할 변수
@@ -23,21 +23,23 @@ describe('Onprem Dashboard Test', () => {
 
     it('Ceo Page Test', () => {
 
+        cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/account/partners"] > .btn').click(); // 계정관리
+        cy.get('[href="/account/store"] > .btn').click(); // 매장관리
+        cy.get('.m-3 > .col-3 > .btn').click(); // 매장등록
+        
         /* 매장 등록 */
-        cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/account/partners"] > .btn').click();
-        cy.get('[href="/account/store"] > .btn').click();
-        cy.get('.m-3 > .col-3 > .btn').click();
-        cy.get('#user-id').type('monki'+Cypress.env('DateLabel'));
+        cy.get('#user-id').type('monki'+Cypress.env('DateLabel')); // 아이디
         cy.get('#btn-check-user-id').click();
-        cy.get('#user-pass').type(Cypress.env('TestPwd'));
-        cy.get('#chk-user-pass').type(Cypress.env('TestPwd'));
-        cy.get('#sel-mng-partner').click();
+        cy.get('#user-pass').type(Cypress.env('TestPwd')); // 비밀번호
+        cy.get('#chk-user-pass').type(Cypress.env('TestPwd')); // 비밀번호 확인
+        cy.get('#sel-mng-partner').click(); // 대리점선택
         cy.get('#vuePartnersContainer > .modal-dialog > .modal-content > .modal-footer > .bg-gradient-primary').click();
         cy.get('#global_modal_body').contains('등록하시겠습니까?');
         cy.wait(1*1000);
         cy.get('#global_modal_confirm').click();
-        cy.get('#store-name').type('매장')
-        cy.get('.border-radius-md')
+        cy.get('#store-name').type('매장') // 매장명
+        
+        /* 매장로고 */
         cy.fixture('image/썸네일이미지.jpg', 'base64').then(fileContent => {
             cy.get('input[type="file"][id="logo-img-file"]').attachFile({
                 fileContent,
@@ -46,19 +48,19 @@ describe('Onprem Dashboard Test', () => {
                 mimeType: 'image/jpeg',
             });
         });
-        cy.get('#tbo-admin-pwd').type('111111');
-        cy.get('#first-biz-category-no').select('1');
+        cy.get('#tbo-admin-pwd').type('111111'); // 디바이스 관리자 비밀번호
+        cy.get('#first-biz-category-no').select('1'); // 업종 카테고리
         cy.get('#STNS_102').click();
-        cy.get('#store-biz-number').type(Cypress.env('DateLabel'));
+        cy.get('#store-biz-number').type(Cypress.env('DateLabel')); // 사업자번호
         cy.get('#btn-check-store-biz-number').click();
-        cy.get('#owner-name').type('대표')
-        cy.get('#tel').type('01012341234')
-        cy.get('#road-address').invoke('val', '경기 안양시 동안구 평촌대로 60-55 (비산동)');
-        cy.get('#zipcode').invoke('val', '13915');
-        cy.get('#biz-email').type('monki@monki.net');
-        cy.get('#bank-code').select(1);
-        cy.get('#account-number').type('3333048408739');
-        cy.get('#account-user').type('예금주')
+        cy.get('#owner-name').type('대표') // 대표자명
+        cy.get('#tel').type('01012341234') // 전화번호
+        cy.get('#road-address').invoke('val', '경기 안양시 동안구 평촌대로 60-55 (비산동)'); // 주소
+        cy.get('#zipcode').invoke('val', '13915'); // zipcode
+        cy.get('#biz-email').type('monki@monki.net'); // 이메일
+        cy.get('#bank-code').select(1); // 계좌정보
+        cy.get('#account-number').type('3333048408739'); // 계좌번호
+        cy.get('#account-user').type('예금주') // 예금주명
         cy.get('#btn-reg-store').click();
         cy.get('#global_modal_body').contains('입력한 정보로 생성하시겠습니까?');
         cy.get('#global_modal_confirm').click();
@@ -68,16 +70,16 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#keyword').type('monki20240508102020');
         cy.get('.card-body > .row > .my-sm-auto > .btn').click();
         cy.get('#btnPayment_0').click();
-        cy.get('#modal_body > .row > .text-end > .btn').click();
+        cy.get('#modal_body > .row > .text-end > .btn').click(); // 결제수단 연동 등록
         cy.wait(1*1000)
-        cy.get('#store_biz_number').type(Cypress.env('DateLabel'))
+        cy.get('#store_biz_number').type(Cypress.env('DateLabel')) // 사업자번호
         cy.wait(1*1000)
-        cy.get('#pg_company').select(2);
-        cy.get('#payment_type').select(1)
-        cy.get('#pg_mid_type').select(1)
-        cy.get('#pg_mid').type(Cypress.env('DateLabel'))
-        cy.get('#pg_merchant_key').type('2d6ECGhR1pg/1QGE1lcRI4awsWEgshjEyI8UgYslLPJSuNeyPTkdrT8XWARezvDTUJClWQWhjxzBbu7AsuLZqg==')
-        cy.get('#store_contract_device').select(2);
+        cy.get('#pg_company').select(2); // PG 업체
+        cy.get('#payment_type').select(1) // 결제분류
+        cy.get('#pg_mid_type').select(1) // 결제유형
+        cy.get('#pg_mid').type(Cypress.env('DateLabel')) // PG MID
+        cy.get('#pg_merchant_key').type('2d6ECGhR1pg/1QGE1lcRI4awsWEgshjEyI8UgYslLPJSuNeyPTkdrT8XWARezvDTUJClWQWhjxzBbu7AsuLZqg==') // PG 상점키
+        cy.get('#store_contract_device').select(2); // 계약 설정
         cy.get(':nth-child(11) > .text-end > .btn').click();
         cy.get('#global_modal_body').contains('등록 하시겠습니까?');
         cy.wait(1*1000);
@@ -110,12 +112,24 @@ describe('Onprem Dashboard Test', () => {
         cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn').click();
         cy.get('#product').click();
         cy.get('#btnAddProduct').click();
-        cy.get('#productDivNo').select(1)
-        cy.get(':nth-child(3) > .d-flex > .col-9 > .form-control').type('김밥');
-        cy.get(':nth-child(4) > .d-flex > .col-9 > .form-control').type('1000');
-        cy.get('#PRDT_010').click();
-        cy.get('#PRSS_001').click();
-        cy.get('#displayMonkiYn').click();
+        cy.get('#productDivNo').select(1) // 상품분류
+        cy.get(':nth-child(3) > .d-flex > .col-9 > .form-control').type('김밥'); // 상품명
+        cy.get(':nth-child(4) > .d-flex > .col-9 > .form-control').type('1000'); // 가격
+        
+        /* 상품 이미지 */
+        cy.fixture('image/김밥.jpg', 'base64').then(fileContent => {
+            cy.get('input[type="file"][id="product-img-file"]').attachFile({
+                fileContent,
+                filePath: 'image/김밥.jpg',
+                fileName: '김밥.jpg',
+                mimeType: 'image/jpeg',
+            });
+        });
+        cy.get('#PRDT_010').click(); // 품절 상태
+        cy.get('#PRSS_001').click(); // 판매 상태
+        cy.get('#displayMonkiYn').click(); // 노출 채널
+        cy.get('#displayKioskYn').click(); // 노출 채널
+        cy.get('#displayTableorderYn').click(); // 노출 채널
         cy.get('.ms-auto').click();
         cy.wait(1*1000)
         cy.get('#global_modal_confirm').click();
