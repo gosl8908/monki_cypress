@@ -65,6 +65,9 @@ describe('Onprem Dashboard Test', () => {
         expect(response.body).to.have.property('meta');
         const addressNames = response.body.documents.map(document => document.road_address.address_name);
         cy.get('[name="road_address"]').invoke('val', addressNames.join(', '));
+        cy.get('[name="address_detail"]').invoke('val', '101호');
+        const zipcode = response.body.documents.map(document => document.road_address.zone_no);
+        cy.get('[name="zipcode"]').invoke('val', zipcode.join(', '));
       })
         cy.get('#vueAgencyModal > .modal-dialog > .modal-content > .modal-footer > .btn-primary').click();
 

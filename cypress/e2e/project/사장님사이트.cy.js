@@ -39,11 +39,11 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#store-name').type('매장')
         cy.get('.border-radius-md')
         cy.fixture('image/썸네일이미지.jpg', 'base64').then(fileContent => {
-            cy.get('input[type="hidden"][id="logo-original-name"]').attachFile({
+            cy.get('input[type="file"][id="logo-img-file"]').attachFile({
                 fileContent,
                 filePath: 'image/썸네일이미지.jpg',
                 fileName: '썸네일이미지.jpg',
-                mimeType: 'image/jpg',
+                mimeType: 'image/jpeg',
             });
         });
         cy.get('#tbo-admin-pwd').type('111111');
