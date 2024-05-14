@@ -1,6 +1,6 @@
 const { loginModule, emailModule } = require('../../module/manager.module.js');
 
-describe('Onprem Dashboard Test', () => {
+describe('지점 등록 Test', () => {
     let TestFails = []; // 실패 원인을 저장할 변수
     let Screenshots = []; // 스크린샷을 저장할 배열
     let Failure = false;
@@ -20,40 +20,23 @@ describe('Onprem Dashboard Test', () => {
         });
     });
 
-    it('Ceo Page Test', () => {
+    it('지점 등록 Test', () => {
      
       cy.get('[data-mnu="/operation/*"] > [href="#"]').click();
       cy.get('.sidebar').contains('지점 관리').click();
       cy.get('#btnAddKitchen').click();
       cy.wait(3*1000);
+      cy.get('#kitchen_type').select('브랜드')
       cy.get('#kitchen_id').type(Cypress.env('DateLabel'));
       cy.get('#btnCheckKitchenId').click();
       cy.get('#kitchen_nm').type('지점명'+Cypress.env('DateLabel'));
       cy.get('#kitchen_phone').type('01012341234')
-
-  cy.fixture('image/대표이미지.png', 'base64').then(fileContent => {
-    cy.get('input[type="FILE"]').eq(1).attachFile({
-        fileContent,
-        filePath: 'image/대표이미지.png',
-        fileName: '대표이미지.png',
-        mimeType: 'image/png',
-    });
-  });
-
-  cy.fixture('image/썸네일이미지.png', 'base64').then(fileContent => {
-    cy.get('input[type="FILE"]').eq(2).attachFile({
-        fileContent,
-        filePath: 'image/썸네일이미지.png',
-        fileName: '썸네일이미지.png',
-        mimeType: 'image/png',
-    });
-});
-    
+      
       const apiKey = '419ed37eb9960d76f12d9ff0610d327a';
       const query = encodeURIComponent('경기 안양시 동안구 평촌대로 60-55');
       
       const url = `http://dapi.kakao.com/v2/local/search/address.json?query=${query}&page=1&size=10`;
-
+      
       cy.request({
         method: 'GET',
         url: url,
@@ -84,11 +67,61 @@ describe('Onprem Dashboard Test', () => {
       })
       cy.get('#address_detail').type('1')
       
+      cy.get('#kitchen_status').select(2)
+      cy.get('#kitchen_slogan').type('슬로건')
+      
+      
+        cy.fixture('image/로고.png', 'base64').then(fileContent => {
+          cy.get('input[type="FILE"][id="file_brand_logo"]').attachFile({
+              fileContent,
+              filePath: 'image/로고.png',
+              fileName: '로고.png',
+              mimeType: 'image/png',
+          });
+        });
+      
+        cy.fixture('image/로고.png', 'base64').then(fileContent => {
+          cy.get('input[type="FILE"][id="file_thumb"]').attachFile({
+              fileContent,
+              filePath: 'image/로고.png',
+              fileName: '로고.png',
+              mimeType: 'image/png',
+          });
+      });
+      
+      cy.fixture('image/로고.png', 'base64').then(fileContent => {
+        cy.get('input[type="FILE"][id="file_brand_main"]').attachFile({
+            fileContent,
+            filePath: 'image/로고.png',
+            fileName: '로고.png',
+            mimeType: 'image/png',
+        });
+      });
+      
+      cy.fixture('image/지도마커_기본.png', 'base64').then(fileContent => {
+        cy.get('input[type="FILE"][id="file_map"]').attachFile({
+            fileContent,
+            filePath: 'image/지도마커_기본.png',
+            fileName: '지도마커_기본.png',
+            mimeType: 'image/png',
+        });
+      });
+      
+      cy.fixture('image/지도마커_확대.png', 'base64').then(fileContent => {
+        cy.get('input[type="FILE"][id="file_detail_map"]').attachFile({
+            fileContent,
+            filePath: 'image/지도마커_확대.png',
+            fileName: '지도마커_확대.png',
+            mimeType: 'image/png',
+        });
+      });
+      
       cy.get('.btn-group > .btn').click();
-      cy.wait(3*1000);
+      cy.wait(1*1000);
       cy.get('#global_modal_confirm').click();
+      cy.wait(5*1000);
 
-      cy.contains('.content-wrapper').contains('대표 메뉴')
+      cy.get('.card-default > .col-12 > .card').contains('대표 메뉴')
     });
     });
 
