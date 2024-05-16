@@ -89,6 +89,12 @@ module.exports = defineConfig({
             /* Password */
             AdminPwd: 'gotjd0215!',
             TestPwd: 'test123!',
+            /* PG */
+            SmatroMid: 'mk0000015m',
+            SmatroKey: 'HVsPLswUE8L8pns5YrSNmDRNBSgcyUE/N1mGX2xeH0Hv3uCPMxdqZwn1XNnZUCgUXt1vx8WDSgjl0logstDE1g==',
+            SmatroEasyMid: 'mk0000014m',
+            SmatroEasyId: 'mk0000008p',
+            SmatroEasyKey: 'NhaSDa1HF8SW6Y/guzfLEJ6IDGx2OpfDo04joedmFTAbpWhaCldKXT4IN2/hZ5QFlUix/IXZ9yis3H/003USPg==',
 
             /* content */
             EmailBody: `Cypress 자동화 테스트 스위트가 성공적으로 완료되었습니다`,
