@@ -1,3 +1,4 @@
+const { addAbortSignal } = require('nodemailer/lib/xoauth2/index.js');
 const { loginModule, emailModule } = require('../../module/manager.module.js');
 
 describe('Onprem Dashboard Test', () => {

@@ -1,4 +1,9 @@
 {
+  "lint-staged": {
+    "src/**": [
+      "eslint"
+    ]
+  },
   "devDependencies": {
     "@4tw/cypress-drag-drop": "^2.2.5",
     "cypress": "^13.7.3",
@@ -7,6 +12,10 @@
     "cypress-mochawesome-reporter": "^3.8.2",
     "cypress-real-events": "^1.12.0",
     "eslint": "^9.2.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
     "prettier": "^3.2.5"
   },
   "dependencies": {
