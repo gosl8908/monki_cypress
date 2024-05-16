@@ -65,8 +65,6 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#vuePayContainer > .modal-dialog > .modal-content > #modal_body').contains('스마트로');
         cy.get('#vuePayContainer > .modal-dialog > .modal-content > .modal-header > .btn-close').click();
 
-
-
     });
 
     // afterEach('Status Check', () => {
