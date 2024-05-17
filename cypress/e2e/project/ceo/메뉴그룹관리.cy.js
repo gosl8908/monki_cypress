@@ -30,7 +30,12 @@ describe('Onprem Dashboard Test', () => {
         /* 분식 메뉴그룹 관리 */
         cy.get(':nth-child(3) > :nth-child(5) > .btn').click();
         // cy.get('tr > :nth-child(1) > .btn').click();
-        cy.get('.all-menu-list').find('.btn[title="김밥"]').click();
+        cy.get('.all-menu-list')
+            .find('[title="비빔면"]')
+            .closest('.all-menu-list') // 이 부분은 필요없을 수 있습니다
+            .contains('추가')
+            .first() // eq(0) 대신 first() 사용
+            .click();
         // cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
         // cy.wait(1 * 1000);
         // cy.get('#global_modal_confirm').click();
