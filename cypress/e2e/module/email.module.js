@@ -1,4 +1,4 @@
-function Email({ TestFails, EmailTitle, TestRange, Screenshots }) {
+function email({ TestFails, EmailTitle, TestRange, Screenshots }) {
     const IsTestFailed = TestFails.length > 0;
     const EmailBody = `Cypress 자동화 테스트 스위트가 ${IsTestFailed ? '실패' : '성공'}하였습니다.
     테스트 실행 시간 : ${Cypress.env('DateLabelWeek')}
@@ -28,5 +28,5 @@ function Email({ TestFails, EmailTitle, TestRange, Screenshots }) {
 }
 
 module.exports = {
-    Email: Email,
+    email: email,
 };

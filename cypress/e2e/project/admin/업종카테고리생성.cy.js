@@ -63,7 +63,7 @@ describe('Onprem Dashboard Test', () => {
     // after('Send Email', () => {
     //     const TestRange =
     //         '1. 사장님 페이지 로그인';
-    //     emailModule.Email({
+    //     emailModule.email({
     //         TestFails: TestFails,
     //         EmailTitle: `[${Cypress.env('EmailTitle')}]`,
     //         TestRange: TestRange,
