@@ -1,4 +1,4 @@
-const { loginModule, emailModule } = require('../../module/manager.module.js');
+const { loginModule, emailModule, menuModule } = require('../../module/manager.module.js');
 
 describe('Onprem Dashboard Test', () => {
     let TestFails = []; // 실패 원인을 저장할 변수
@@ -28,55 +28,7 @@ describe('Onprem Dashboard Test', () => {
         cy.wait(1*1000)
         cy.get('#product').click(); // 상품관리 탭
 
-        /* 상품 등록 */
-        cy.get('#btnAddProduct').click();
-        cy.get('#productDivNo').select(1) // 상품분류
-        
-        /* 상품 이미지 */
-        cy.fixture('image/김밥.jpg', 'base64').then(fileContent => {
-            cy.get('input[type="file"][id="product-img-file"]').attachFile({
-                fileContent,
-                filePath: 'image/김밥.jpg',
-                fileName: '김밥.jpg',
-                mimeType: 'image/jpeg',
-            });
-        });
-        cy.get('#PRDT_010').click(); // 품절 상태
-        cy.get('#PRSS_001').click(); // 판매 상태
-        cy.get('#displayMonkiYn').click(); // 노출 채널
-        cy.get('#displayKioskYn').click(); // 노출 채널
-        cy.get('#displayTableorderYn').click(); // 노출 채널
-        cy.get(':nth-child(3) > .d-flex > .col-9 > .form-control').type('김밥'); // 상품명
-        cy.get(':nth-child(4) > .d-flex > .col-9 > .form-control').type('1000'); // 가격
-        cy.get('.ms-auto').click();
-        cy.wait(1*1000)
-        cy.get('#global_modal_confirm').click();
-        cy.get('#product-section').contains('김밥');
-
-        /* 상품 등록 */
-        cy.get('#btnAddProduct').click(); 
-        cy.get('#productDivNo').select(1) // 상품분류
-        
-        /* 상품 이미지 */
-        cy.fixture('image/돈가스.jpg', 'base64').then(fileContent => {
-            cy.get('input[type="file"][id="product-img-file"]').attachFile({
-                fileContent,
-                filePath: 'image/돈가스.jpg',
-                fileName: '돈가스.jpg',
-                mimeType: 'image/jpeg',
-            });
-        });
-        cy.get('#PRDT_010').click(); // 품절 상태
-        cy.get('#PRSS_001').click(); // 판매 상태
-        cy.get('#displayMonkiYn').click(); // 노출 채널
-        cy.get('#displayKioskYn').click(); // 노출 채널
-        cy.get('#displayTableorderYn').click(); // 노출 채널
-        cy.get(':nth-child(3) > .d-flex > .col-9 > .form-control').type('돈가스'); // 상품명
-        cy.get(':nth-child(4) > .d-flex > .col-9 > .form-control').type('10000'); // 가격
-        cy.get('.ms-auto').click();
-        cy.wait(1*1000)
-        cy.get('#global_modal_confirm').click();
-        cy.get('#product-section').contains('돈가스');
+        menuModule.menu('코카콜라', '2500')
 
         /* 메뉴그룹 생성 */
         cy.get('[href="/menu/menu-group"] > .btn').click();
@@ -86,15 +38,6 @@ describe('Onprem Dashboard Test', () => {
         cy.get('.modal-footer > .btn-primary').click();
         cy.get('#vueMenuGroupMain').contains('분식');
 
-        /* 메뉴그룹 생성 */
-        cy.get('[href="/menu/menu-group"] > .btn').click();
-        cy.get('#btnAddMenuGroup').click();
-        cy.wait(1*1000)
-        cy.get('#category_nm').type('양식')
-        cy.get('.modal-footer > .btn-primary').click();
-        cy.get('#vueMenuGroupMain').contains('양식');
-
-
         /* 메뉴그룹 관리 */
         cy.get(':nth-child(3) > :nth-child(5) > .btn').click();
         cy.get('tr > :nth-child(1) > .btn').click();
@@ -102,15 +45,18 @@ describe('Onprem Dashboard Test', () => {
         cy.wait(1*1000)
         cy.get('#global_modal_confirm').click();
 
-        /* 메뉴그룹 관리 */
-        cy.get(':nth-child(4) > :nth-child(5) > .btn').click();
-        cy.get('tr > :nth-child(1) > .btn').click();
-        cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
-        cy.wait(1*1000)
-        cy.get('#global_modal_confirm').click();
-
         /* 먼키앱메뉴 등록*/
         cy.get('[href="/menu/app"] > .btn').click();
+        cy.get(':nth-child(1) > :nth-child(12) > .btn').click();
+        cy.wait(1*1000)
+        cy.get('#bestMenuYn_true').click();
+        cy.get('#MN_001').click();
+        cy.get('.ms-auto').click();
+        cy.wait(1*1000);
+        cy.get('#global_modal_confirm').click();
+
+        /* 테이블오더메뉴 등록*/
+        cy.get('[href="/menu/table-order"] > .btn').click();
         cy.get(':nth-child(1) > :nth-child(12) > .btn').click();
         cy.wait(1*1000)
         cy.get('#bestMenuYn_true').click();

@@ -25,18 +25,18 @@ describe('Onprem Dashboard Test', () => {
 
         /* 영업시간 */
         cy.get('#operation-tab').click();
-        // cy.get(':nth-child(1) > .p-0 > :nth-child(1) > .card-header > .btn').click();
-        // cy.get(':nth-child(2) > :nth-child(1) > .form-select').select(1)
-        // cy.get(':nth-child(2) > :nth-child(2) > .form-select').select(1)
-        // cy.get(':nth-child(2) > :nth-child(4) > .form-select').select('오후 11시')
-        // cy.get(':nth-child(2) > :nth-child(5) > .form-select').select(2)
-        // cy.get(':nth-child(4) > :nth-child(1) > .form-select').select(1)
-        // cy.get(':nth-child(4) > :nth-child(2) > .form-select').select(1)
-        // cy.get(':nth-child(4) > :nth-child(4) > .form-select').select('오후 11시')
-        // cy.get(':nth-child(4) > :nth-child(5) > .form-select').select(2)
-        // cy.get('#vueTimeContainer > .modal-dialog > .modal-content > .modal-footer > .d-flex > :nth-child(1)').click();
-        // cy.wait(1*1000);
-        // cy.get('#global_modal_confirm').click();
+        cy.get(':nth-child(1) > .p-0 > :nth-child(1) > .card-header > .btn').click();
+        cy.get(':nth-child(2) > :nth-child(1) > .form-select').select(1)
+        cy.get(':nth-child(2) > :nth-child(2) > .form-select').select(1)
+        cy.get(':nth-child(2) > :nth-child(4) > .form-select').select('오후 11시')
+        cy.get(':nth-child(2) > :nth-child(5) > .form-select').select(2)
+        cy.get(':nth-child(4) > :nth-child(1) > .form-select').select(1)
+        cy.get(':nth-child(4) > :nth-child(2) > .form-select').select(1)
+        cy.get(':nth-child(4) > :nth-child(4) > .form-select').select('오후 11시')
+        cy.get(':nth-child(4) > :nth-child(5) > .form-select').select(2)
+        cy.get('#vueTimeContainer > .modal-dialog > .modal-content > .modal-footer > .d-flex > :nth-child(1)').click();
+        cy.wait(1*1000);
+        cy.get('#global_modal_confirm').click();
         
         /* 정기휴무일 */
         cy.get(':nth-child(2) > .p-0 > .card > .card-header > .btn').click();
