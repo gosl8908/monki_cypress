@@ -21,21 +21,20 @@ describe('Onprem Dashboard Test', () => {
     });
 
     it('Ceo Page Test', () => {
-     
-      cy.get('.sidebar').contains('연동 정보 관리').click();
-      cy.get('.sidebar').contains('업종 카테고리').click();
-      cy.contains('카테고리 추가').click();
-      cy.get('#biz_category_nm').type('분식');
-      cy.get('#btnChkBcNm').click();
-      cy.contains('체크완료');
-      cy.get('#sort_order').type('3')
-      cy.get('.custom-file-input').attachFile({
-          filePath: 'image/카테고리 이미지/분식.jpg',
-          fileName: '분식.jpg',
-          mimeType: 'image/jpeg',
+        cy.get('.sidebar').contains('연동 정보 관리').click();
+        cy.get('.sidebar').contains('업종 카테고리').click();
+        cy.contains('카테고리 추가').click();
+        cy.get('#biz_category_nm').type('분식');
+        cy.get('#btnChkBcNm').click();
+        cy.contains('체크완료');
+        cy.get('#sort_order').type('3');
+        cy.get('.custom-file-input').attachFile({
+            filePath: 'image/카테고리 이미지/분식.jpg',
+            fileName: '분식.jpg',
+            mimeType: 'image/jpeg',
         });
         cy.get('#vueBizCategoryModal > .modal-dialog > .modal-content > .modal-footer > .btn-primary').click();
-        cy.wait(1*1000)
+        cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
         cy.contains('등록했습니다.');
 
@@ -46,9 +45,7 @@ describe('Onprem Dashboard Test', () => {
         // cy.wait(3*1000)
         // cy.get('#global_modal_confirm').click();
         // cy.contains('삭제했습니다.');
-
-});     
-
+    });
 
     // afterEach('Status Check', () => {
     //     if (Failure) {

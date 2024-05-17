@@ -18,11 +18,10 @@ describe('Onprem Dashboard Test', () => {
             Type: '대리점',
             Id: `${Cypress.env('TestId')}`,
             Password: `${Cypress.env('TestPwd')}`,
-    });
+        });
     });
 
     it('Ceo Page Test', () => {
-
         /* 테이블관리 */
         cy.get('#operation-tab').click();
         cy.get('[href="/store/table-order/basic"] > .btn').click();
@@ -30,40 +29,53 @@ describe('Onprem Dashboard Test', () => {
         cy.get('.col-2 > .btn').click(); // 검색
 
         /* 테이블변경 */
-        cy.get('#divGroundResourceTableView_0 > :nth-child(1) > .height-200 > .text-center > :nth-child(1) > #btnTableEdit_0').click();
-        cy.get('#add_resource_name').clear.type('1-1번')
+        cy.get(
+            '#divGroundResourceTableView_0 > :nth-child(1) > .height-200 > .text-center > :nth-child(1) > #btnTableEdit_0',
+        ).click();
+        cy.get('#add_resource_name').clear.type('1-1번');
         cy.get('#btnTableNameOverCheck').click();
-        cy.get('#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck').click()
+        cy.get(
+            '#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
+        ).click();
 
         /* 구역 수정 */
         cy.get('#btnGroupEdit_0').click();
-        cy.get('#add_ground_name').clear.type('1층')
-        cy.get('#modalGroupRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck').click();
+        cy.get('#add_ground_name').clear.type('1층');
+        cy.get(
+            '#modalGroupRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
+        ).click();
 
         /* 1층 테이블추가 */
         cy.get('#divGroundResourceTableView_0 > .text-center.border > .tableorder-center-text > a').click();
         cy.get('#add_resource_name').type('1-2번');
         cy.get('#btnTableNameOverCheck').click();
-        cy.get('#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck').click();
+        cy.get(
+            '#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
+        ).click();
 
         /* 2층 구역추가 */
         cy.get('#btnSerialAdd').click();
-        cy.get('#add_ground_name').type('2층')
-        cy.get('#modalGroupRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck').click();
+        cy.get('#add_ground_name').type('2층');
+        cy.get(
+            '#modalGroupRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
+        ).click();
 
         /* 2층 테이블추가 */
         cy.get('#btnGroupEdit_0').click();
         cy.get('#divGroundResourceTableView_1 > .text-center.border > .tableorder-center-text > a').click();
         cy.get('#add_resource_name').type('2-1번');
         cy.get('#btnTableNameOverCheck').click();
-        cy.get('#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck').click();
+        cy.get(
+            '#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
+        ).click();
 
         cy.get('#btnGroupEdit_0').click();
         cy.get('#divGroundResourceTableView_1 > .text-center.border > .tableorder-center-text > a').click();
         cy.get('#add_resource_name').type('2-2번');
         cy.get('#btnTableNameOverCheck').click();
-        cy.get('#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck').click();
-
+        cy.get(
+            '#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
+        ).click();
     });
 
     // afterEach('Status Check', () => {

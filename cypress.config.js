@@ -80,12 +80,13 @@ module.exports = defineConfig({
             DevAdmon: 'http://test-a.mkitchen.kr:3010/users/login', //DEV 통합
             DevCeo: 'http://develop-ceo.monthlykitchen.kr/users/login', //DEV 사장님
             /* Id */
-            AdminId: 'hskang', //통합관리자 - MK관리자
-            TestId: 'monkitest', //통합관리자 - 지점관리자 / 사장님사이트 - 총판대리점
-            TestId1: 'monkitest1', //사장님사이트 - 자대리점
-            TestId2: 'monkitest2', //사장님사이트 - 사장님
-            TestId3: 'monkitest3', //통합관리자 - 지점관리자 / 사장님사이트 - 단골맛집
-            TestId4: 'monkitest4', //사장님사이트 - 단골맛집
+            AdminId: 'hskang',
+            TestId: 'monkitest',
+            TestId1: 'monkitest1', 
+            TestId2: 'monkitest2', 
+            TestId3: 'monkitest3', 
+            TestId4: 'monkitest4',
+            TestId5: 'monki1',
             /* Password */
             AdminPwd: 'gotjd0215!',
             TestPwd: 'test123!',

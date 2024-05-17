@@ -18,23 +18,22 @@ describe('Onprem Dashboard Test', () => {
             Type: '단골맛집 가맹점주',
             Id: `monkitest1`,
             Password: `${Cypress.env('TestPwd')}`,
-    });
+        });
     });
 
     it('Ceo Page Test', () => {
-
         /* 메뉴관리 */
         cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn').click();
-        cy.wait(1*1000)
+        cy.wait(1 * 1000);
         cy.get('#product').click(); // 상품관리 탭
 
-        menuModule.menu('코카콜라', '2500')
+        menuModule.menu('코카콜라', '2500');
 
         /* 메뉴그룹 생성 */
         cy.get('[href="/menu/menu-group"] > .btn').click();
         cy.get('#btnAddMenuGroup').click();
-        cy.wait(1*1000)
-        cy.get('#category_nm').type('분식')
+        cy.wait(1 * 1000);
+        cy.get('#category_nm').type('분식');
         cy.get('.modal-footer > .btn-primary').click();
         cy.get('#vueMenuGroupMain').contains('분식');
 
@@ -42,30 +41,28 @@ describe('Onprem Dashboard Test', () => {
         cy.get(':nth-child(3) > :nth-child(5) > .btn').click();
         cy.get('tr > :nth-child(1) > .btn').click();
         cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
-        cy.wait(1*1000)
+        cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
 
         /* 먼키앱메뉴 등록*/
         cy.get('[href="/menu/app"] > .btn').click();
         cy.get(':nth-child(1) > :nth-child(12) > .btn').click();
-        cy.wait(1*1000)
+        cy.wait(1 * 1000);
         cy.get('#bestMenuYn_true').click();
         cy.get('#MN_001').click();
         cy.get('.ms-auto').click();
-        cy.wait(1*1000);
+        cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
 
         /* 테이블오더메뉴 등록*/
         cy.get('[href="/menu/table-order"] > .btn').click();
         cy.get(':nth-child(1) > :nth-child(12) > .btn').click();
-        cy.wait(1*1000)
+        cy.wait(1 * 1000);
         cy.get('#bestMenuYn_true').click();
         cy.get('#MN_001').click();
         cy.get('.ms-auto').click();
-        cy.wait(1*1000);
+        cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
-
-
     });
 
     // afterEach('Status Check', () => {
