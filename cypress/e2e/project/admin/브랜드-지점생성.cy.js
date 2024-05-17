@@ -70,49 +70,53 @@ describe('지점 등록 Test', () => {
       cy.get('#kitchen_status').select(2)
       cy.get('#kitchen_slogan').type('슬로건')
       
-      
-        cy.fixture('image/로고 이미지/로고.png', 'base64').then(fileContent => {
+      /* 브랜드 로고 */
+        cy.fixture('image/로고이미지/번개브랜드.jpg', 'base64').then(fileContent => {
           cy.get('input[type="FILE"][id="file_brand_logo"]').attachFile({
               fileContent,
-              filePath: 'image/로고.png',
-              fileName: '로고.png',
-              mimeType: 'image/png',
+              filePath: 'image/로고이미지/번개브랜드.jpg',
+              fileName: '번개브랜드.jpg',
+              mimeType: 'image/jpeg',
           });
         });
       
-        cy.fixture('image/로고 이미지/로고.png', 'base64').then(fileContent => {
+        /* 썸네일 이미지 */
+        cy.fixture('image/로고이미지/번개썸네일.jpg', 'base64').then(fileContent => {
           cy.get('input[type="FILE"][id="file_thumb"]').attachFile({
               fileContent,
-              filePath: 'image/로고.png',
-              fileName: '로고.png',
-              mimeType: 'image/png',
+              filePath: 'image/로고이미지/번개썸네일.jpg',
+              fileName: '번개썸네일.jpg',
+              mimeType: 'image/jpeg',
           });
       });
       
-      cy.fixture('image/로고 이미지/로고.png', 'base64').then(fileContent => {
+      /* 공유하기 이미지 */
+      cy.fixture('image/로고이미지/번개공유.jpg', 'base64').then(fileContent => {
         cy.get('input[type="FILE"][id="file_brand_main"]').attachFile({
             fileContent,
-            filePath: 'image/로고.png',
-            fileName: '로고.png',
-            mimeType: 'image/png',
+            filePath: 'image/로고이미지/번개공유.jpg',
+            fileName: '번개공유.jpg',
+            mimeType: 'image/jpeg',
         });
       });
       
-      cy.fixture('image/로고 이미지/지도마커_기본.png', 'base64').then(fileContent => {
+      /* 지도마커 */
+      cy.fixture('image/로고이미지/번개지도마커.jpg', 'base64').then(fileContent => {
         cy.get('input[type="FILE"][id="file_map"]').attachFile({
             fileContent,
-            filePath: 'image/지도마커_기본.png',
-            fileName: '지도마커_기본.png',
-            mimeType: 'image/png',
+            filePath: 'image/로고이미지/번개지도마커.jpg',
+            fileName: '번개지도마커.jpg',
+            mimeType: 'image/jpeg',
         });
       });
       
-      cy.fixture('image/로고 이미지/지도마커_확대.png', 'base64').then(fileContent => {
+      /* 지도마커 상세 */
+      cy.fixture('image/로고이미지/번개지도마커_확대.jpg', 'base64').then(fileContent => {
         cy.get('input[type="FILE"][id="file_detail_map"]').attachFile({
             fileContent,
-            filePath: 'image/지도마커_확대.png',
-            fileName: '지도마커_확대.png',
-            mimeType: 'image/png',
+            filePath: 'image/로고이미지/번개지도마커_확대.jpg',
+            fileName: '번개지도마커_확대.jpg',
+            mimeType: 'image/jpeg',
         });
       });
       

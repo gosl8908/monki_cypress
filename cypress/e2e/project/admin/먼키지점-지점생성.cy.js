@@ -66,21 +66,21 @@ describe('지점 등록 Test', () => {
       })
       cy.get('#address_detail').type('1')
       
-        cy.fixture('image/로고이미지/브랜드상단.png', 'base64').then(fileContent => {
+        cy.fixture('image/로고이미지/번개상단.png', 'base64').then(fileContent => {
           cy.get('input[type="FILE"]').eq(1).attachFile({
               fileContent,
-              filePath: 'image/로고이미지/브랜드상단.png',
-              fileName: '브랜드상단.png',
+              filePath: 'image/로고이미지/번개상단.png',
+              fileName: '번개상단.png',
               mimeType: 'image/png',
           });
         });
       
-        cy.fixture('image/로고이미지/브랜드로고.png', 'base64').then(fileContent => {
+        cy.fixture('image/로고이미지/번개썸네일.jpg', 'base64').then(fileContent => {
           cy.get('input[type="FILE"]').eq(2).attachFile({
               fileContent,
-              filePath: 'image/로고이미지/브랜드로고.png',
-              fileName: '브랜드로고.png',
-              mimeType: 'image/png',
+              filePath: 'image/로고이미지/번개썸네일.jpg',
+              fileName: '번개썸네일.jpg',
+              mimeType: 'image/jpeg',
           });
       });
       
