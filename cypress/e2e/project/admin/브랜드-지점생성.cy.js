@@ -71,7 +71,7 @@ describe('지점 등록 Test', () => {
       cy.get('#kitchen_slogan').type('슬로건')
       
       
-        cy.fixture('image/로고.png', 'base64').then(fileContent => {
+        cy.fixture('image/로고 이미지/로고.png', 'base64').then(fileContent => {
           cy.get('input[type="FILE"][id="file_brand_logo"]').attachFile({
               fileContent,
               filePath: 'image/로고.png',
@@ -80,7 +80,7 @@ describe('지점 등록 Test', () => {
           });
         });
       
-        cy.fixture('image/로고.png', 'base64').then(fileContent => {
+        cy.fixture('image/로고 이미지/로고.png', 'base64').then(fileContent => {
           cy.get('input[type="FILE"][id="file_thumb"]').attachFile({
               fileContent,
               filePath: 'image/로고.png',
@@ -89,7 +89,7 @@ describe('지점 등록 Test', () => {
           });
       });
       
-      cy.fixture('image/로고.png', 'base64').then(fileContent => {
+      cy.fixture('image/로고 이미지/로고.png', 'base64').then(fileContent => {
         cy.get('input[type="FILE"][id="file_brand_main"]').attachFile({
             fileContent,
             filePath: 'image/로고.png',
@@ -98,7 +98,7 @@ describe('지점 등록 Test', () => {
         });
       });
       
-      cy.fixture('image/지도마커_기본.png', 'base64').then(fileContent => {
+      cy.fixture('image/로고 이미지/지도마커_기본.png', 'base64').then(fileContent => {
         cy.get('input[type="FILE"][id="file_map"]').attachFile({
             fileContent,
             filePath: 'image/지도마커_기본.png',
@@ -107,7 +107,7 @@ describe('지점 등록 Test', () => {
         });
       });
       
-      cy.fixture('image/지도마커_확대.png', 'base64').then(fileContent => {
+      cy.fixture('image/로고 이미지/지도마커_확대.png', 'base64').then(fileContent => {
         cy.get('input[type="FILE"][id="file_detail_map"]').attachFile({
             fileContent,
             filePath: 'image/지도마커_확대.png',

@@ -71,7 +71,6 @@ describe('Onprem Dashboard Test', () => {
         cy.get('[name="zipcode"]').invoke('val', zipcode.join(', '));
       })
         cy.get('#vueAgencyModal > .modal-dialog > .modal-content > .modal-footer > .btn-primary').click();
-
     });
       
 

@@ -26,9 +26,9 @@ describe('지점 등록 Test', () => {
       cy.get('.sidebar').contains('지점 관리').click();
       cy.get('#btnAddKitchen').click();
       cy.wait(3*1000);
-      cy.get('#kitchen_id').type(Cypress.env('DateLabel'));
+      cy.get('#kitchen_id').type('mk_test1'); //지점 코드
       cy.get('#btnCheckKitchenId').click();
-      cy.get('#kitchen_nm').type('지점명'+Cypress.env('DateLabel'));
+      cy.get('#kitchen_nm').type('번개지점');
       cy.get('#kitchen_phone').type('01012341234')
       
       const apiKey = '419ed37eb9960d76f12d9ff0610d327a';
@@ -66,20 +66,20 @@ describe('지점 등록 Test', () => {
       })
       cy.get('#address_detail').type('1')
       
-        cy.fixture('image/대표이미지.png', 'base64').then(fileContent => {
+        cy.fixture('image/로고이미지/브랜드상단.png', 'base64').then(fileContent => {
           cy.get('input[type="FILE"]').eq(1).attachFile({
               fileContent,
-              filePath: 'image/대표이미지.png',
-              fileName: '대표이미지.png',
+              filePath: 'image/로고이미지/브랜드상단.png',
+              fileName: '브랜드상단.png',
               mimeType: 'image/png',
           });
         });
       
-        cy.fixture('image/로고.png', 'base64').then(fileContent => {
+        cy.fixture('image/로고이미지/브랜드로고.png', 'base64').then(fileContent => {
           cy.get('input[type="FILE"]').eq(2).attachFile({
               fileContent,
-              filePath: 'image/로고.png',
-              fileName: '로고.png',
+              filePath: 'image/로고이미지/브랜드로고.png',
+              fileName: '브랜드로고.png',
               mimeType: 'image/png',
           });
       });
