@@ -25,7 +25,7 @@ function menu(Name, Pay) {
     cy.get('#global_modal_confirm').click();
 }
 
-function MenuGroup(Name, Type = undefined) {
+function menuGroup(Name, Type = undefined) {
     cy.contains('span', Name)
         .parents('tr')
         .within(() => {
@@ -47,6 +47,6 @@ function menuAdd(Name) {
 
 module.exports = {
     menu: menu,
-    MenuGroup: MenuGroup,
+    menuGroup: menuGroup,
     menuAdd: menuAdd,
 };

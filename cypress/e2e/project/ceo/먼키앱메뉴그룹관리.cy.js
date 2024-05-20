@@ -27,7 +27,7 @@ describe('Onprem Dashboard Test', () => {
         cy.wait(1 * 1000);
         cy.get('[href="/menu/menu-group"] > .btn').click();
 
-        menuModule.MenuGroup('분식', 'App');
+        menuModule.menuGroup('분식', 'App');
         cy.wait(1 * 1000);
         menuModule.menuAdd('김밥');
         menuModule.menuAdd('라면');
@@ -37,7 +37,7 @@ describe('Onprem Dashboard Test', () => {
         cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
 
-        menuModule.MenuGroup('일식', 'App');
+        menuModule.menuGroup('일식', 'App');
         cy.wait(1 * 1000);
         menuModule.menuAdd('돈가스');
         menuModule.menuAdd('치즈돈가스');
@@ -46,7 +46,7 @@ describe('Onprem Dashboard Test', () => {
         cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
 
-        menuModule.MenuGroup('한식', 'App');
+        menuModule.menuGroup('한식', 'App');
         cy.wait(1 * 1000);
         menuModule.menuAdd('비빔면');
 
@@ -54,7 +54,7 @@ describe('Onprem Dashboard Test', () => {
         cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
 
-        menuModule.MenuGroup('양식', 'App');
+        menuModule.menuGroup('양식', 'App');
         cy.wait(1 * 1000);
         menuModule.menuAdd('피자');
 
@@ -62,7 +62,7 @@ describe('Onprem Dashboard Test', () => {
         cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
 
-        menuModule.MenuGroup('음료', 'App');
+        menuModule.menuGroup('음료', 'App');
         cy.wait(1 * 1000);
         menuModule.menuAdd('코카콜라');
         menuModule.menuAdd('코카콜라제로');

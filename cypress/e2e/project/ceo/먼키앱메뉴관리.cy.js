@@ -33,18 +33,16 @@ describe('Onprem Dashboard Test', () => {
                 cy.get('button').contains('관리').eq(1).click();
             });
         cy.wait(1 * 1000);
+        cy.get('.bestMenuYn_true').click(); // 대표메뉴
+        cy.get('MNBG_101').click(); //HOT
 
-        cy.get('#MN_001').click();
+        cy.get('#MN_001').click(); // 앱 노출 여부
 
-        cy.get('.ms-auto').click();
+        cy.get('.ms-auto').click(); // 변경하기
         cy.wait(1 * 1000);
-        cy.get('#global_modal_confirm').click();
+        cy.get('#global_modal_confirm').click(); // 확인
 
         cy.go('back');
-
-        cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
-        cy.wait(1 * 1000);
-        cy.get('#global_modal_confirm').click();
     });
 
     // afterEach('Status Check', () => {
