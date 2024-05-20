@@ -1,4 +1,3 @@
-
 /* cypress.config.js */
 const nodemailer = require('nodemailer');
 const { defineConfig } = require('cypress');
@@ -44,10 +43,10 @@ module.exports = defineConfig({
                         });
                     }
                     const transporter = nodemailer.createTransport({
-                      host: 'smtp.gmail.com',
-                      port: 587,
-                      secure: false,
-                      auth: {
+                        host: 'smtp.gmail.com',
+                        port: 587,
+                        secure: false,
+                        auth: {
                             user: EamilId,
                             pass: EamilPwd,
                         },
@@ -82,9 +81,9 @@ module.exports = defineConfig({
             /* Id */
             AdminId: 'hskang',
             TestId: 'monkitest',
-            TestId1: 'monkitest1', 
-            TestId2: 'monkitest2', 
-            TestId3: 'monkitest3', 
+            TestId1: 'monkitest1',
+            TestId2: 'monkitest2',
+            TestId3: 'monkitest3',
             TestId4: 'monkitest4',
             TestId5: 'monki1',
             /* Password */
