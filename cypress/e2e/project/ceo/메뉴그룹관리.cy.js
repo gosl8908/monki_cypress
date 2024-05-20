@@ -28,36 +28,146 @@ describe('Onprem Dashboard Test', () => {
         cy.get('[href="/menu/menu-group"] > .btn').click();
 
         /* 분식 메뉴그룹 관리 */
-        cy.get(':nth-child(3) > :nth-child(5) > .btn').click();
+        cy.contains('span', '분식')
+        .parents('tr')
+        .within(() => {
+          cy.get('button').contains('메뉴 관리').eq(0).click();
+        });
+
         cy.wait(1 * 1000);
-        // cy.get('tr > :nth-child(1) > .btn').click();
-        cy.get('.all-menu-list')
-            .find('.align-middle.text-left')
-            .contains('비빔면')
-            .contains('추가').click();
-        // cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
-        // cy.wait(1 * 1000);
-        // cy.get('#global_modal_confirm').click();
+        cy.contains('span', '김밥')
+        .parents('tr')
+        .within(() => {
+          cy.get('button').contains('추가').click();
+        });
+        cy.contains('span', '라면')
+        .parents('tr')
+        .within(() => {
+          cy.get('button').contains('추가').click();
+        });
+        cy.contains('span', '쫄면')
+        .parents('tr')
+        .within(() => {
+          cy.get('button').contains('추가').click();
+        });
 
-        // /* 먼키앱메뉴 등록*/
-        // cy.get('[href="/menu/app"] > .btn').click();
-        // cy.get(':nth-child(1) > :nth-child(12) > .btn').click();
-        // cy.wait(1 * 1000);
-        // cy.get('#bestMenuYn_true').click();
-        // cy.get('#MN_001').click();
-        // cy.get('.ms-auto').click();
-        // cy.wait(1 * 1000);
-        // cy.get('#global_modal_confirm').click();
+        cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
+        cy.wait(1 * 1000);
+        cy.get('#global_modal_confirm').click();
 
-        // /* 테이블오더메뉴 등록*/
-        // cy.get('[href="/menu/table-order"] > .btn').click();
-        // cy.get(':nth-child(1) > :nth-child(12) > .btn').click();
-        // cy.wait(1 * 1000);
-        // cy.get('#bestMenuYn_true').click();
-        // cy.get('#MN_001').click();
-        // cy.get('.ms-auto').click();
-        // cy.wait(1 * 1000);
-        // cy.get('#global_modal_confirm').click();
+        /* 일식 메뉴그룹 관리 */
+        cy.contains('span', '일식')
+        .parents('tr')
+        .within(() => {
+          cy.get('button').contains('메뉴 관리').eq(0).click();
+        });
+    
+        cy.wait(1 * 1000);
+        cy.contains('span', '돈가스')
+        .parents('tr')
+        .within(() => {
+          cy.get('button').contains('추가').click();
+        });
+        cy.contains('span', '치즈돈가스')
+        .parents('tr')
+        .within(() => {
+          cy.get('button').contains('추가').click();
+        });
+    
+        cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
+        cy.wait(1 * 1000);
+        cy.get('#global_modal_confirm').click();
+
+            /* 한식 메뉴그룹 관리 */
+            cy.contains('span', '한식')
+            .parents('tr')
+            .within(() => {
+              cy.get('button').contains('메뉴 관리').eq(0).click();
+            });
+            
+            cy.wait(1 * 1000);
+            cy.contains('span', '비빔면')
+            .parents('tr')
+            .within(() => {
+              cy.get('button').contains('추가').click();
+            });
+            
+            cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
+            cy.wait(1 * 1000);
+            cy.get('#global_modal_confirm').click();
+
+            /* 양식 메뉴그룹 관리 */
+            cy.contains('span', '양식')
+            .parents('tr')
+            .within(() => {
+              cy.get('button').contains('메뉴 관리').eq(0).click();
+            });
+            
+            cy.wait(1 * 1000);
+            cy.contains('span', '피자')
+            .parents('tr')
+            .within(() => {
+              cy.get('button').contains('추가').click();
+            });
+            
+            cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
+            cy.wait(1 * 1000);
+            cy.get('#global_modal_confirm').click();
+
+            /* 음로 메뉴그룹 관리 */
+            cy.contains('span', '음료')
+            .parents('tr')
+            .within(() => {
+              cy.get('button').contains('메뉴 관리').eq(0).click();
+            });
+            
+            cy.wait(1 * 1000);
+            cy.contains('span', '코카콜라')
+            .parents('tr')
+            .within(() => {
+              cy.get('button').contains('추가').click();
+            });
+
+            cy.wait(1 * 1000);
+            cy.contains('span', '코카콜라제로')
+            .parents('tr')
+            .within(() => {
+              cy.get('button').contains('추가').click();
+            });
+
+            cy.wait(1 * 1000);
+            cy.contains('span', '펩시')
+            .parents('tr')
+            .within(() => {
+              cy.get('button').contains('추가').click();
+            });
+
+            cy.wait(1 * 1000);
+            cy.contains('span', '펩시제로')
+            .parents('tr')
+            .within(() => {
+              cy.get('button').contains('추가').click();
+            });
+
+            cy.wait(1 * 1000);
+            cy.contains('span', '스프라이트')
+            .parents('tr')
+            .within(() => {
+              cy.get('button').contains('추가').click();
+            });
+
+            cy.wait(1 * 1000);
+            cy.contains('span', '스프라이트제로')
+            .parents('tr')
+            .within(() => {
+              cy.get('button').contains('추가').click();
+            });
+            
+            cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
+            cy.wait(1 * 1000);
+            cy.get('#global_modal_confirm').click();
+        
+
     });
 
     // afterEach('Status Check', () => {
