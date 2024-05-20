@@ -25,51 +25,22 @@ describe('Onprem Dashboard Test', () => {
         /* 메뉴관리 */
         cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn').click();
         cy.wait(1 * 1000);
-        cy.get('[href="/menu/menu-group"] > .btn').click();
+        cy.get('[href="/menu/app"] > .btn').click();
 
-        menuModule.MenuGroup('분식', 'App');
+        cy.contains('span', '김밥')
+            .parents('tr')
+            .within(() => {
+                cy.get('button').contains('관리').eq(1).click();
+            });
         cy.wait(1 * 1000);
-        menuModule.menuAdd('김밥');
-        menuModule.menuAdd('라면');
-        menuModule.menuAdd('쫄면');
 
-        cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
-        cy.wait(1 * 1000);
-        cy.get('#global_modal_confirm').click();
+        cy.get('#MN_001').click();
 
-        menuModule.MenuGroup('일식', 'App');
-        cy.wait(1 * 1000);
-        menuModule.menuAdd('돈가스');
-        menuModule.menuAdd('치즈돈가스');
-
-        cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
+        cy.get('.ms-auto').click();
         cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
 
-        menuModule.MenuGroup('한식', 'App');
-        cy.wait(1 * 1000);
-        menuModule.menuAdd('비빔면');
-
-        cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
-        cy.wait(1 * 1000);
-        cy.get('#global_modal_confirm').click();
-
-        menuModule.MenuGroup('양식', 'App');
-        cy.wait(1 * 1000);
-        menuModule.menuAdd('피자');
-
-        cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
-        cy.wait(1 * 1000);
-        cy.get('#global_modal_confirm').click();
-
-        menuModule.MenuGroup('음료', 'App');
-        cy.wait(1 * 1000);
-        menuModule.menuAdd('코카콜라');
-        menuModule.menuAdd('코카콜라제로');
-        menuModule.menuAdd('펩시');
-        menuModule.menuAdd('펩시제로');
-        menuModule.menuAdd('스프라이트');
-        menuModule.menuAdd('스프라이트제로');
+        cy.go('back');
 
         cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
         cy.wait(1 * 1000);

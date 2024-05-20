@@ -24,6 +24,29 @@ function menu(Name, Pay) {
     cy.wait(1 * 1000);
     cy.get('#global_modal_confirm').click();
 }
+
+function MenuGroup(Name, Type = undefined) {
+    cy.contains('span', Name)
+        .parents('tr')
+        .within(() => {
+            if (Type === 'App') {
+                cy.get('button').contains('메뉴 관리').eq(0).click();
+            } else {
+                cy.get('button').contains('메뉴 관리 ').eq(0).click();
+            }
+        });
+}
+
+function menuAdd(Name) {
+    cy.contains('span', Name)
+        .parents('tr')
+        .within(() => {
+            cy.get('button').contains('추가').click();
+        });
+}
+
 module.exports = {
     menu: menu,
+    MenuGroup: MenuGroup,
+    menuAdd: menuAdd,
 };
