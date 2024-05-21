@@ -26,7 +26,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('[href="/account/store"] > .btn').click(); // 매장관리
 
         /* 일반결제 수단 설정 */
-        cy.get('#keyword').type('monkitest1');
+        cy.get('#keyword').type(Cypress.env('TestId2'));
         cy.get('.card-body > .row > .my-sm-auto > .btn').click();
         cy.get('#btnPayment_0').click();
         cy.get('#modal_body > .row > .text-end > .btn').click(); // 결제수단 연동 등록
