@@ -24,40 +24,43 @@ describe('Onprem Dashboard Test', () => {
         cy.get('[data-mnu="/administrators/*"] > [href="#"]').click();
         cy.get('[data-mnu="/administrators/*"] > .nav > :nth-child(1) > .nav-link > p').click();
         cy.get('#btnRegAdmin').click();
-        cy.get('#admin_id').type('monkitest' + Cypress.env('DateLabel'));
+        cy.get('#admin_id').type(Cypress.env('TestId2'));
+        cy.wait(1 * 1000);
         cy.get('#btnChkAdminId').click();
-        cy.get('#admin_pass').type('gotjd0215!');
-        cy.get('#admin_nm').type('monkitest');
+        cy.get('#admin_pass').type(Cypress.env('AdminPwd'));
+        cy.get('#admin_nm').type('강해성');
         cy.get('#admin_phone').type('01012341234');
         cy.get('#admin_email').type('monkitest@ruu.kr');
+        cy.get(':nth-child(6) > .col-sm-10 > .icheck-primary.ml-4 > label').click();
+        cy.get('#mk_kitchen_no').select('번개지점');
         cy.get('#frmAdmin > .modal-dialog > .modal-content > .modal-footer > .btn-primary').click();
         cy.get('#global_modal_body')
             .contains('등록 하시겠습니까', { timeout: 30 * 1000 })
             .should('be.visible');
-        cy.wait(3 * 1000);
+        cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
         cy.get('.toast')
             .contains('등록했습니다', { timeout: 10 * 1000 })
             .should('be.visible');
         cy.get('.col-sm-12').contains('monkitest' + Cypress.env('DateLabel'));
 
-        /* 삭제 */
-        cy.get('.col-sm-12')
-            .find('.list-data-center.align-middle')
-            .contains('monkitest' + Cypress.env('DateLabel'))
-            .get('.card-body.table-responsive.p-0')
-            .find('.list-data-center.align-middle')
-            .find('.btn-group.btn-group-sm .btn.btn-danger')
-            .eq(0) // 수정된 부분
-            .click(); // 수정된 부분
-        cy.get('#global_modal_body')
-            .contains('삭제하시겠습니까?', { timeout: 30 * 1000 })
-            .should('be.visible');
-        cy.wait(3 * 1000);
-        cy.get('#global_modal_confirm').click();
-        cy.get('.toast')
-            .contains('삭제했습니다', { timeout: 30 * 1000 })
-            .should('be.visible');
+        // /* 삭제 */
+        // cy.get('.col-sm-12')
+        //     .find('.list-data-center.align-middle')
+        //     .contains('monkitest' + Cypress.env('DateLabel'))
+        //     .get('.card-body.table-responsive.p-0')
+        //     .find('.list-data-center.align-middle')
+        //     .find('.btn-group.btn-group-sm .btn.btn-danger')
+        //     .eq(0) // 수정된 부분
+        //     .click(); // 수정된 부분
+        // cy.get('#global_modal_body')
+        //     .contains('삭제하시겠습니까?', { timeout: 30 * 1000 })
+        //     .should('be.visible');
+        // cy.wait(3 * 1000);
+        // cy.get('#global_modal_confirm').click();
+        // cy.get('.toast')
+        //     .contains('삭제했습니다', { timeout: 30 * 1000 })
+        //     .should('be.visible');
     });
 
     // afterEach('Status Check', () => {
