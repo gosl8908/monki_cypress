@@ -16,7 +16,7 @@ describe('Onprem Dashboard Test', () => {
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('TestId2')}`,
+            Id: `${Cypress.env('TestId1')}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
@@ -48,23 +48,23 @@ describe('Onprem Dashboard Test', () => {
         cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
 
-        // /* 메뉴관리 */
-        // cy.contains('span', '김밥')
-        //     .parents('tr')
-        //     .within(() => {
-        //         cy.get('button').contains('관리').eq(1).click();
-        //     });
-        // cy.wait(1 * 1000);
-        // cy.get('.bestMenuYn_true').click(); // 대표메뉴
-        // cy.get('MNBG_101').click(); //HOT
+        /* 메뉴관리 */
+        cy.contains('span', '김밥')
+            .parents('tr')
+            .within(() => {
+                cy.get('button').contains('관리').eq(1).click();
+            });
+        cy.wait(1 * 1000);
+        cy.get('.bestMenuYn_true').click(); // 대표메뉴
+        cy.get('MNBG_101').click(); //HOT
 
-        // cy.get('#MN_001').click(); // 앱 노출 여부
+        cy.get('#MN_001').click(); // 앱 노출 여부
 
-        // cy.get('.ms-auto').click(); // 변경하기
-        // cy.wait(1 * 1000);
-        // cy.get('#global_modal_confirm').click(); // 확인
+        cy.get('.ms-auto').click(); // 변경하기
+        cy.wait(1 * 1000);
+        cy.get('#global_modal_confirm').click(); // 확인
 
-        // cy.go('back');
+        cy.go('back');
     });
 
     // afterEach('Status Check', () => {
