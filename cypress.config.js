@@ -77,7 +77,7 @@ module.exports = defineConfig({
             StgAdmin: 'http://staging-mngr.monthlykitchen.kr/users/login', //STG 통합
             StgCeo: 'http://staging-ceo.monthlykitchen.kr/users/login', //STG 사장님
             /* DEV Site */
-            DevAdmon: 'http://test-a.mkitchen.kr:3010/users/login', //DEV 통합
+            DevAdmin: 'http://test-a.mkitchen.kr:3010/users/login', //DEV 통합
             DevCeo: 'http://develop-ceo.monthlykitchen.kr/users/login', //DEV 사장님
             /* Id */
             AdminId: 'hskang', // 통합관리자

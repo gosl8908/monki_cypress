@@ -14,7 +14,7 @@ describe('Onprem Dashboard Test', () => {
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
-            Site: `${Cypress.env('StgAdmin')}`,
+            Site: `${Cypress.env('DevAdmin')}`,
             Id: `${Cypress.env('AdminId')}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
@@ -24,7 +24,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('[data-mnu="/franchise-partner/*,/pg-trans-excel/*"] > [href="#"]').click();
         cy.get('.menu-open > .nav > :nth-child(1) > .nav-link > p').click();
         cy.get('#btnAddAgency').click();
-        cy.get(':nth-child(1) > .input-group > .form-control').type('Test' + Cypress.env('DateLabel'));
+        cy.get(':nth-child(1) > .input-group > .form-control').type(Cypress.env('TestId'));
         cy.get(
             '#vueAgencyModal > .modal-dialog > .modal-content > .modal-body > .row > .col-12 > .card > .card-body > :nth-child(1)',
         )
@@ -33,13 +33,15 @@ describe('Onprem Dashboard Test', () => {
 
         cy.get('.card-body > :nth-child(2) > .form-control').type('gotjd0215!');
         cy.get(':nth-child(3) > .input-group > .form-control').type('gotjd0215!');
-        cy.get(':nth-child(6) > .input-group').contains('스마트로').click();
-        cy.get(':nth-child(7) > .form-control').type('Test' + Cypress.env('DateLabel'));
-        cy.get(':nth-child(8) > .input-group > .form-control').type(Cypress.env('DateLabel'));
-        cy.get('.card-body > :nth-child(8)').contains('중복체크').click();
-        cy.get(':nth-child(10) > .form-control').type('QA');
-        cy.get(':nth-child(11) > .form-control').type('01020431653');
-        cy.get(':nth-child(13) > .form-control').type('1');
+        cy.get(':nth-child(5) > .input-group > :nth-child(1) > label').click();
+        cy.get(':nth-child(5) > .input-group > :nth-child(2) > label').click();
+        cy.get(':nth-child(5) > .input-group > :nth-child(4) > label').click();
+        cy.get('[name="partner_name"]').type('몬키'); // 사업자명
+        cy.get('[name="biz_number"]').type(Cypress.env('DateLabel'));
+        cy.get('[id="btnCheckBizNum"]').click();
+        cy.get('[name="owner_name"]').type('강해성');
+        cy.get('[name="tel"]').type('01020431653');
+        cy.get('[name="address_detail"]').type('1');
         const apiKey = '419ed37eb9960d76f12d9ff0610d327a';
         const query = encodeURIComponent('경기 안양시 동안구 평촌대로 60-55');
 
@@ -66,8 +68,9 @@ describe('Onprem Dashboard Test', () => {
             expect(response.body).to.have.property('documents');
             expect(response.body).to.have.property('meta');
             const addressNames = response.body.documents.map(document => document.road_address.address_name);
-            cy.get(':nth-child(12) > .input-group > [type="text"]').invoke('val', addressNames.join(', '));
-            cy.log(':nth-child(12) > .input-group > [type="text"]');
+            cy.get('[name="road_address"]').invoke('val', addressNames.join(', '));
+            const address = response.body.documents.map(document => document.address.address_name);
+            cy.get('[name="address"]').invoke('val', address.join(', '));
             const zipcode = response.body.documents.map(document => document.road_address.zone_no);
             cy.get('[name="zipcode"]').invoke('val', zipcode.join(', '));
         });
