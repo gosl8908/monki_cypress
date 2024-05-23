@@ -25,7 +25,6 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 const dataTransfer = new DataTransfer(); // dataTransfer 객체 정의
 
-
 Cypress.Commands.add('ModuleAdd', (select, target, x_coordinate, y_coordinate) => {
     cy.get(select)
         .trigger('dragstart', { dataTransfer, button: 0, force: true })

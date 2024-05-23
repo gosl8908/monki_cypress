@@ -25,7 +25,7 @@ describe('Onprem Dashboard Test', () => {
         /* 메뉴관리 */
         cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn').click();
         cy.wait(1 * 1000);
-        cy.get('[href="/menu/app"] > .btn').click();
+        cy.get('[href="/menu/table-order/main"] > .btn').click();
 
         cy.contains('span', '김밥')
             .parents('tr')
@@ -33,7 +33,6 @@ describe('Onprem Dashboard Test', () => {
                 cy.get('button').contains('관리').eq(1).click();
             });
         cy.wait(1 * 1000);
-        cy.get('.bestMenuYn_true').click(); // 대표메뉴
         cy.get('MNBG_101').click(); //HOT
 
         cy.get('#MN_001').click(); // 앱 노출 여부

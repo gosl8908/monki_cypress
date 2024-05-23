@@ -1,6 +1,6 @@
 const { loginModule, emailModule } = require('../../module/manager.module.js');
 
-describe('지점 등록 Test', () => {
+describe('Onprem Dashboard Test', () => {
     let TestFails = []; // 실패 원인을 저장할 변수
     let Screenshots = []; // 스크린샷을 저장할 배열
     let Failure = false;
@@ -15,22 +15,23 @@ describe('지점 등록 Test', () => {
         cy.getAll();
         loginModule.login({
             Site: `${Cypress.env('StgAdmin')}`,
-            Id: `${Cypress.env('AdminId')}`,
-            Password: `${Cypress.env('TestPwd')}`,
+            Id: `${Cypress.env('TestId3')}`,
+            Password: `${Cypress.env('AdminPwd')}`,
         });
     });
 
-    it('지점 등록 Test', () => {
-        cy.get('[data-mnu="/operation/*"] > [href="#"]').click();
-        cy.get('.sidebar').contains('지점 관리').click();
-        cy.get('#btnAddKitchen').click();
-        cy.wait(3 * 1000);
-        cy.get('#kitchen_type').select('브랜드'); // 구분
-        cy.get('#kitchen_id').type(Cypress.env('TestId3')); // 지점코드
-        cy.get('#btnCheckKitchenId').click();
-        cy.get('#kitchen_nm').type('번개브랜드');
-        cy.get('#kitchen_phone').type('01012341234');
-
+    it('Ceo Page Test', () => {
+        cy.get('[data-mnu="/kitchen/*"] > [href="#"] > p').click();
+        cy.get('.menu-open > .nav > :nth-child(2) > .nav-link > p').click();
+        cy.get('#btnAddStore').click();
+        cy.get('#store_nm').type('번개브랜드매장'); // 매장 이름
+        cy.get('#store_id').type(Cypress.env('TestId3')); //매장 코드
+        cy.get('#btnCheckStoreId').click();
+        cy.get('#first_biz_category_no').select(1);
+        cy.get('#store_tel_no').type('01012341234');
+        cy.get('#manager_nm').type('강해성');
+        cy.get('#manager_tel_no').type('01012341234');
+        cy.get('#store_desc').type('번개브랜드매장'); // 매장 안내
         const apiKey = '419ed37eb9960d76f12d9ff0610d327a';
         const query = encodeURIComponent('경기 안양시 동안구 평촌대로 60-55');
 
@@ -65,68 +66,44 @@ describe('지점 등록 Test', () => {
             const y = response.body.documents.map(document => document.address.y);
             cy.get('#longitude').invoke('val', y.join(', '));
         });
-        cy.get('#address_detail').type('1층');
 
-        cy.get('#kitchen_status').select('영업중');
-        cy.get('#kitchen_slogan').type('슬로건');
-
-        /* 브랜드 로고 */
-        cy.fixture('image/로고이미지/번개브랜드.jpg', 'base64').then(fileContent => {
-            cy.get('input[type="FILE"][id="file_brand_logo"]').attachFile({
-                fileContent,
-                filePath: 'image/로고이미지/번개브랜드.jpg',
-                fileName: '번개브랜드.jpg',
-                mimeType: 'image/jpeg',
-            });
-        });
-
-        /* 썸네일 이미지 */
         cy.fixture('image/로고이미지/번개썸네일.jpg', 'base64').then(fileContent => {
-            cy.get('input[type="FILE"][id="file_thumb"]').attachFile({
+            cy.get('input[type="file"][id="logo_file"]').attachFile({
                 fileContent,
-                filePath: 'image/로고이미지/번개썸네일.jpg',
-                fileName: '번개썸네일.jpg',
+                filePath: 'image/로고이미지/썸네일이미지.jpg',
+                fileName: '썸네일이미지.jpg',
                 mimeType: 'image/jpeg',
             });
         });
-
-        /* 공유하기 이미지 */
-        cy.fixture('image/로고이미지/번개공유.jpg', 'base64').then(fileContent => {
-            cy.get('input[type="FILE"][id="file_brand_main"]').attachFile({
+        cy.fixture('image/로고이미지/번개상단.png', 'base64').then(fileContent => {
+            cy.get('input[type="file"][id="banner_file"]').attachFile({
                 fileContent,
-                filePath: 'image/로고이미지/번개공유.jpg',
-                fileName: '번개공유.jpg',
-                mimeType: 'image/jpeg',
+                filePath: 'image/로고이미지/번개상단.png',
+                fileName: '번개상단.png',
+                mimeType: 'image/png',
             });
         });
 
-        /* 지도마커 */
-        cy.fixture('image/로고이미지/번개지도마커.jpg', 'base64').then(fileContent => {
-            cy.get('input[type="FILE"][id="file_map"]').attachFile({
-                fileContent,
-                filePath: 'image/로고이미지/번개지도마커.jpg',
-                fileName: '번개지도마커.jpg',
-                mimeType: 'image/jpeg',
-            });
-        });
-
-        /* 지도마커 상세 */
-        cy.fixture('image/로고이미지/번개지도마커_확대.jpg', 'base64').then(fileContent => {
-            cy.get('input[type="FILE"][id="file_detail_map"]').attachFile({
-                fileContent,
-                filePath: 'image/로고이미지/번개지도마커_확대.jpg',
-                fileName: '번개지도마커_확대.jpg',
-                mimeType: 'image/jpeg',
-            });
-        });
-
-        cy.get('.btn-group > .btn').click();
+        cy.get('#user_id').type(Cypress.env('TestId3'));
+        cy.get('#btnCheckUserId').click();
+        cy.get('#user_pass').type(Cypress.env('TestPwd'));
+        cy.get('#user_pass_chk').type(Cypress.env('TestPwd'));
+        cy.get('#user_nm').type('강해성');
+        cy.get('#user_phone').type('01012341234');
+        cy.get('#user_email').type('hskang@monki.net');
+        cy.get('#company_number').type('123412341234');
+        cy.get('#account_number').type('3333048408739');
+        cy.get('#account_user').type('강해성');
+        cy.get('#biz_name').type('번개브랜드매장');
+        cy.get('.float-right > .btn').click();
         cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
-        cy.wait(5 * 1000);
 
-        cy.get('.card-default > .col-12 > .card').contains('대표 메뉴');
+        cy.contains('번개브랜드매장');
     });
+
+    //   cy.get('#global_modal_body').contains('입력한 내용으로 등록하시겠습니까?');
+    //   cy.get('#global_modal_confirm').click();
 });
 
 // afterEach('Status Check', () => {

@@ -15,8 +15,8 @@ describe('Onprem Dashboard Test', () => {
         cy.getAll();
         loginModule.login({
             Site: `${Cypress.env('StgAdmin')}`,
-            Id: `${Cypress.env('TestId3')}`,
-            Password: `${Cypress.env('TestPwd')}`,
+            Id: `${Cypress.env('TestId2')}`,
+            Password: `${Cypress.env('AdminPwd')}`,
         });
     });
 
@@ -24,14 +24,14 @@ describe('Onprem Dashboard Test', () => {
         cy.get('[data-mnu="/kitchen/*"] > [href="#"] > p').click();
         cy.get('.menu-open > .nav > :nth-child(2) > .nav-link > p').click();
         cy.get('#btnAddStore').click();
-        cy.get('#store_nm').type('번개매장');
-        cy.get('#store_id').type('monkitest' + Cypress.env('DateLabel'));
+        cy.get('#store_nm').type('몬키지점'); // 매장이름
+        cy.get('#store_id').type('monki1'); // 매장코드
         cy.get('#btnCheckStoreId').click();
         cy.get('#first_biz_category_no').select(1);
         cy.get('#store_tel_no').type('01012341234');
-        cy.get('#manager_nm').type('테스트');
+        cy.get('#manager_nm').type('강해성');
         cy.get('#manager_tel_no').type('01012341234');
-        cy.get('#store_desc').type('테스트매장');
+        cy.get('#store_desc').type('몬키지점'); // 매장안내
         const apiKey = '419ed37eb9960d76f12d9ff0610d327a';
         const query = encodeURIComponent('경기 안양시 동안구 평촌대로 60-55');
 
@@ -67,44 +67,39 @@ describe('Onprem Dashboard Test', () => {
             cy.get('#longitude').invoke('val', y.join(', '));
         });
 
-        cy.fixture('image/썸네일이미지.jpg', 'base64').then(fileContent => {
+        cy.fixture('image/로고이미지/번개썸네일.jpg', 'base64').then(fileContent => {
             cy.get('input[type="file"][id="logo_file"]').attachFile({
                 fileContent,
-                filePath: 'image/썸네일이미지.jpg',
+                filePath: 'image/로고이미지/썸네일이미지.jpg',
                 fileName: '썸네일이미지.jpg',
                 mimeType: 'image/jpeg',
             });
         });
-        cy.fixture('image/비빔면.jpg', 'base64').then(fileContent => {
+        cy.fixture('image/로고이미지/번개상단.png', 'base64').then(fileContent => {
             cy.get('input[type="file"][id="banner_file"]').attachFile({
                 fileContent,
-                filePath: 'image/비빔면.jpg',
-                fileName: '비빔면.jpg',
-                mimeType: 'image/jpeg',
+                filePath: 'image/로고이미지/번개상단.png',
+                fileName: '번개상단.png',
+                mimeType: 'image/png',
             });
         });
-        cy.get('#user_id').type('monki' + Cypress.env('DateLabel'));
+
+        cy.get('#user_id').type(Cypress.env('TestId3'));
         cy.get('#btnCheckUserId').click();
-        cy.get('#user_pass').type('test123!');
-        cy.get('#user_pass_chk').type('test123!');
+        cy.get('#user_pass').type(Cypress.env('TestPwd'));
+        cy.get('#user_pass_chk').type(Cypress.env('TestPwd'));
         cy.get('#user_nm').type('강해성');
         cy.get('#user_phone').type('01012341234');
         cy.get('#user_email').type('hskang@monki.net');
         cy.get('#company_number').type('123412341234');
         cy.get('#account_number').type('3333048408739');
         cy.get('#account_user').type('강해성');
-        cy.get('#biz_name').type('번개매장');
+        cy.get('#biz_name').type('몬키지점');
         cy.get('.float-right > .btn').click();
         cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
 
-        cy.contains(':nth-child(3) > .row > .col-12')
-            .contains('monkitest' + Cypress.env('DateLabel'))
-            .click();
-        cy.get('#select_store_status').select(1);
-        cy.get('.float-right > .btn').click();
-        cy.wait(1 * 1000);
-        cy.get('#global_modal_confirm').click();
+        cy.contains('몬키지점');
     });
 
     //   cy.get('#global_modal_body').contains('입력한 내용으로 등록하시겠습니까?');
