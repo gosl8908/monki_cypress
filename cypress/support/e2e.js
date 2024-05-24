@@ -21,5 +21,6 @@ require('@4tw/cypress-drag-drop');
 require('cypress-mochawesome-reporter/register');
 require('cypress-file-upload');
 require('cypress-clipboard');
+require('cypress-iframe');
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
