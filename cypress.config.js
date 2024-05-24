@@ -86,7 +86,14 @@ module.exports = defineConfig({
             TestId2: 'monkitest2', // 통합관리자 - 지점관리자
             TestId3: 'monkitest3', // 통합관리자 - 프렌차이즈관리자 / 사장님사이트 - 단골맛집(프랜차이즈)
             TestId4: 'monkitest4',
-            TestId5: 'monki1', // 사장님사이트 - 사장님(지점)
+            TestId5: 'monkitest5',
+            TestId6: 'monkitest6',
+            TestId7: 'monkitest7',
+            TestId8: 'monkitest8',
+            TestId9: 'monkitest9',
+            TestId10: 'monkitest10',
+            TestId11: 'monkitest11',
+            CeoTestId1: 'monki1', // 사장님사이트 - 사장님(지점)
             /* Password */
             AdminPwd: 'gotjd0215!',
             TestPwd: 'test123!',
