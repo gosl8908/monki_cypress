@@ -74,10 +74,11 @@ describe('Onprem Dashboard Test', () => {
                     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
             },
         }).then(response => {
-            // 응답을 검증하거나 필요한 테스트를 진행합니다.
+            // 응답을 검증하거나 필요한 테스트를 진행
             expect(response.status).to.eq(200);
             expect(response.body).to.have.property('documents');
             expect(response.body).to.have.property('meta');
+
             const addressNames = response.body.documents.map(document => document.road_address.address_name);
             cy.get('[name="road_address"]').invoke('val', addressNames.join(', '));
             const zipcode = response.body.documents.map(document => document.road_address.zone_no);

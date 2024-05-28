@@ -60,9 +60,9 @@ describe('지점 등록 Test', () => {
             const addressNames = response.body.documents.map(document => document.address_name);
             cy.get('#road_address').invoke('val', addressNames.join(', '));
             const x = response.body.documents.map(document => document.address.x);
-            cy.get('#latitude').invoke('val', x.join(', '));
+            cy.get('#longitude').invoke('val', x.join(', '));
             const y = response.body.documents.map(document => document.address.y);
-            cy.get('#longitude').invoke('val', y.join(', '));
+            cy.get('#latitude').invoke('val', y.join(', '));
         });
         cy.get('#address_detail').type('1');
 

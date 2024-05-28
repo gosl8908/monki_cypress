@@ -29,7 +29,7 @@ describe('Onprem Dashboard Test', () => {
         cy.contains('체크완료');
         cy.get('#sort_order').type('3');
         cy.get('.custom-file-input').attachFile({
-            filePath: 'image/카테고리 이미지/분식.jpg',
+            filePath: 'image/카테고리이미지/분식.jpg',
             fileName: '분식.jpg',
             mimeType: 'image/jpeg',
         });
