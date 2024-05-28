@@ -79,6 +79,7 @@ describe('Onprem Dashboard Test', () => {
             expect(response.body).to.have.property('documents');
             expect(response.body).to.have.property('meta');
 
+            /* 주소 입력 */
             const addressNames = response.body.documents.map(document => document.road_address.address_name);
             cy.get('[name="road_address"]').invoke('val', addressNames.join(', '));
             const zipcode = response.body.documents.map(document => document.road_address.zone_no);
@@ -90,7 +91,7 @@ describe('Onprem Dashboard Test', () => {
                 const vueInstance = element.__vue__._data.form;
 
                 cy.log(vueInstance);
-                vueInstance.road_address = addressNames[0];
+                vueInstance.road_address = addressNames[0]; // road_address 값 입력 대괄호 생략
 
                 cy.log('partner_no: ', vueInstance.partner_no);
                 cy.log('parent_partner_no: ', vueInstance.parent_partner_no);

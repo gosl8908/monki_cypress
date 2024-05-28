@@ -57,6 +57,8 @@ describe('Onprem Dashboard Test', () => {
             expect(response.status).to.eq(200);
             expect(response.body).to.have.property('documents');
             expect(response.body).to.have.property('meta');
+
+            /* 주소 입력 */
             const address = response.body.documents.map(document => document.address.address_name);
             cy.get('#address').invoke('val', address.join(', '));
             const addressNames = response.body.documents.map(document => document.address_name);

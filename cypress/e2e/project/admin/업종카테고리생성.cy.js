@@ -24,10 +24,10 @@ describe('Onprem Dashboard Test', () => {
         cy.get('.sidebar').contains('연동 정보 관리').click();
         cy.get('.sidebar').contains('업종 카테고리').click();
         cy.contains('카테고리 추가').click();
-        cy.get('#biz_category_nm').type('분식');
+        cy.get('#biz_category_nm').type('분식'); // 카테고리명
         cy.get('#btnChkBcNm').click();
         cy.contains('체크완료');
-        cy.get('#sort_order').type('3');
+        cy.get('#sort_order').type('3'); // 순번
         cy.get('.custom-file-input').attachFile({
             filePath: 'image/카테고리이미지/분식.jpg',
             fileName: '분식.jpg',
