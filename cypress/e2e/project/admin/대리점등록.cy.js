@@ -84,9 +84,10 @@ describe('Onprem Dashboard Test', () => {
 
             /* 주소 입력 */
             const addressNames = response.body.documents.map(document => document.road_address.address_name);
-            cy.get('[name="road_address"]').invoke('val', addressNames.join(', '));
             const zipcode = response.body.documents.map(document => document.road_address.zone_no);
+            cy.get('[name="road_address"]').invoke('val', addressNames.join(', '));
             cy.get('[name="zipcode"]').invoke('val', zipcode.join(', '));
+
             cy.window().then(window => {
                 const element = window.document.getElementById('vueAgencyModal');
                 cy.log(element);

@@ -58,12 +58,12 @@ describe('지점 등록 Test', () => {
 
             /* 주소 입력 */
             const address = response.body.documents.map(document => document.address.address_name);
-            cy.get('#address').invoke('val', address.join(', '));
             const addressNames = response.body.documents.map(document => document.address_name);
-            cy.get('#road_address').invoke('val', addressNames.join(', '));
             const x = response.body.documents.map(document => document.address.x);
-            cy.get('#longitude').invoke('val', x.join(', '));
             const y = response.body.documents.map(document => document.address.y);
+            cy.get('#address').invoke('val', address.join(', '));
+            cy.get('#road_address').invoke('val', addressNames.join(', '));
+            cy.get('#longitude').invoke('val', x.join(', '));
             cy.get('#latitude').invoke('val', y.join(', '));
         });
         cy.get('#address_detail').type('1');
