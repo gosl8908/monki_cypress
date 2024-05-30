@@ -1,5 +1,5 @@
 function menu(Name, Pay) {
-    const FileName = `image/메뉴 이미지/${Name}.jpg`;
+    const FileName = `image/메뉴이미지/${Name}.jpg`;
     /* 상품 등록 */
     cy.get('#btnAddProduct').click();
     cy.get('#productDivNo').select(1); // 상품분류

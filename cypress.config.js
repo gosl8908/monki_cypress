@@ -100,6 +100,9 @@ module.exports = defineConfig({
             /* Password */
             AdminPwd: 'gotjd0215!',
             TestPwd: 'test123!',
+            /* STG KIS PG */
+            KISMID: 'kistest00m',
+            KISKey: '2d6ECGhR1pg/1QGE1lcRI4awsWEgshjEyI8UgYslLPJSuNeyPTkdrT8XWARezvDTUJClWQWhjxzBbu7AsuLZqg==',
             /* STG Smatro PG */
             SmatroMid: 'mk0000015m',
             SmatroKey: 'HVsPLswUE8L8pns5YrSNmDRNBSgcyUE/N1mGX2xeH0Hv3uCPMxdqZwn1XNnZUCgUXt1vx8WDSgjl0logstDE1g==',

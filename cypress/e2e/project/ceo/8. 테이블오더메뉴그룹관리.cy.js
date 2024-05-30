@@ -16,7 +16,7 @@ describe('Onprem Dashboard Test', () => {
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('TestId2')}`,
+            Id: `${Cypress.env('TestId5')}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
@@ -74,6 +74,16 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
         cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
+
+        cy.contains('span', '주류')
+            .parents('tr')
+            .within(() => {
+                cy.get('button').contains('수정').eq(0).click();
+            });
+        cy.wait(1 * 1000);
+        cy.get('.card-body > :nth-child(5)').contains('사용').click();
+        cy.get('.modal-footer > .btn-primary').click();
+        cy.wait(1 * 1000);
 
         menuModule.menuGroup('주류');
         cy.wait(1 * 1000);

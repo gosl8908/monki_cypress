@@ -16,7 +16,7 @@ describe('Onprem Dashboard Test', () => {
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('TestId2')}`,
+            Id: `${Cypress.env('TestId5')}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
@@ -28,6 +28,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#product').click(); // 상품관리 탭
 
         /* 분식 */
+        menuModule.menu('라면', '4500');
         menuModule.menu('김밥', '2500');
         menuModule.menu('참치김밥', '4500');
         menuModule.menu('쫄면', '5500');

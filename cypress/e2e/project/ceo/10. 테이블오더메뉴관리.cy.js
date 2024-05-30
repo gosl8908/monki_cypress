@@ -16,7 +16,7 @@ describe('Onprem Dashboard Test', () => {
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('TestId2')}`,
+            Id: `${Cypress.env('TestId5')}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
@@ -27,21 +27,98 @@ describe('Onprem Dashboard Test', () => {
         cy.wait(1 * 1000);
         cy.get('[href="/menu/table-order/main"] > .btn').click();
 
-        cy.contains('span', '김밥')
-            .parents('tr')
-            .within(() => {
-                cy.get('button').contains('관리').eq(1).click();
-            });
-        cy.wait(1 * 1000);
-        cy.get('MNBG_101').click(); //HOT
+        const texts = [
+            // '김밥',
+            // '참치김밥',
+            // '고기국수',
+            // '비빔면',
+            // '골뱅이무침',
+            // '비빔밥',
+            // '불고기',
+            // '초밥',
+            // '돈가스',
+            // '디저트',
+            // '샐러드',
+            // '피자',
+            // '코카콜라',
+            // '새로',
+            // '진로',
+            // '치즈돈가스',
+            // '코카콜라제로',
+            // '라면',
+            // '쫄면',
+            // '펩시',
+            // '카스',
+            // '펩시제로',
+            // '테라',
+            '스프라이트',
+            '스프라이트제로',
+        ];
 
-        cy.get('#MN_001').click(); // 앱 노출 여부
+        for (let i = 0; i < texts.length; i++) {
+            const text = texts[i];
 
-        cy.get('.ms-auto').click(); // 변경하기
-        cy.wait(1 * 1000);
-        cy.get('#global_modal_confirm').click(); // 확인
+            if (
+                text === '샐러드' ||
+                text === '피자' ||
+                text === '코카콜라' ||
+                text === '새로' ||
+                text === '치즈돈가스' ||
+                text === '코카콜라제로' ||
+                text === '진로' ||
+                text === '라면' ||
+                text === '쫄면' ||
+                text === '펩시'
+            ) {
+                cy.get(':nth-child(3) > .page-link').click();
+            } else if (
+                text === '카스' ||
+                text === '테라' ||
+                text === '펩시제로' ||
+                text === '스프라이트' ||
+                text === '스프라이트제로'
+            ) {
+                cy.get(':nth-child(4) > .page-link').click();
+            }
+            /* 옵션관리 */
+            cy.contains('span', text)
+                .parents('tr')
+                .within(() => {
+                    cy.get('button').eq(0).click();
+                });
+            cy.contains('span', '사이즈선택')
+                .parents('tr')
+                .within(() => {
+                    cy.get('button').contains('추가').click();
+                });
+            cy.contains('span', '추가선택')
+                .parents('tr')
+                .within(() => {
+                    cy.get('button').contains('추가').click();
+                });
 
-        cy.go('back');
+            cy.get('#vueOptionContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
+            cy.wait(1 * 1000);
+            cy.get('#global_modal_confirm').click();
+            cy.wait(1 * 1000);
+
+            /* 메뉴 관리 */
+            cy.contains('span', text)
+                .parents('tr')
+                .within(() => {
+                    cy.get('button').eq(1).click();
+                });
+            cy.wait(2 * 1000);
+            cy.get('#MNBG_101').click(); //HOT
+
+            cy.get('#MN_001').click(); // 앱 노출 여부
+
+            cy.get('.ms-auto').click(); // 변경하기
+            cy.wait(2 * 1000);
+            cy.get('#global_modal_confirm').click(); // 확인
+
+            cy.go('back');
+        }
     });
 
     // afterEach('Status Check', () => {
