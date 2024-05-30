@@ -105,14 +105,20 @@ module.exports = defineConfig({
             KISKey: '2d6ECGhR1pg/1QGE1lcRI4awsWEgshjEyI8UgYslLPJSuNeyPTkdrT8XWARezvDTUJClWQWhjxzBbu7AsuLZqg==',
             /* STG Smatro PG */
             SmatroMid: 'mk0000015m',
+            SmatroMid2: 'mk0000017m',
             SmatroKey: 'HVsPLswUE8L8pns5YrSNmDRNBSgcyUE/N1mGX2xeH0Hv3uCPMxdqZwn1XNnZUCgUXt1vx8WDSgjl0logstDE1g==',
+            SmatroKey2: 'gFM2c3Nzow8lOaBbyIszcirfLVToqPIYlkjz9LUOuTft1e146Yb0qCndHwCe4tv9VyZhy87UJZ/csQKRLxGKnQ==',
             SmatroEasyMid: 'mk0000014m',
             SmatroEasyMid2: 'mk0000016m',
             SmatroEasyId: 'mk0000008p',
             SmatroEasyKey: 'NhaSDa1HF8SW6Y/guzfLEJ6IDGx2OpfDo04joedmFTAbpWhaCldKXT4IN2/hZ5QFlUix/IXZ9yis3H/003USPg==',
             SmatroEasyKey2: 'Xn2AIuJYLyb0PqRBRypnbESDzHqaThVNO9xRziC62wSZyWd1S5SLNEczvdGuxY1JMcrLQ/soGHe7eBK1GP+T4A==',
+            /* STG KOVAN PG */
+            KOVANMid: 'M20230922117157',
+            KOVANKey: 'a3e1672d2fe364e424cce94706007f9c',
             /* Number */
             Phone: '01020431653',
+            TestPhone: '01012341234',
             /* content */
             EmailBody: `Cypress 자동화 테스트 스위트가 성공적으로 완료되었습니다`,
         },
