@@ -29,8 +29,8 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#btnChkAdminId').click();
         cy.get('#admin_pass').type(Cypress.env('AdminPwd'));
         cy.get('#admin_nm').type('강해성');
-        cy.get('#admin_phone').type('01012341234');
-        cy.get('#admin_email').type('monkitest@ruu.kr');
+        cy.get('#admin_phone').type(Cypress.env('Phone'));
+        cy.get('#admin_email').type(Cypress.env('TestEmail'));
         cy.get(':nth-child(6) > .col-sm-10 > .icheck-primary.ml-4 > label').click();
         cy.get('#mk_kitchen_no').select('번개지점');
         cy.get('#frmAdmin > .modal-dialog > .modal-content > .modal-footer > .btn-primary').click();

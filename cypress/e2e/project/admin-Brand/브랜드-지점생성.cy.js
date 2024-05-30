@@ -1,4 +1,4 @@
-const { loginModule, emailModule } = require('../../module/manager.module.js');
+const { loginModule, emailModule, apiModule } = require('../../module/manager.module.js');
 
 describe('지점 등록 Test', () => {
     let TestFails = []; // 실패 원인을 저장할 변수
@@ -29,7 +29,7 @@ describe('지점 등록 Test', () => {
         cy.get('#kitchen_id').type(Cypress.env('TestId3')); // 지점코드
         cy.get('#btnCheckKitchenId').click();
         cy.get('#kitchen_nm').type('번개브랜드');
-        cy.get('#kitchen_phone').type('01012341234');
+        cy.get('#kitchen_phone').type(Cypress.env('Phone'));
 
         const apiKey = '419ed37eb9960d76f12d9ff0610d327a';
         const query = encodeURIComponent('경기 안양시 동안구 평촌대로 60-55');
@@ -58,15 +58,16 @@ describe('지점 등록 Test', () => {
             expect(response.body).to.have.property('meta');
 
             /* 주소 입력 */
-            const address = response.body.documents.map(document => document.address.address_name);
-            cy.get('#address').invoke('val', address.join(', '));
-            const addressNames = response.body.documents.map(document => document.address_name);
-            cy.get('#road_address').invoke('val', addressNames.join(', '));
+            const address_name = response.body.documents.map(document => document.address.address_name);
+            const road_address_name = response.body.documents.map(document => document.address_name);
             const x = response.body.documents.map(document => document.address.x);
-            cy.get('#longitude').invoke('val', x.join(', '));
             const y = response.body.documents.map(document => document.address.y);
+            cy.get('#address').invoke('val', address_name.join(', '));
+            cy.get('#road_address').invoke('val', road_address_name.join(', '));
+            cy.get('#longitude').invoke('val', x.join(', '));
             cy.get('#latitude').invoke('val', y.join(', '));
         });
+
         cy.get('#address_detail').type('1층');
 
         cy.get('#kitchen_status').select('영업중');

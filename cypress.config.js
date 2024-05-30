@@ -79,6 +79,9 @@ module.exports = defineConfig({
             /* DEV Site */
             DevAdmin: 'http://test-a.mkitchen.kr:3010/users/login', //DEV 통합
             DevCeo: 'http://develop-ceo.monthlykitchen.kr/users/login', //DEV 사장님
+            /* email */
+            AdminEmail: 'hskang@monki.net',
+            TestEmail: 'monkitest@ruu.kr',
             /* Id */
             AdminId: 'hskang', // 통합관리자
             TestId: 'monkitest', // 사장님사이트 - 총판대리점

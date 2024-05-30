@@ -28,9 +28,9 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#store_id').type('monki1'); // 매장코드
         cy.get('#btnCheckStoreId').click();
         cy.get('#first_biz_category_no').select(1);
-        cy.get('#store_tel_no').type('01012341234');
+        cy.get('#store_tel_no').type(Cypress.env('Phone'));
         cy.get('#manager_nm').type('강해성');
-        cy.get('#manager_tel_no').type('01012341234');
+        cy.get('#manager_tel_no').type(Cypress.env('Phone'));
         cy.get('#store_desc').type('몬키지점'); // 매장안내
         const apiKey = '419ed37eb9960d76f12d9ff0610d327a';
         const query = encodeURIComponent('경기 안양시 동안구 평촌대로 60-55');
@@ -91,8 +91,8 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#user_pass').type(Cypress.env('TestPwd'));
         cy.get('#user_pass_chk').type(Cypress.env('TestPwd'));
         cy.get('#user_nm').type('강해성');
-        cy.get('#user_phone').type('01012341234');
-        cy.get('#user_email').type('hskang@monki.net');
+        cy.get('#user_phone').type(Cypress.env('Phone'));
+        cy.get('#user_email').type(Cypress.env('TestEmail'));
         cy.get('#company_number').type('123412341234');
         cy.get('#account_number').type('3333048408739');
         cy.get('#account_user').type('강해성');

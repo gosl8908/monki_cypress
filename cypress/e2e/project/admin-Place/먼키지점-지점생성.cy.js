@@ -28,7 +28,7 @@ describe('지점 등록 Test', () => {
         cy.get('#kitchen_id').type('mk_test1'); //지점 코드
         cy.get('#btnCheckKitchenId').click();
         cy.get('#kitchen_nm').type('번개지점');
-        cy.get('#kitchen_phone').type('01012341234');
+        cy.get('#kitchen_phone').type(Cypress.env('Phone'));
 
         const apiKey = '419ed37eb9960d76f12d9ff0610d327a';
         const query = encodeURIComponent('경기 안양시 동안구 평촌대로 60-55');

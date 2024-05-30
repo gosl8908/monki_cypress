@@ -1,6 +1,6 @@
-function api() {
+function api(address) {
     const apiKey = '419ed37eb9960d76f12d9ff0610d327a';
-    const query = encodeURIComponent('경기 안양시 동안구 평촌대로 60-55');
+    const query = encodeURIComponent(address);
 
     const url = `http://dapi.kakao.com/v2/local/search/address.json?query=${query}&page=1&size=10`;
 
@@ -26,15 +26,15 @@ function api() {
         expect(response.body).to.have.property('meta');
 
         /* 주소 입력 */
-        const address = response.body.documents.map(document => document.address.address_name);
+        // const address_name = response.body.documents.map(document => document.address.address_name);
+        // const road_address_name = response.body.documents.map(document => document.address_name);
+        // const x = response.body.documents.map(document => document.address.x);
+        // const y = response.body.documents.map(document => document.address.y);
+        // const zipcode = response.body.documents.map(document => document.road_address.zone_no);
         // cy.get('#address').invoke('val', address.join(', '));
-        const addressNames = response.body.documents.map(document => document.address_name);
         // cy.get('#road_address').invoke('val', addressNames.join(', '));
-        const x = response.body.documents.map(document => document.address.x);
         // cy.get('#latitude').invoke('val', x.join(', '));
-        const y = response.body.documents.map(document => document.address.y);
         // cy.get('#longitude').invoke('val', y.join(', '));
-        const zipcode = response.body.documents.map(document => document.road_address.zone_no);
         // cy.get('[name="zipcode"]').invoke('val', zipcode.join(', '));
     });
 }
