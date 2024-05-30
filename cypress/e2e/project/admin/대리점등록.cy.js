@@ -21,9 +21,9 @@ describe('Onprem Dashboard Test', () => {
     });
 
     it('Ceo Page Test', () => {
-        cy.get('[data-mnu="/franchise-partner/*,/pg-trans-excel/*"] > [href="#"]').click();
-        cy.get('.menu-open > .nav > :nth-child(1) > .nav-link > p').click();
-        cy.get('#btnAddAgency').click();
+        cy.get('.sidebar').contains('협력사 관리').click();
+        cy.get('.sidebar').contains('대리점 관리').click();
+        cy.get('#btnAddAgency').contains('대리점 등록').click();
         cy.get(':nth-child(1) > .input-group > .form-control').type(Cypress.env('TestId5'));
         cy.get(
             '#vueAgencyModal > .modal-dialog > .modal-content > .modal-body > .row > .col-12 > .card > .card-body > :nth-child(1)',
@@ -31,16 +31,19 @@ describe('Onprem Dashboard Test', () => {
             .contains('중복체크')
             .click();
 
-        cy.get('.card-body > :nth-child(2) > .form-control').type('gotjd0215!');
-        cy.get(':nth-child(3) > .input-group > .form-control').type('gotjd0215!');
+        cy.get('.card-body > :nth-child(2) > .form-control').type(Cypress.env('TestPwd'));
+        cy.get(':nth-child(3) > .input-group > .form-control').type(Cypress.env('TestPwd'));
         cy.get(':nth-child(6) > .input-group > :nth-child(1) > label').click(); // 스마트로
+        cy.get(':nth-child(6) > .input-group > :nth-child(2) > label').click(); // KIS
+        cy.get(':nth-child(6) > .input-group > :nth-child(3) > label').click(); // KICC
+        cy.get(':nth-child(6) > .input-group > :nth-child(4) > label').click(); // KOVAN
         // cy.get(':nth-child(5) > .input-group > :nth-child(2) > label').click();
         // cy.get(':nth-child(5) > .input-group > :nth-child(4) > label').click();
         cy.get('[name="partner_name"]').type('몬키'); // 사업자명
         cy.get('[name="biz_number"]').type('53424234234');
         cy.get('[id="btnCheckBizNum"]').click();
         cy.get('[name="owner_name"]').type('강해성');
-        cy.get('[name="tel"]').type('01020431653');
+        cy.get('[name="tel"]').type(Cypress.env('Phone'));
         cy.get('[name="address_detail"]').type('1');
         // cy.contains('주소검색').click();
         // // 동적으로 iframe의 ID를 가져옴

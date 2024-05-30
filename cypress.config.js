@@ -103,7 +103,8 @@ module.exports = defineConfig({
             SmatroEasyMid: 'mk0000014m',
             SmatroEasyId: 'mk0000008p',
             SmatroEasyKey: 'NhaSDa1HF8SW6Y/guzfLEJ6IDGx2OpfDo04joedmFTAbpWhaCldKXT4IN2/hZ5QFlUix/IXZ9yis3H/003USPg==',
-
+            /* Number */
+            Phone: '01020431653',
             /* content */
             EmailBody: `Cypress 자동화 테스트 스위트가 성공적으로 완료되었습니다`,
         },
