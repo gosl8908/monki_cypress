@@ -20,6 +20,10 @@ function menu(Name, Pay) {
     cy.get('#displayTableorderYn').click(); // 노출 채널
     cy.get(':nth-child(3) > .d-flex > .col-9 > .form-control').type(Name); // 상품명
     cy.get(':nth-child(4) > .d-flex > .col-9 > .form-control').type(Pay); // 가격
+
+    if (Name === '새로' || '진로' || '카스' || '테라') {
+        cy.contains('성인 인증 필요').click();
+    }
     cy.get('.ms-auto').click();
     cy.wait(1 * 1000);
     cy.get('#global_modal_confirm').click();

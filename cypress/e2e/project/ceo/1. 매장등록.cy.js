@@ -101,10 +101,10 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#global_modal_body').contains('입력한 정보로 생성하시겠습니까?');
         cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
-        cy.get('#vueContainer').contains(Cypress.env('TestId2'));
+        cy.get('#vueContainer').contains(Cypress.env('TestId5'));
 
         /* 연동 정보 */
-        cy.contains('span', Cypress.env('TestId2'))
+        cy.contains('span', Cypress.env('TestId5'))
             .parents('tr')
             .within(() => {
                 cy.contains('관리').click();

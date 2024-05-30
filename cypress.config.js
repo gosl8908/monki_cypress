@@ -107,8 +107,10 @@ module.exports = defineConfig({
             SmatroMid: 'mk0000015m',
             SmatroKey: 'HVsPLswUE8L8pns5YrSNmDRNBSgcyUE/N1mGX2xeH0Hv3uCPMxdqZwn1XNnZUCgUXt1vx8WDSgjl0logstDE1g==',
             SmatroEasyMid: 'mk0000014m',
+            SmatroEasyMid2: 'mk0000016m',
             SmatroEasyId: 'mk0000008p',
             SmatroEasyKey: 'NhaSDa1HF8SW6Y/guzfLEJ6IDGx2OpfDo04joedmFTAbpWhaCldKXT4IN2/hZ5QFlUix/IXZ9yis3H/003USPg==',
+            SmatroEasyKey2: 'Xn2AIuJYLyb0PqRBRypnbESDzHqaThVNO9xRziC62wSZyWd1S5SLNEczvdGuxY1JMcrLQ/soGHe7eBK1GP+T4A==',
             /* Number */
             Phone: '01020431653',
             /* content */
