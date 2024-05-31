@@ -12,6 +12,7 @@ module.exports = defineConfig({
     viewportWidth: 1920,
     viewportHeight: 1080,
     pageLoadTimeout: 60000,
+    redirectionLimit: 30,
     experimentalStudio: true,
     projectId: 'k9i7ip',
     reporter: 'cypress-mochawesome-reporter',

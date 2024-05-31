@@ -16,7 +16,7 @@ describe('Onprem Dashboard Test', () => {
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('TestId5')}`,
+            Id: `${Cypress.env('TestId3')}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
@@ -28,36 +28,42 @@ describe('Onprem Dashboard Test', () => {
         cy.get('[href="/menu/menu-group"] > .btn').click();
 
         /* 메뉴그룹 생성 */
+        /* 분식 */
         cy.get('#btnAddMenuGroup').click();
         cy.wait(1 * 1000);
         cy.get('#category_nm').type('분식');
         cy.get('.modal-footer > .btn-primary').click();
         cy.get('#vueMenuGroupMain').contains('분식');
 
-        cy.get('#btnAddMenuGroup').click();
-        cy.wait(1 * 1000);
-        cy.get('#category_nm').type('일식');
-        cy.get('.modal-footer > .btn-primary').click();
-        cy.get('#vueMenuGroupMain').contains('일식');
-
+        /* 한식 */
         cy.get('#btnAddMenuGroup').click();
         cy.wait(1 * 1000);
         cy.get('#category_nm').type('한식');
         cy.get('.modal-footer > .btn-primary').click();
         cy.get('#vueMenuGroupMain').contains('한식');
 
+        /* 일식 */
+        cy.get('#btnAddMenuGroup').click();
+        cy.wait(1 * 1000);
+        cy.get('#category_nm').type('일식');
+        cy.get('.modal-footer > .btn-primary').click();
+        cy.get('#vueMenuGroupMain').contains('일식');
+
+        /* 양식 */
         cy.get('#btnAddMenuGroup').click();
         cy.wait(1 * 1000);
         cy.get('#category_nm').type('양식');
         cy.get('.modal-footer > .btn-primary').click();
         cy.get('#vueMenuGroupMain').contains('양식');
 
+        /* 디저트 */
         cy.get('#btnAddMenuGroup').click();
         cy.wait(1 * 1000);
         cy.get('#category_nm').type('디저트');
         cy.get('.modal-footer > .btn-primary').click();
         cy.get('#vueMenuGroupMain').contains('디저트');
 
+        /* 음료 */
         cy.get('#btnAddMenuGroup').click();
         cy.wait(1 * 1000);
         cy.get('#category_nm').type('음료');

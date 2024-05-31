@@ -21,7 +21,7 @@ function menu(Name, Pay) {
     cy.get(':nth-child(3) > .d-flex > .col-9 > .form-control').type(Name); // 상품명
     cy.get(':nth-child(4) > .d-flex > .col-9 > .form-control').type(Pay); // 가격
 
-    if (Name === '새로' || '진로' || '카스' || '테라') {
+    if (['새로', '진로', '카스', '테라'].includes(Name)) {
         cy.contains('성인 인증 필요').click();
     }
     cy.get('.ms-auto').click();

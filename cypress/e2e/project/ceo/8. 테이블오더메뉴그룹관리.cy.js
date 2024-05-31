@@ -16,7 +16,7 @@ describe('Onprem Dashboard Test', () => {
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('TestId5')}`,
+            Id: `${Cypress.env('TestId3')}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
@@ -27,28 +27,47 @@ describe('Onprem Dashboard Test', () => {
         cy.wait(1 * 1000);
         cy.get('[href="/menu/menu-group"] > .btn').click();
 
+        /* 분식 */
         menuModule.menuGroup('분식');
         cy.wait(1 * 1000);
-        menuModule.menuAdd('김밥');
         menuModule.menuAdd('라면');
+        menuModule.menuAdd('김밥');
+        menuModule.menuAdd('참치김밥');
         menuModule.menuAdd('쫄면');
+        menuModule.menuAdd('고기국수');
+        menuModule.menuAdd('비빔면');
+        menuModule.menuAdd('골뱅이무침');
 
         cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
         cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
 
+        /* 한식 */
+        menuModule.menuGroup('한식');
+        cy.wait(1 * 1000);
+        menuModule.menuAdd('비빔밥');
+        menuModule.menuAdd('불고기');
+
+        cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
+        cy.wait(1 * 1000);
+        cy.get('#global_modal_confirm').click();
+
+        /* 일식 */
         menuModule.menuGroup('일식');
         cy.wait(1 * 1000);
         menuModule.menuAdd('돈가스');
         menuModule.menuAdd('치즈돈가스');
+        menuModule.menuAdd('초밥');
 
         cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
         cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
 
-        menuModule.menuGroup('한식');
+        /* 디저트 */
+        menuModule.menuGroup('디저트');
         cy.wait(1 * 1000);
-        menuModule.menuAdd('비빔면');
+        menuModule.menuAdd('케익');
+        menuModule.menuAdd('샐러드');
 
         cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
         cy.wait(1 * 1000);

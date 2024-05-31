@@ -16,7 +16,7 @@ describe('Onprem Dashboard Test', () => {
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('TestId5')}`,
+            Id: `${Cypress.env('TestId3')}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
@@ -43,7 +43,7 @@ describe('Onprem Dashboard Test', () => {
         menuModule.menu('돈가스', '8000');
         menuModule.menu('치즈돈가스', '9500');
         /* 디저트 */
-        menuModule.menu('디저트', '3500');
+        menuModule.menu('케익', '3500');
         menuModule.menu('샐러드', '8500');
         /* 양식 */
         menuModule.menu('피자', '19900');

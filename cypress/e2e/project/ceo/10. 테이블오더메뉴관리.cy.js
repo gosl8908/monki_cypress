@@ -16,7 +16,7 @@ describe('Onprem Dashboard Test', () => {
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('TestId5')}`,
+            Id: `${Cypress.env('TestId3')}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
@@ -37,7 +37,7 @@ describe('Onprem Dashboard Test', () => {
             '불고기',
             '초밥',
             '돈가스',
-            '디저트',
+            '케익',
             '샐러드',
             '피자',
             '치즈돈가스',
