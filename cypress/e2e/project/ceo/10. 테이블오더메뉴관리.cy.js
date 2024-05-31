@@ -27,73 +27,73 @@ describe('Onprem Dashboard Test', () => {
         cy.wait(1 * 1000);
         cy.get('[href="/menu/table-order/main"] > .btn').click();
 
-        // const texts = [
-        //     // '라면',
-        //     // '비빔밥',
-        //     // '돈가스',
-        //     // '케익',
-        //     // '피자',
-        //     // '김밥',
-        //     // '불고기',
-        //     // '치즈돈가스',
-        //     '샐러드',
-        //     '참치김밥',
-        //     '초밥',
-        //     '쫄면',
-        //     '고기국수',
-        //     '비빔면',
-        //     '골뱅이무침',
-        // ];
+        const texts = [
+            '라면',
+            '비빔밥',
+            '돈가스',
+            '케익',
+            '피자',
+            '김밥',
+            '불고기',
+            '치즈돈가스',
+            '샐러드',
+            '참치김밥',
+            '초밥',
+            '쫄면',
+            '고기국수',
+            '비빔면',
+            '골뱅이무침',
+        ];
 
-        // for (let i = 0; i < texts.length; i++) {
-        //     const text = texts[i];
+        for (let i = 0; i < texts.length; i++) {
+            const text = texts[i];
 
-        //     if (
-        //         text === '샐러드' ||
-        //         text === '코카콜라제로' ||
-        //         text === '진로' ||
-        //         text === '참치김밥' ||
-        //         text === '초밥' ||
-        //         text === '펩시' ||
-        //         text === '카스' ||
-        //         text === '쫄면' ||
-        //         text === '펩시제로' ||
-        //         text === '테라'
-        //     ) {
-        //         cy.get(':nth-child(3) > .page-link').click();
-        //     } else if (
-        //         text === '고기국수' ||
-        //         text === '스프라이트' ||
-        //         text === '비빔면' ||
-        //         text === '스프라이트제로' ||
-        //         text === '골뱅이무침'
-        //     ) {
-        //         cy.get(':nth-child(4) > .page-link').click();
-        //     }
-        //     /* 옵션관리 */
-        //     cy.contains('span', text)
-        //         .parents('tr')
-        //         .within(() => {
-        //             cy.get('button').eq(0).click();
-        //         });
-        //     cy.contains('span', '사이즈선택')
-        //         .parents('tr')
-        //         .within(() => {
-        //             cy.get('button').contains('추가').click();
-        //         });
-        //     cy.contains('span', '추가선택')
-        //         .parents('tr')
-        //         .within(() => {
-        //             cy.get('button').contains('추가').click();
-        //         });
+            if (
+                text === '샐러드' ||
+                text === '코카콜라제로' ||
+                text === '진로' ||
+                text === '참치김밥' ||
+                text === '초밥' ||
+                text === '펩시' ||
+                text === '카스' ||
+                text === '쫄면' ||
+                text === '펩시제로' ||
+                text === '테라'
+            ) {
+                cy.get(':nth-child(3) > .page-link').click();
+            } else if (
+                text === '고기국수' ||
+                text === '스프라이트' ||
+                text === '비빔면' ||
+                text === '스프라이트제로' ||
+                text === '골뱅이무침'
+            ) {
+                cy.get(':nth-child(4) > .page-link').click();
+            }
+            /* 옵션관리 */
+            cy.contains('span', text)
+                .parents('tr')
+                .within(() => {
+                    cy.get('button').eq(0).click();
+                });
+            cy.contains('span', '사이즈선택')
+                .parents('tr')
+                .within(() => {
+                    cy.get('button').contains('추가').click();
+                });
+            cy.contains('span', '추가선택')
+                .parents('tr')
+                .within(() => {
+                    cy.get('button').contains('추가').click();
+                });
 
-        //     cy.get('#vueOptionContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
-        //     cy.wait(1 * 1000);
-        //     cy.get('#global_modal_confirm').click();
-        //     cy.wait(1 * 1000);
-        // }
+            cy.get('#vueOptionContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
+            cy.wait(1 * 1000);
+            cy.get('#global_modal_confirm').click();
+            cy.wait(1 * 1000);
+        }
 
-        // cy.get(':nth-child(1) > .page-link').click();
+        cy.get(':nth-child(1) > .page-link').click();
 
         const texts2 = [
             '라면',
