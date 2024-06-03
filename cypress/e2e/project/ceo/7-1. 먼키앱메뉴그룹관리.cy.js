@@ -16,7 +16,7 @@ describe('Onprem Dashboard Test', () => {
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('TestId3')}`,
+            Id: `${Cypress.env('FavTestId1')}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
@@ -28,7 +28,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('[href="/menu/menu-group"] > .btn').click();
 
         /* 분식 */
-        menuModule.menuGroup('분식');
+        menuModule.menuGroup('분식', 'App');
         cy.wait(1 * 1000);
         menuModule.menuAdd('라면');
         menuModule.menuAdd('김밥');
@@ -43,7 +43,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#global_modal_confirm').click();
 
         /* 한식 */
-        menuModule.menuGroup('한식');
+        menuModule.menuGroup('한식', 'App');
         cy.wait(1 * 1000);
         menuModule.menuAdd('비빔밥');
         menuModule.menuAdd('불고기');
@@ -53,7 +53,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#global_modal_confirm').click();
 
         /* 일식 */
-        menuModule.menuGroup('일식');
+        menuModule.menuGroup('일식', 'App');
         cy.wait(1 * 1000);
         menuModule.menuAdd('돈가스');
         menuModule.menuAdd('치즈돈가스');
@@ -64,7 +64,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#global_modal_confirm').click();
 
         /* 디저트 */
-        menuModule.menuGroup('디저트');
+        menuModule.menuGroup('디저트', 'App');
         cy.wait(1 * 1000);
         menuModule.menuAdd('케익');
         menuModule.menuAdd('샐러드');
@@ -73,7 +73,8 @@ describe('Onprem Dashboard Test', () => {
         cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
 
-        menuModule.menuGroup('양식');
+        /* 양식 */
+        menuModule.menuGroup('양식', 'App');
         cy.wait(1 * 1000);
         menuModule.menuAdd('피자');
 
@@ -81,7 +82,8 @@ describe('Onprem Dashboard Test', () => {
         cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
 
-        menuModule.menuGroup('음료');
+        /* 음료 */
+        menuModule.menuGroup('음료', 'App');
         cy.wait(1 * 1000);
         menuModule.menuAdd('코카콜라');
         menuModule.menuAdd('코카콜라제로');
@@ -89,27 +91,6 @@ describe('Onprem Dashboard Test', () => {
         menuModule.menuAdd('펩시제로');
         menuModule.menuAdd('스프라이트');
         menuModule.menuAdd('스프라이트제로');
-
-        cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
-        cy.wait(1 * 1000);
-        cy.get('#global_modal_confirm').click();
-
-        cy.contains('span', '주류')
-            .parents('tr')
-            .within(() => {
-                cy.get('button').contains('수정').eq(0).click();
-            });
-        cy.wait(1 * 1000);
-        cy.get('.card-body > :nth-child(5)').contains('사용').click();
-        cy.get('.modal-footer > .btn-primary').click();
-        cy.wait(1 * 1000);
-
-        menuModule.menuGroup('주류');
-        cy.wait(1 * 1000);
-        menuModule.menuAdd('새로');
-        menuModule.menuAdd('진로');
-        menuModule.menuAdd('카스');
-        menuModule.menuAdd('테라');
 
         cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
         cy.wait(1 * 1000);

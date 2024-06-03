@@ -16,7 +16,7 @@ describe('Onprem Dashboard Test', () => {
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('TestId3')}`,
+            Id: `${Cypress.env('FavTestId1')}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
@@ -48,26 +48,9 @@ describe('Onprem Dashboard Test', () => {
         for (let i = 0; i < texts.length; i++) {
             const text = texts[i];
 
-            if (
-                text === '샐러드' ||
-                text === '코카콜라제로' ||
-                text === '진로' ||
-                text === '참치김밥' ||
-                text === '초밥' ||
-                text === '펩시' ||
-                text === '카스' ||
-                text === '쫄면' ||
-                text === '펩시제로' ||
-                text === '테라'
-            ) {
+            if (text === '샐러드' || text === '참치김밥' || text === '초밥' || text === '쫄면') {
                 cy.get(':nth-child(3) > .page-link').click();
-            } else if (
-                text === '고기국수' ||
-                text === '스프라이트' ||
-                text === '비빔면' ||
-                text === '스프라이트제로' ||
-                text === '골뱅이무침'
-            ) {
+            } else if (text === '고기국수' || text === '비빔면' || text === '골뱅이무침') {
                 cy.get(':nth-child(4) > .page-link').click();
             }
             /* 옵션관리 */
@@ -93,7 +76,7 @@ describe('Onprem Dashboard Test', () => {
             cy.wait(1 * 1000);
         }
 
-        cy.get(':nth-child(1) > .page-link').click();
+        cy.get(':nth-child(2) > .page-link').click();
 
         const texts2 = [
             '라면',

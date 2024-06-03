@@ -16,7 +16,7 @@ describe('Onprem Dashboard Test', () => {
         loginModule.login({
             Site: `${Cypress.env('StgAdmin')}`,
             Id: `${Cypress.env('AdminId')}`,
-            Password: `${Cypress.env('TestPwd')}`,
+            Password: `${Cypress.env('AdminPwd')}`,
         });
     });
 
@@ -27,7 +27,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#biz_category_nm').type('분식'); // 카테고리명
         cy.get('#btnChkBcNm').click();
         cy.contains('체크완료');
-        cy.get('#sort_order').type('3'); // 순번
+        cy.get('#sort_order').type('1'); // 순번
         cy.get('.custom-file-input').attachFile({
             filePath: 'image/카테고리이미지/분식.jpg',
             fileName: '분식.jpg',

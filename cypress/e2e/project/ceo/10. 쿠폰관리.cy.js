@@ -16,7 +16,7 @@ describe('Onprem Dashboard Test', () => {
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('TestId3')}`,
+            Id: `${Cypress.env('FavTestId1')}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
@@ -25,7 +25,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get(':nth-child(3) > .container-fluid > .d-flex').contains('운영관리').click();
         cy.get('[style="display: block;"] > .container-fluid > .d-flex').contains('쿠폰관리').click();
         cy.get('.col-12 > .btn').contains('쿠폰 등록').click();
-        cy.get('#coupon_nm').type(Cypress.env('Date') + ' 테스트');
+        cy.get('#coupon_nm').type(Cypress.env('Date') + ' 쿠폰테스트');
         cy.get('#coupon_price').type('10000');
         cy.get('#min_order_price').type('5000');
         cy.get('#page_modal_confirm').contains('적용').click();

@@ -16,7 +16,7 @@ describe('Onprem Dashboard Test', () => {
         loginModule.login({
             Site: `${Cypress.env('StgAdmin')}`,
             Id: `${Cypress.env('AdminId')}`,
-            Password: `${Cypress.env('TestPwd')}`,
+            Password: `${Cypress.env('AdminPwd')}`,
         });
     });
 
@@ -24,15 +24,15 @@ describe('Onprem Dashboard Test', () => {
         cy.get('.sidebar').contains('협력사 관리').click();
         cy.get('.sidebar').contains('대리점 관리').click();
         cy.get('#btnAddAgency').contains('대리점 등록').click();
-        cy.get(':nth-child(1) > .input-group > .form-control').type(Cypress.env('TestId5'));
+        cy.get(':nth-child(1) > .input-group > .form-control').type(Cypress.env('StoreTestId1'));
         cy.get(
             '#vueAgencyModal > .modal-dialog > .modal-content > .modal-body > .row > .col-12 > .card > .card-body > :nth-child(1)',
         )
             .contains('중복체크')
             .click();
 
-        cy.get('.card-body > :nth-child(2) > .form-control').type(Cypress.env('TestPwd'));
-        cy.get(':nth-child(3) > .input-group > .form-control').type(Cypress.env('TestPwd'));
+        cy.get('.card-body > :nth-child(2) > .form-control').type(Cypress.env('AdminPwd'));
+        cy.get(':nth-child(3) > .input-group > .form-control').type(Cypress.env('AdminPwd'));
         cy.get(':nth-child(6) > .input-group > :nth-child(1) > label').click(); // 스마트로
         cy.get(':nth-child(6) > .input-group > :nth-child(2) > label').click(); // KIS
         cy.get(':nth-child(6) > .input-group > :nth-child(3) > label').click(); // KICC
@@ -119,13 +119,13 @@ describe('Onprem Dashboard Test', () => {
                 cy.log('road_address', vueInstance.road_address);
                 cy.log('zipcode', vueInstance.zipcode);
                 cy.get('#vueAgencyModal > .modal-dialog > .modal-content > .modal-footer > .btn-primary').click();
+                cy.get('#global_modal_body').contains('입력한 내용으로 등록하시겠습니까?');
+                cy.wait(1 * 1000);
+                cy.get('#global_modal_confirm').click();
             });
         });
     });
 });
-
-//   cy.get('#global_modal_body').contains('입력한 내용으로 등록하시겠습니까?');
-//   cy.get('#global_modal_confirm').click();
 
 // afterEach('Status Check', () => {
 //     if (Failure) {

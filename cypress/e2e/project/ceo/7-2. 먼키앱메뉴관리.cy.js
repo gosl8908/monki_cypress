@@ -16,7 +16,7 @@ describe('Onprem Dashboard Test', () => {
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('TestId3')}`,
+            Id: `${Cypress.env('FavTestId1')}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
@@ -36,7 +36,7 @@ describe('Onprem Dashboard Test', () => {
             '김밥',
             '불고기',
             '치즈돈가스',
-            '샐러드',
+            '샐러드', //
             '참치김밥',
             '초밥',
             '쫄면',
@@ -75,7 +75,7 @@ describe('Onprem Dashboard Test', () => {
             cy.get('#global_modal_confirm').click();
             cy.wait(1 * 1000);
         }
-        cy.get(':nth-child(1) > .page-link').click();
+        cy.get(':nth-child(2) > .page-link').click();
 
         const texts2 = [
             '라면',
@@ -129,6 +129,7 @@ describe('Onprem Dashboard Test', () => {
                 });
             cy.wait(3 * 1000);
             cy.get('#bestMenuYn_true').click(); // 대표메뉴
+            /* 뱃지 랜덤 부여 */
             const selectors = ['#MNBG_000', '#MNBG_101', '#MNBG_102', '#MNBG_103', '#MNBG_104'];
 
             // Generate a random index between 0 and the length of the array minus 1

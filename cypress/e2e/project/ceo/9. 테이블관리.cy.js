@@ -16,8 +16,8 @@ describe('Onprem Dashboard Test', () => {
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
             Type: '대리점',
-            Id: `${Cypress.env('TestId5')}`,
-            Password: `${Cypress.env('TestPwd')}`,
+            Id: `${Cypress.env('StoreTestId1')}`,
+            Password: `${Cypress.env('AdminPwd')}`,
         });
     });
 
@@ -32,7 +32,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get(
             '#divGroundResourceTableView_0 > :nth-child(1) > .height-200 > .text-center > :nth-child(1) > #btnTableEdit_0',
         ).click();
-        cy.get('#add_resource_name').clear.type('1-1번');
+        cy.get('#add_resource_name').clear().type('1-1번');
         cy.get('#btnTableNameOverCheck').click();
         cy.get(
             '#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
@@ -40,7 +40,7 @@ describe('Onprem Dashboard Test', () => {
 
         /* 구역 수정 */
         cy.get('#btnGroupEdit_0').click();
-        cy.get('#add_ground_name').clear.type('1층');
+        cy.get('#add_ground_name').clear().type('1층');
         cy.get(
             '#modalGroupRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
         ).click();
@@ -53,15 +53,23 @@ describe('Onprem Dashboard Test', () => {
             '#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
         ).click();
 
+        /* 1층 테이블추가 */
+        cy.get('#divGroundResourceTableView_0 > .text-center.border > .tableorder-center-text > a').click();
+        cy.get('#add_resource_name').type('1-3번');
+        cy.get('#btnTableNameOverCheck').click();
+        cy.get(
+            '#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
+        ).click();
+
         /* 2층 구역추가 */
         cy.get('#btnSerialAdd').click();
         cy.get('#add_ground_name').type('2층');
+        cy.get('#add_ground_sort_order').type('2');
         cy.get(
             '#modalGroupRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
         ).click();
 
         /* 2층 테이블추가 */
-        cy.get('#btnGroupEdit_0').click();
         cy.get('#divGroundResourceTableView_1 > .text-center.border > .tableorder-center-text > a').click();
         cy.get('#add_resource_name').type('2-1번');
         cy.get('#btnTableNameOverCheck').click();
@@ -69,9 +77,15 @@ describe('Onprem Dashboard Test', () => {
             '#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
         ).click();
 
-        cy.get('#btnGroupEdit_0').click();
         cy.get('#divGroundResourceTableView_1 > .text-center.border > .tableorder-center-text > a').click();
         cy.get('#add_resource_name').type('2-2번');
+        cy.get('#btnTableNameOverCheck').click();
+        cy.get(
+            '#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
+        ).click();
+
+        cy.get('#divGroundResourceTableView_1 > .text-center.border > .tableorder-center-text > a').click();
+        cy.get('#add_resource_name').type('2-3번');
         cy.get('#btnTableNameOverCheck').click();
         cy.get(
             '#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',

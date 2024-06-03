@@ -11,7 +11,7 @@ const EamilPwd = 'boft yzek iitd uuxa';
 module.exports = defineConfig({
     viewportWidth: 1920,
     viewportHeight: 1080,
-    pageLoadTimeout: 60000,
+    pageLoadTimeout: 60 * 1000,
     redirectionLimit: 30,
     experimentalStudio: true,
     projectId: 'k9i7ip',
@@ -83,12 +83,12 @@ module.exports = defineConfig({
             /* email */
             AdminEmail: 'hskang@monki.net',
             TestEmail: 'monkitest@ruu.kr',
-            /* Id */
+            /* Admon Id */
             AdminId: 'hskang', // 통합관리자
-            TestId: 'monkitest', // 사장님사이트 - 총판대리점
-            TestId1: 'monkitest1', // 사장님사이트 - 단골맛집
-            TestId2: 'monkitest2', // 통합관리자 - 지점관리자
-            TestId3: 'monkitest3', // 통합관리자 - 프렌차이즈관리자 / 사장님사이트 - 단골맛집(프랜차이즈)
+            /* 통합관리자 Id */
+            TestId: 'monkitest1',
+            TestId2: 'monkitest2',
+            TestId3: 'monkitest3',
             TestId4: 'monkitest4',
             TestId5: 'monkitest5',
             TestId6: 'monkitest6',
@@ -96,19 +96,40 @@ module.exports = defineConfig({
             TestId8: 'monkitest8',
             TestId9: 'monkitest9',
             TestId10: 'monkitest10',
-            TestId11: 'monkitest11',
-            CeoTestId1: 'monki1', // 사장님사이트 - 사장님(지점)
+            /* 사장님사이트 Id */
+            /* 대리점 ID */
+            StoreTestId1: 'monkistore1', // 통합관리자에서 만든 총판대리점
+            StoreTestId2: 'monkistore2',
+            StoreTestId3: 'monkistore3',
+            StoreTestId4: 'monkistore4',
+            StoreTestId5: 'monkistore5',
+
+            /* 단골맛집 ID */
+            FavTestId1: 'monkifav1', // 총판대리점에서 만든 매장
+            FavTestId2: 'monkifav2', // 프렌차이즈에서 만든 매장
+            FavTestId3: 'monkifav3',
+            FavTestId4: 'monkifav4',
+            FavTestId5: 'monkifav5',
+
+            /* 사장님 ID */
+            CeoTestId1: 'monkiceo1', // 지점에서 만든 매장
+            CeoTestId2: 'monkiceo2',
+            CeoTestId3: 'monkiceo3',
+            CeoTestId4: 'monkiceo4',
+            CeoTestId5: 'monkiceo5',
+
             /* Password */
             AdminPwd: 'gotjd0215!',
             TestPwd: 'test123!',
             /* STG KIS PG */
-            KISMID: 'kistest00m',
+            KISMid: 'kistest00m',
             KISKey: '2d6ECGhR1pg/1QGE1lcRI4awsWEgshjEyI8UgYslLPJSuNeyPTkdrT8XWARezvDTUJClWQWhjxzBbu7AsuLZqg==',
             /* STG Smatro PG */
             SmatroMid: 'mk0000015m',
             SmatroMid2: 'mk0000017m',
             SmatroKey: 'HVsPLswUE8L8pns5YrSNmDRNBSgcyUE/N1mGX2xeH0Hv3uCPMxdqZwn1XNnZUCgUXt1vx8WDSgjl0logstDE1g==',
             SmatroKey2: 'gFM2c3Nzow8lOaBbyIszcirfLVToqPIYlkjz9LUOuTft1e146Yb0qCndHwCe4tv9VyZhy87UJZ/csQKRLxGKnQ==',
+            /* stg Smatro Easy PG */
             SmatroEasyMid: 'mk0000014m',
             SmatroEasyMid2: 'mk0000016m',
             SmatroEasyId: 'mk0000008p',

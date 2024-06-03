@@ -25,7 +25,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('.menu-open > .nav > :nth-child(2) > .nav-link > p').click();
         cy.get('#btnAddStore').click();
         cy.get('#store_nm').type('번개브랜드매장'); // 매장 이름
-        cy.get('#store_id').type(Cypress.env('TestId3')); //매장 코드
+        cy.get('#store_id').type(Cypress.env('FavTestId2')); //매장 코드
         cy.get('#btnCheckStoreId').click();
         cy.get('#first_biz_category_no').select(1);
         cy.get('#store_tel_no').type(Cypress.env('Phone'));
