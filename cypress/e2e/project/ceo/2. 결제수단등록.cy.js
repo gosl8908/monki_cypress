@@ -63,6 +63,27 @@ describe('Onprem Dashboard Test', () => {
         // cy.get('#global_modal_confirm').click();
         // cy.get('#vuePayContainer > .modal-dialog > .modal-content > #modal_body').contains('스마트로');
         // cy.get('#vuePayContainer > .modal-dialog > .modal-content > .modal-header > .btn-close').click();
+
+        // /* 디바이스 연동 수단 설정 */
+        // cy.get('#modal_body > .row > .text-end > .btn').click(); // 결제수단 연동 등록
+        // cy.wait(1 * 1000);
+        // cy.get('#store_biz_number').type('1708502376'); // 사업자번호
+        // cy.wait(1 * 1000);
+        // cy.get('#pg_company').select(2); // PG 업체
+        // cy.get('#payment_type').select(4); // 결제분류
+        // cy.get('#pg_mid_type').select(2); // 결제유형
+        // cy.get('#pay_name').type('테이블오더'); // 사용처
+        // cy.get('#pg_mid').type('kisoe0001m'); // PG MID
+        // cy.get('#pg_merchant_key').type(
+        //     'YIMQXBUar3uo9IFjBzFviwAJF04iHEu3gGykUZyzHsENmsZjPa2INJtQchXlithmjFk3EzDqvTzJhgbRmap4RQ==',
+        // ); // PG 상점키
+        // cy.get('#pg_offpg_tid').type('ZZ001071'); // OFF-PG TId
+        // cy.get('#pg_van_tid').type('12518869'); // VEN TId
+        // cy.get('#store_contract_device').select(2); // 계약 설정
+        // cy.get(':nth-child(11) > .text-end > .btn').click();
+        // cy.get('#global_modal_body').contains('등록 하시겠습니까?');
+        // cy.wait(1 * 1000);
+        // cy.get('#global_modal_confirm').click();
     });
 
     // afterEach('Status Check', () => {

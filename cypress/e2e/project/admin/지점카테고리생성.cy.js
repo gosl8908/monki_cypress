@@ -1,4 +1,4 @@
-const { loginModule, emailModule, menuModule } = require('../../module/manager.module.js');
+const { loginModule, emailModule } = require('../../module/manager.module.js');
 
 describe('Onprem Dashboard Test', () => {
     let TestFails = []; // 실패 원인을 저장할 변수
@@ -14,29 +14,28 @@ describe('Onprem Dashboard Test', () => {
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
-            Site: `${Cypress.env('StgCeo')}`,
-            Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('FavTestId1')}`,
+            Site: `${Cypress.env('StgAdmin')}`,
+            Id: `${Cypress.env('AdminId')}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
 
     it('Ceo Page Test', () => {
-        /* 메뉴관리 */
-        cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn').click();
-        cy.wait(1 * 1000);
-        cy.get('[href="/menu/menu-group"] > .btn').click();
-
-        /* 메뉴그룹 생성 */
-        const categories = ['분식', '한식', '일식', '양식', '디저트', '음료'];
-
-        categories.forEach(category => {
-            cy.get('#btnAddMenuGroup').click();
-            cy.wait(1000);
-            cy.get('#category_nm').type(category);
-            cy.get('.modal-footer > .btn-primary').click();
-            cy.get('#vueMenuGroupMain').contains(category);
+        cy.get('[data-mnu="/operation/*"] > [href="#"]').click();
+        cy.get('.sidebar').contains('지점 카테고리').click();
+        cy.get('#select_kitchen_no').select('번개지점');
+        cy.contains('카테고리 등록').click();
+        cy.get('#main_category_nm').type('분식'); // 카테고리명
+        cy.get('#sort_order').type('1'); // 순번
+        cy.get('.custom-file-input').attachFile({
+            filePath: 'image/카테고리이미지/분식.jpg',
+            fileName: '분식.jpg',
+            mimeType: 'image/jpeg',
         });
+        cy.get('#btnCategoryModalApply').click();
+        cy.wait(1 * 1000);
+        cy.get('#global_modal_confirm').click();
+        cy.contains('적용했습니다.');
     });
 
     // afterEach('Status Check', () => {
