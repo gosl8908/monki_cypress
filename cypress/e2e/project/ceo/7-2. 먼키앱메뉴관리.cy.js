@@ -16,7 +16,7 @@ describe('Onprem Dashboard Test', () => {
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('FavTestId1')}`,
+            Id: `${Cypress.env('FavTestId3')}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
@@ -122,7 +122,7 @@ describe('Onprem Dashboard Test', () => {
             cy.contains('span', text)
                 .parents('tr')
                 .within(() => {
-                    cy.get('button').eq(1).click();
+                    cy.contains(text).click();
                 });
             cy.wait(3000);
             cy.get('#bestMenuYn_true').click();

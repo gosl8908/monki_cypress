@@ -16,7 +16,7 @@ describe('Onprem Dashboard Test', () => {
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('FavTestId1')}`,
+            Id: `${Cypress.env('FavTestId3')}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
@@ -26,6 +26,17 @@ describe('Onprem Dashboard Test', () => {
         cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn').click();
         cy.wait(1 * 1000);
         cy.get('[href="/menu/menu-group"] > .btn').click();
+
+        // Additional code for "주류" group setup
+        cy.contains('span', '주류')
+            .parents('tr')
+            .within(() => {
+                cy.get('button').contains('수정').eq(0).click();
+            });
+        cy.wait(1000);
+        cy.get('.card-body > :nth-child(5)').contains('사용').click();
+        cy.get('.modal-footer > .btn-primary').click();
+        cy.wait(1000);
 
         const menuGroups = {
             분식: ['라면', '김밥', '참치김밥', '쫄면', '고기국수', '비빔면', '골뱅이무침'],
@@ -49,17 +60,6 @@ describe('Onprem Dashboard Test', () => {
             cy.wait(1000);
             cy.get('#global_modal_confirm').click();
         });
-
-        // Additional code for "주류" group setup
-        cy.contains('span', '주류')
-            .parents('tr')
-            .within(() => {
-                cy.get('button').contains('수정').eq(0).click();
-            });
-        cy.wait(1000);
-        cy.get('.card-body > :nth-child(5)').contains('사용').click();
-        cy.get('.modal-footer > .btn-primary').click();
-        cy.wait(1000);
 
         // /* 분식 */
         // menuModule.menuGroup('분식');
