@@ -74,6 +74,9 @@ module.exports = defineConfig({
         },
 
         env: {
+            /* Prod Sit */
+            Admin: 'https://crew.monki.net/',
+            Ceo: 'https://ceo.monki.net/',
             /* STG Site */
             StgAdmin: 'http://staging-mngr.monthlykitchen.kr/users/login', //STG 통합
             StgCeo: 'http://staging-ceo.monthlykitchen.kr/users/login', //STG 사장님
@@ -121,23 +124,40 @@ module.exports = defineConfig({
             /* Password */
             AdminPwd: 'gotjd0215!',
             TestPwd: 'test123!',
+            /* KIS PG */
+            KISMid: 'monthly01m',
+            KISMid2: 'monthly02m',
+            KISKey: 'FhvzXeFPMaNt/AF6D9Xppqy+56NfjodzQpcVWHTC1cKr0C4QQLaZTsQNPBYD4fOPiH2Sea1N50yKFGhZ9U33qQ==',
+            KISKey2: 'wvaPslUxzvfjo0s0nomtu1CWepfGr5ILJHV/QzbXVaxqcEf9DR6IOIJ7CuHVzn9dJm0hCMYjnnr1oSozP/ehAQ==',
+            KISTid: 'ZZ000982',
+            /* Smatro PG */
+            SmatroMid: 'mk0000001m',
+            SmatroMid2: 'mk1000002m',
+            SmatroKey: '6i2584C/myaAkpvrPUmh2CrsPuZC+DN6dOg0hfGcKJcO/q1mH87e5oFaJcy34+2cf1mxpcA4TO5SaCk888Autw==',
+            SmatroKey2: 'wN4qQoJXOY4XIcsUbR3bKVFgqN7t697rF7Emp4mB6tZcBvg5AR7hVnOlOiJsw6YVtjjRAud+6TbZ5HWklOV4sA==',
+            /* Smatro Easy PG */
+            SmatroEasyid: 'mk0000008p',
+            SmatroEasyMid: 'mk1000006m',
+            SmatroEasyKey: 'eGCyrHNIOW5X1P73pZ9QmT9mjSjZ0qWV0Tmwkax8t4XBTIXV/Tq37AtN7wb6lVcjrz+edvkFHBv7GVUh0A9VJg==',
             /* STG KIS PG */
-            KISMid: 'kistest00m',
-            KISKey: '2d6ECGhR1pg/1QGE1lcRI4awsWEgshjEyI8UgYslLPJSuNeyPTkdrT8XWARezvDTUJClWQWhjxzBbu7AsuLZqg==',
+            StgKISMid: 'kistest00m',
+            StgKISKey: '2d6ECGhR1pg/1QGE1lcRI4awsWEgshjEyI8UgYslLPJSuNeyPTkdrT8XWARezvDTUJClWQWhjxzBbu7AsuLZqg==',
             /* STG Smatro PG */
-            SmatroMid: 'mk0000015m',
-            SmatroMid2: 'mk0000017m',
-            SmatroKey: 'HVsPLswUE8L8pns5YrSNmDRNBSgcyUE/N1mGX2xeH0Hv3uCPMxdqZwn1XNnZUCgUXt1vx8WDSgjl0logstDE1g==',
-            SmatroKey2: 'gFM2c3Nzow8lOaBbyIszcirfLVToqPIYlkjz9LUOuTft1e146Yb0qCndHwCe4tv9VyZhy87UJZ/csQKRLxGKnQ==',
+            StgSmatroMid: 'mk0000015m',
+            StgSmatroMid2: 'mk0000017m',
+            StgSmatroKey: 'HVsPLswUE8L8pns5YrSNmDRNBSgcyUE/N1mGX2xeH0Hv3uCPMxdqZwn1XNnZUCgUXt1vx8WDSgjl0logstDE1g==',
+            StgSmatroKey2: 'gFM2c3Nzow8lOaBbyIszcirfLVToqPIYlkjz9LUOuTft1e146Yb0qCndHwCe4tv9VyZhy87UJZ/csQKRLxGKnQ==',
             /* stg Smatro Easy PG */
-            SmatroEasyMid: 'mk0000014m',
-            SmatroEasyMid2: 'mk0000016m',
-            SmatroEasyId: 'mk0000008p',
-            SmatroEasyKey: 'NhaSDa1HF8SW6Y/guzfLEJ6IDGx2OpfDo04joedmFTAbpWhaCldKXT4IN2/hZ5QFlUix/IXZ9yis3H/003USPg==',
-            SmatroEasyKey2: 'Xn2AIuJYLyb0PqRBRypnbESDzHqaThVNO9xRziC62wSZyWd1S5SLNEczvdGuxY1JMcrLQ/soGHe7eBK1GP+T4A==',
+            StgSmatroEasyMid: 'mk0000014m',
+            StgSmatroEasyMid2: 'mk0000016m',
+            StgSmatroEasyId: 'mk0000008p',
+            StgSmatroEasyKey:
+                'NhaSDa1HF8SW6Y/guzfLEJ6IDGx2OpfDo04joedmFTAbpWhaCldKXT4IN2/hZ5QFlUix/IXZ9yis3H/003USPg==',
+            StgSmatroEasyKey2:
+                'Xn2AIuJYLyb0PqRBRypnbESDzHqaThVNO9xRziC62wSZyWd1S5SLNEczvdGuxY1JMcrLQ/soGHe7eBK1GP+T4A==',
             /* STG KOVAN PG */
-            KOVANMid: 'M20230922117157',
-            KOVANKey: 'a3e1672d2fe364e424cce94706007f9c',
+            StgKOVANMid: 'M20230922117157',
+            StgKOVANKey: 'a3e1672d2fe364e424cce94706007f9c',
             /* Number */
             Phone: '01020431653',
             TestPhone: '01012341234',

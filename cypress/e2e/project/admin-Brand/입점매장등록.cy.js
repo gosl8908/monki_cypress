@@ -14,8 +14,8 @@ describe('Onprem Dashboard Test', () => {
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
-            Site: `${Cypress.env('StgAdmin')}`,
-            Id: `${Cypress.env('TestId3')}`,
+            Site: `${Cypress.env('Admin')}`,
+            Id: `${Cypress.env('AdminId')}`,
             Password: `${Cypress.env('AdminPwd')}`,
         });
     });

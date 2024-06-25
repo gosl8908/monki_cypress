@@ -14,9 +14,9 @@ describe('Onprem Dashboard Test', () => {
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
-            Site: `${Cypress.env('StgCeo')}`,
+            Site: `${Cypress.env('Ceo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('FavTestId3')}`,
+            Id: `${Cypress.env('FavTestId1')}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
@@ -60,7 +60,7 @@ describe('Onprem Dashboard Test', () => {
             .split('\n')
             .forEach(item => {
                 const [menu, price] = item.trim().split(',');
-                menuModule.menu(menu, price);
+                menuModule.menu(menu, price, '지점');
             });
 
         // /* 분식 */

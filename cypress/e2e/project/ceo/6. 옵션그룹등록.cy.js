@@ -14,9 +14,9 @@ describe('Test', () => {
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
-            Site: `${Cypress.env('StgCeo')}`,
+            Site: `${Cypress.env('Ceo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('FavTestId3')}`,
+            Id: `${Cypress.env('FavTestId1')}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });

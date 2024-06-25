@@ -14,9 +14,9 @@ describe('Onprem Dashboard Test', () => {
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
-            Site: `${Cypress.env('StgCeo')}`,
+            Site: `${Cypress.env('Ceo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('FavTestId3')}`,
+            Id: `${Cypress.env('FavTestId1')}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
@@ -126,15 +126,19 @@ describe('Onprem Dashboard Test', () => {
                 });
             cy.wait(3000);
             cy.get('#bestMenuYn_true').click();
+            cy.wait(1000);
 
             const selectors = ['#MNBG_000', '#MNBG_101', '#MNBG_102', '#MNBG_103', '#MNBG_104'];
             const randomIndex = Math.floor(Math.random() * selectors.length);
             cy.get(selectors[randomIndex]).click();
 
+            cy.wait(1000);
             cy.get('#MN_001').click();
+            cy.wait(1000);
             cy.get('.ms-auto').click();
             cy.wait(1000);
             cy.get('#global_modal_confirm').click();
+            cy.wait(1000);
             cy.go('back');
         };
 

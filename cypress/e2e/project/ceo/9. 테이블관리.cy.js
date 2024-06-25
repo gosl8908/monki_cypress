@@ -14,7 +14,7 @@ describe('Onprem Dashboard Test', () => {
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
-            Site: `${Cypress.env('StgCeo')}`,
+            Site: `${Cypress.env('Ceo')}`,
             Type: '대리점',
             Id: `${Cypress.env('StoreTestId1')}`,
             Password: `${Cypress.env('AdminPwd')}`,
@@ -23,9 +23,10 @@ describe('Onprem Dashboard Test', () => {
 
     it('Ceo Page Test', () => {
         /* 테이블관리 */
-        cy.get('#operation-tab').click();
+        cy.get('#operation').click();
         cy.get('[href="/store/table-order/basic"] > .btn').click();
         cy.get('#tableinfo').click();
+        cy.get('#basic-store-no').select('번개매장 안양지점');
         cy.get('.col-2 > .btn').click(); // 검색
 
         /* 테이블변경 */

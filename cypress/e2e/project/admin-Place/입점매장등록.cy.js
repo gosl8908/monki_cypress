@@ -14,9 +14,9 @@ describe('Onprem Dashboard Test', () => {
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
-            Site: `${Cypress.env('StgAdmin')}`,
-            Id: `${Cypress.env('StoreTestId2')}`,
-            Password: `${Cypress.env('AdminPwd')}`,
+            Site: `${Cypress.env('Admin')}`,
+            Id: `mk_test1`,
+            Password: `0000`,
         });
     });
 
@@ -28,7 +28,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#store_id').type('monki1'); // 매장코드
         cy.get('#btnCheckStoreId').click();
         cy.get(':nth-child(9) > .col-sm-2 > .btn').click();
-        cy.get('.list-data-center > input').click();
+        cy.get(':nth-child(1) > .list-data-center > input').click();
         cy.wait(1 * 1000);
         cy.get('#btnStoreCategoryModalApply').click();
         // cy.get('#first_biz_category_no').select(1);
@@ -91,7 +91,7 @@ describe('Onprem Dashboard Test', () => {
             });
         });
 
-        cy.get('#user_id').type(Cypress.env('CeoTestId1'));
+        cy.get('#user_id').type(Cypress.env('CeoTestId2'));
         cy.get('#btnCheckUserId').click();
         cy.get('#user_pass').type(Cypress.env('TestPwd'));
         cy.get('#user_pass_chk').type(Cypress.env('TestPwd'));

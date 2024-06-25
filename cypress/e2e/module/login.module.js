@@ -1,5 +1,5 @@
 function login({ Site, Type = undefined, Id, Password }) {
-    if (Site === Cypress.env('StgCeo')) {
+    if (Site === Cypress.env('Ceo') && Cypress.env('StgCeo')) {
         cy.visit(Site, { timeout: 60 * 1000 });
         cy.get('#user_type').select(Type);
         cy.get('#user_id', { timeout: 30 * 1000 }).type(Id); // 이메일 입력

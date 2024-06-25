@@ -14,16 +14,16 @@ describe('Onprem Dashboard Test', () => {
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
-            Site: `${Cypress.env('StgCeo')}`,
+            Site: `${Cypress.env('Ceo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('FavTestId3')}`,
+            Id: `${Cypress.env('FavTestId1')}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
 
     it('Ceo Page Test', () => {
         /* 영업시간 */
-        cy.get('#operation-tab').click();
+        cy.get('#operation').click();
         cy.get(':nth-child(1) > .p-0 > :nth-child(1) > .card-header > .btn').click();
         cy.get(':nth-child(2) > :nth-child(1) > .form-select').select(1);
         cy.get(':nth-child(2) > :nth-child(2) > .form-select').select(1);
