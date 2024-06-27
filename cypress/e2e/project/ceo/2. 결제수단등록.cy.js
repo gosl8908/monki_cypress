@@ -1,4 +1,4 @@
-const { loginModule, emailModule } = require('../../module/manager.module.js');
+const { loginModule, emailModule, payModule } = require('../../module/manager.module.js');
 
 describe('Onprem Dashboard Test', () => {
     let TestFails = []; // 실패 원인을 저장할 변수
@@ -17,74 +17,45 @@ describe('Onprem Dashboard Test', () => {
             Site: `${Cypress.env('Ceo')}`,
             Type: '대리점',
             Id: `${Cypress.env('StoreTestId1')}`,
-            Password: `${Cypress.env('AdminPwd')}`,
+            Password: `${Cypress.env('TestPwd')}`,
         });
     });
 
     it('Ceo Page Test', () => {
         cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/account/partners"] > .btn').click(); // 계정관리
         cy.get('[href="/account/store"] > .btn').click(); // 매장관리
+        cy.get('#keyword').type(Cypress.env('FavTestId2')); // 검색어
+        cy.get('.card-body > .row > .my-sm-auto > .btn').click(); // 검색
+        cy.get('#btnPayment_0').click(); // 결제 수단 설정
+        cy.get('#modal_body > .row > .text-end > .btn').click(); // 결제수단 연동 등록
+        cy.wait(1 * 1000);
 
         /* 일반결제 수단 설정 */
-        cy.get('#keyword').type(Cypress.env('FavTestId2'));
-        cy.get('.card-body > .row > .my-sm-auto > .btn').click();
-        cy.get('#btnPayment_0').click();
-        cy.get('#modal_body > .row > .text-end > .btn').click(); // 결제수단 연동 등록
-        cy.wait(1 * 1000);
-        cy.get('#store_biz_number').type(Cypress.env('DateLabel')); // 사업자번호
-        cy.wait(1 * 1000);
-        cy.get('#pg_company').select(1); // PG 업체 // 1:스마트로, 2:KIS, 3:KOVEN
-        cy.get('#payment_type').select(1); // 결제분류
-        cy.get('#pg_mid_type').select(1); // 결제유형
-        cy.get('#pg_mid').type(Cypress.env('SmatroMid')); // PG MID
-        cy.get('#pg_merchant_key').type(Cypress.env('SmatroKey')); // PG 상점키
-        cy.get('#store_contract_device').select(2); // 계약 설정
-        cy.get(':nth-child(11) > .text-end > .btn').click();
-        cy.get('#global_modal_body').contains('등록 하시겠습니까?');
-        cy.wait(1 * 1000);
-        cy.get('#global_modal_confirm').click();
-        cy.get('#vuePayContainer > .modal-dialog > .modal-content > #modal_body').contains('스마트로');
-
+        payModule.pay({
+            PgCompany: '스마트로',
+            Type: '먼키앱',
+            MidType: '신용카드',
+            Mid: `${Cypress.env('SmatroMid')}`,
+            Key: `${Cypress.env('SmatroKey')}`,
+        });
         /* 간편결제 수단 설정 */
-        cy.get('#modal_body > .row > .text-end > .btn').click(); // 결제수단 연동 등록
-        cy.wait(1 * 1000);
-        cy.get('#store_biz_number').type(Cypress.env('DateLabel')); // 사업자번호
-        cy.wait(1 * 1000);
-        cy.get('#pg_company').select(1); // PG 업체
-        cy.get('#payment_type').select(1); // 결제분류
-        cy.get('#pg_mid_type').select(2); // 결제유형
-        cy.get('#pg_bill_mid').type(Cypress.env('SmatroEasyId')); // Id
-        cy.get('#pg_mid').type(Cypress.env('SmatroEasyMid')); // PG MID
-        cy.get('#pg_merchant_key').type(Cypress.env('SmatroEasyKey')); // PG 상점키
-        cy.get('#store_contract_device').select(2); // 계약 설정
-        cy.get(':nth-child(11) > .text-end > .btn').click();
-        cy.get('#global_modal_body').contains('등록 하시겠습니까?');
-        cy.wait(1 * 1000);
-        cy.get('#global_modal_confirm').click();
-        cy.get('#vuePayContainer > .modal-dialog > .modal-content > #modal_body').contains('스마트로');
-        cy.get('#vuePayContainer > .modal-dialog > .modal-content > .modal-header > .btn-close').click();
-
+        payModule.pay({
+            PgCompany: '스마트로',
+            Type: '먼키앱',
+            MidType: '카드등록 간편결제(인증)',
+            Mid: `${Cypress.env('SmatroMid')}`,
+            Key: `${Cypress.env('SmatroKey')}`,
+            EasyId: `${Cypress.env('SmatroEasyKey')}`,
+        });
         /* 디바이스 연동 수단 설정 */
-        cy.get('#keyword').type(Cypress.env('FavTestId2'));
-        cy.get('.card-body > .row > .my-sm-auto > .btn').click();
-        cy.get('#btnPayment_0').click();
-        cy.get('#modal_body > .row > .text-end > .btn').click(); // 결제수단 연동 등록
-        cy.wait(1 * 1000);
-        cy.get('#store_biz_number').type('1708502376'); // 사업자번호
-        cy.wait(1 * 1000);
-        cy.get('#pg_company').select(2); // PG 업체 // KIS
-        cy.wait(3);
-        cy.get('#payment_type').select('OFF-PG'); // 결제분류
-        cy.get('#pg_mid_type').select(1); // 결제유형
-        cy.get('#pay_name').type('테이블오더'); // 사용처
-        cy.get('#pg_mid').type(Cypress.env('KISMid2')); // PG MID
-        cy.get('#pg_merchant_key').type(Cypress.env('KISKey2')); // PG 상점키
-        cy.get('#pg_offpg_tid').type(Cypress.env('KISTid')); // OFF-PG TId
-        cy.get('#store_contract_device').select(2); // 계약 설정
-        cy.contains('연동하기').click();
-        cy.get('#global_modal_body').contains('등록 하시겠습니까?');
-        cy.wait(1 * 1000);
-        cy.get('#global_modal_confirm').click();
+        payModule.pay({
+            PgCompany: 'KIS',
+            Type: 'OFF-PG',
+            MidType: '신용카드',
+            Mid: `${Cypress.env('KISMid')}`,
+            Key: `${Cypress.env('KISKey')}`,
+            Tid: `${Cypress.env('KISTid')}`,
+        });
     });
 
     // afterEach('Status Check', () => {
