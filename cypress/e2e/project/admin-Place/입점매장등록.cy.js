@@ -15,8 +15,8 @@ describe('Onprem Dashboard Test', () => {
         cy.getAll();
         loginModule.login({
             Site: `${Cypress.env('Admin')}`,
-            Id: `mk_test1`,
-            Password: `0000`,
+            Id: `${Cypress.env('StoreTestId1')}`,
+            Password: `${Cypress.env('AdminPwd')}`,
         });
     });
 
@@ -24,7 +24,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('[data-mnu="/kitchen/*"] > [href="#"] > p').click();
         cy.get('.menu-open > .nav > :nth-child(2) > .nav-link > p').click();
         cy.get('#btnAddStore').click();
-        cy.get('#store_nm').type('몬키지점'); // 매장이름
+        cy.get('#store_nm').type('먼키지점'); // 매장이름
         cy.get('#store_id').type('monki1'); // 매장코드
         cy.get('#btnCheckStoreId').click();
         cy.get(':nth-child(9) > .col-sm-2 > .btn').click();
@@ -35,7 +35,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#store_tel_no').type(Cypress.env('Phone'));
         cy.get('#manager_nm').type('강해성');
         cy.get('#manager_tel_no').type(Cypress.env('Phone'));
-        cy.get('#store_desc').type('몬키지점'); // 매장안내
+        cy.get('#store_desc').type('먼키지점'); // 매장안내
 
         const apiKey = '419ed37eb9960d76f12d9ff0610d327a';
         const query = encodeURIComponent('경기 안양시 동안구 평촌대로 60-55');
@@ -91,7 +91,7 @@ describe('Onprem Dashboard Test', () => {
             });
         });
 
-        cy.get('#user_id').type(Cypress.env('CeoTestId2'));
+        cy.get('#user_id').type(Cypress.env('CeoTestId1'));
         cy.get('#btnCheckUserId').click();
         cy.get('#user_pass').type(Cypress.env('TestPwd'));
         cy.get('#user_pass_chk').type(Cypress.env('TestPwd'));
@@ -101,12 +101,12 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#company_number').type('123412341234');
         cy.get('#account_number').type('3333048408739');
         cy.get('#account_user').type('강해성');
-        cy.get('#biz_name').type('몬키지점');
+        cy.get('#biz_name').type('먼키지점');
         cy.get('.float-right > .btn').click();
         cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
 
-        cy.contains('몬키지점');
+        cy.contains('먼키지점');
     });
 
     //   cy.get('#global_modal_body').contains('입력한 내용으로 등록하시겠습니까?');

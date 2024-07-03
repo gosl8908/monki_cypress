@@ -28,32 +28,32 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#product').click(); // 상품관리 탭
 
         const menuPrices = `
-        라면,4500
-        김밥,2500
-        참치김밥,4500
-        쫄면,5500
-        고기국수,6500
-        비빔면,6500
-        골뱅이무침,9500
-        비빔밥,6500
-        불고기,9500
-        초밥,10500
-        돈가스,8000
-        치즈돈가스,9500
-        케익,3500
-        샐러드,8500
-        피자,19900
-        코카콜라,2500
-        코카콜라제로,2500
-        펩시,2500
-        펩시제로,2500
-        스프라이트,2500
-        스프라이트제로,2500
-        새로,6000
-        진로,6000
-        카스,6000
-        테라,6000
-    `;
+            라면,4500
+            김밥,2500
+            참치김밥,4500
+            쫄면,5500
+            고기국수,6500
+            비빔면,6500
+            골뱅이무침,9500
+            비빔밥,6500
+            불고기,9500
+            초밥,10500
+            돈가스,8000
+            치즈돈가스,9500
+            케익,3500
+            샐러드,8500
+            피자,19900
+            코카콜라,2500
+            코카콜라제로,2500
+            펩시,2500
+            펩시제로,2500
+            스프라이트,2500
+            스프라이트제로,2500
+            새로,6000
+            진로,6000
+            카스,6000
+            테라,6000
+        `;
 
         menuPrices
             .trim()
@@ -62,39 +62,6 @@ describe('Onprem Dashboard Test', () => {
                 const [menu, price] = item.trim().split(',');
                 menuModule.menu(menu, price, '지점');
             });
-
-        // /* 분식 */
-        // menuModule.menu('라면', '4500');
-        // menuModule.menu('김밥', '2500');
-        // menuModule.menu('참치김밥', '4500');
-        // menuModule.menu('쫄면', '5500');
-        // menuModule.menu('고기국수', '6500');
-        // menuModule.menu('비빔면', '6500');
-        // menuModule.menu('골뱅이무침', '9500');
-        // /* 한식 */
-        // menuModule.menu('비빔밥', '6500');
-        // menuModule.menu('불고기', '9500');
-        // /* 일식 */
-        // menuModule.menu('초밥', '10500');
-        // menuModule.menu('돈가스', '8000');
-        // menuModule.menu('치즈돈가스', '9500');
-        // /* 디저트 */
-        // menuModule.menu('케익', '3500');
-        // menuModule.menu('샐러드', '8500');
-        // /* 양식 */
-        // menuModule.menu('피자', '19900');
-        // /* 음료 */
-        // menuModule.menu('코카콜라', '2500');
-        // menuModule.menu('코카콜라제로', '2500');
-        // menuModule.menu('펩시', '2500');
-        // menuModule.menu('펩시제로', '2500');
-        // menuModule.menu('스프라이트', '2500');
-        // menuModule.menu('스프라이트제로', '2500');
-        // /* 주류 */
-        // menuModule.menu('새로', '6000');
-        // menuModule.menu('진로', '6000');
-        // menuModule.menu('카스', '6000');
-        // menuModule.menu('테라', '6000');
     });
 
     // afterEach('Status Check', () => {

@@ -1,5 +1,5 @@
 function menu(Name, Pay, Type = undefined) {
-    const FileName = `image/메뉴이미지/${Name}.jpg`;
+    const FileName = `image/메뉴이미지/${Name}.png`;
     /* 상품 등록 */
     cy.get('#btnAddProduct').click();
     cy.get('#productDivNo').select(1); // 상품분류
@@ -9,8 +9,8 @@ function menu(Name, Pay, Type = undefined) {
         cy.get('input[type="file"][id="product-img-file"]').attachFile({
             fileContent,
             filePath: FileName,
-            fileName: `${Name}.jpg`,
-            mimeType: 'image/jpeg',
+            fileName: `${Name}.png`,
+            mimeType: 'image/png',
         });
     });
     cy.get('#PRDT_010').click(); // 품절 상태
