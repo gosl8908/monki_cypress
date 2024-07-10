@@ -1,4 +1,4 @@
-const { loginModule, emailModule } = require('../../module/manager.module.js');
+const { loginModule, tableModule, emailModule } = require('../../module/manager.module.js');
 
 describe('Onprem Dashboard Test', () => {
     let TestFails = []; // 실패 원인을 저장할 변수
@@ -29,68 +29,31 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#basic-store-no').select('번개매장 안양지점');
         cy.get('.col-2 > .btn').click(); // 검색
 
-        /* 테이블변경 */
-        cy.get(
-            '#divGroundResourceTableView_0 > :nth-child(1) > .height-200 > .text-center > :nth-child(1) > #btnTableEdit_0',
-        ).click();
-        cy.get('#add_resource_name').clear().type('1-1번');
-        cy.get('#btnTableNameOverCheck').click();
-        cy.get(
-            '#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
-        ).click();
+        // /* 테이블변경 */
+        // cy.get(
+        //     '#divGroundResourceTableView_0 > :nth-child(1) > .height-200 > .text-center > :nth-child(1) > #btnTableEdit_0',
+        // ).click();
+        // cy.get('#add_resource_name').clear().type('1-1번');
+        // cy.get('#btnTableNameOverCheck').click();
+        // cy.get(
+        //     '#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
+        // ).click();
 
-        /* 구역 수정 */
-        cy.get('#btnGroupEdit_0').click();
-        cy.get('#add_ground_name').clear().type('1층');
-        cy.get(
-            '#modalGroupRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
-        ).click();
+        // /* 구역 수정 */
+        // cy.get('#btnGroupEdit_0').click();
+        // cy.get('#add_ground_name').clear().type('1층');
+        // cy.get(
+        //     '#modalGroupRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
+        // ).click();
 
-        /* 1층 테이블추가 */
-        cy.get('#divGroundResourceTableView_0 > .text-center.border > .tableorder-center-text > a').click();
-        cy.get('#add_resource_name').type('1-2번');
-        cy.get('#btnTableNameOverCheck').click();
-        cy.get(
-            '#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
-        ).click();
+        tableModule.table('1층', '1-1');
+        tableModule.table('1층', '1-2');
+        tableModule.table('1층', '1-3');
 
-        /* 1층 테이블추가 */
-        cy.get('#divGroundResourceTableView_0 > .text-center.border > .tableorder-center-text > a').click();
-        cy.get('#add_resource_name').type('1-3번');
-        cy.get('#btnTableNameOverCheck').click();
-        cy.get(
-            '#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
-        ).click();
-
-        /* 2층 구역추가 */
-        cy.get('#btnSerialAdd').click();
-        cy.get('#add_ground_name').type('2층');
-        cy.get('#add_ground_sort_order').type('2');
-        cy.get(
-            '#modalGroupRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
-        ).click();
-
-        /* 2층 테이블추가 */
-        cy.get('#divGroundResourceTableView_1 > .text-center.border > .tableorder-center-text > a').click();
-        cy.get('#add_resource_name').type('2-1번');
-        cy.get('#btnTableNameOverCheck').click();
-        cy.get(
-            '#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
-        ).click();
-
-        cy.get('#divGroundResourceTableView_1 > .text-center.border > .tableorder-center-text > a').click();
-        cy.get('#add_resource_name').type('2-2번');
-        cy.get('#btnTableNameOverCheck').click();
-        cy.get(
-            '#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
-        ).click();
-
-        cy.get('#divGroundResourceTableView_1 > .text-center.border > .tableorder-center-text > a').click();
-        cy.get('#add_resource_name').type('2-3번');
-        cy.get('#btnTableNameOverCheck').click();
-        cy.get(
-            '#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
-        ).click();
+        // tableModule.ground('2층', '2');
+        tableModule.table('2층', '2-1');
+        tableModule.table('2층', '2-2');
+        tableModule.table('2층', '2-3');
     });
 
     // afterEach('Status Check', () => {

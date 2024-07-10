@@ -1,16 +1,16 @@
 function menu(Name, Pay, Type = undefined) {
-    const FileName = `image/메뉴이미지/${Name}.png`;
-    /* 상품 등록 */
+    // 상품 등록
     cy.get('#btnAddProduct').click();
     cy.get('#productDivNo').select(1); // 상품분류
 
     /* 상품 이미지 */
+    const FileName = `image/메뉴이미지/${Name}.jpg`;
     cy.fixture(FileName, 'base64').then(fileContent => {
         cy.get('input[type="file"][id="product-img-file"]').attachFile({
             fileContent,
             filePath: FileName,
-            fileName: `${Name}.png`,
-            mimeType: 'image/png',
+            fileName: `${Name}.jpg`,
+            mimeType: 'image/jpeg',
         });
     });
     cy.get('#PRDT_010').click(); // 품절 상태
@@ -19,6 +19,8 @@ function menu(Name, Pay, Type = undefined) {
     if (Type === '지점') {
         cy.get('#displayMonkiYn').click(); // 노출 채널
         cy.get('#displayKioskYn').click(); // 노출 채널
+    } else if (Type === '테이블오더') {
+        cy.get('#displayTableorderYn').click(); // 노출 채널
     } else {
         cy.get('#displayMonkiYn').click(); // 노출 채널
         cy.get('#displayKioskYn').click(); // 노출 채널

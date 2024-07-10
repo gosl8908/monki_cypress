@@ -16,8 +16,8 @@ describe('Test', () => {
         loginModule.login({
             Site: `${Cypress.env('Ceo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('FavTestId1')}`,
-            Password: `${Cypress.env('TestPwd')}`,
+            Id: `3046900670`,
+            Password: `3046900670a`,
         });
     });
 
@@ -27,37 +27,45 @@ describe('Test', () => {
         cy.wait(1 * 1000);
         cy.get('[href="/menu/option"] > .btn').click();
 
-        /* 선택 옵션그룹 등록 */
-        cy.get('.col-12 > .btn').click();
-        cy.get('.col-9 > .form-control').type('추가선택');
-        cy.get('#OP_002').click(); // 다중
-        cy.get(':nth-child(3) > .d-flex > .col-9 > .form-control').clear().type('3');
-        cy.get('#requireYn_false').click(); // 선택
-        cy.get('div.col-3 > .btn').click(); // 옵션 추가
-        cy.get('div.col-3 > .btn').click();
-        cy.get('.ui-sortable-handle > :nth-child(2) > .text-secondary > .form-control').type('고기');
-        cy.get('.ui-sortable-handle > :nth-child(3) > .text-secondary > .form-control').clear().type('3000');
-        cy.get(':nth-child(2) > :nth-child(2) > .text-secondary > .form-control').type('계란');
-        cy.get(':nth-child(2) > :nth-child(3) > .text-secondary > .form-control').clear().type('2000');
-        cy.get(':nth-child(3) > :nth-child(2) > .text-secondary > .form-control').type('공기밥');
-        cy.get(':nth-child(3) > :nth-child(3) > .text-secondary > .form-control').clear().type('1000');
-        cy.get('.ms-auto').click();
-        cy.wait(1 * 1000);
-        cy.get('#global_modal_confirm').click();
+        function registerOptionGroup(size, price) {
+            cy.get('.col-12 > .btn').click();
+            cy.get('.col-9 > .form-control').type(size);
+            cy.get('div.col-3 > .btn').click();
+            cy.get('.ui-sortable-handle > :nth-child(2) > .text-secondary > .form-control').type('Regular');
+            cy.get(':nth-child(2) > :nth-child(2) > .text-secondary > .form-control').type('Large');
+            cy.get(':nth-child(2) > :nth-child(3) > .text-secondary > .form-control').clear().type(price);
+            cy.get('.ms-auto').click();
+            cy.wait(1 * 1000);
+            cy.get('#global_modal_confirm').click();
+        }
 
-        /* 필수 옵션그룹 등록 */
-        cy.get('.col-12 > .btn').click();
-        cy.get('.col-9 > .form-control').type('사이즈선택');
-        cy.get('div.col-3 > .btn').click(); // 옵션 추가
-        cy.get('div.col-3 > .btn').click();
-        cy.get('.ui-sortable-handle > :nth-child(2) > .text-secondary > .form-control').type('기본');
-        cy.get(':nth-child(2) > :nth-child(2) > .text-secondary > .form-control').type('대');
-        cy.get(':nth-child(2) > :nth-child(3) > .text-secondary > .form-control').clear().type('5000');
-        cy.get(':nth-child(3) > :nth-child(2) > .text-secondary > .form-control').type('특대');
-        cy.get(':nth-child(3) > :nth-child(3) > .text-secondary > .form-control').clear().type('10000');
-        cy.get('.ms-auto').click();
-        cy.wait(1 * 1000);
-        cy.get('#global_modal_confirm').click();
+        const optionGroups = [
+            { size: '사이즈선택(1)', price: '1000' },
+            { size: '사이즈선택(2)', price: '2000' },
+            { size: '사이즈선택(3)', price: '3000' },
+        ];
+
+        optionGroups.forEach(group => {
+            registerOptionGroup(group.size, group.price);
+        });
+
+        // /* 선택 옵션그룹 등록 */
+        // cy.get('.col-12 > .btn').click();
+        // cy.get('.col-9 > .form-control').type('추가선택');
+        // cy.get('#OP_002').click(); // 다중
+        // cy.get(':nth-child(3) > .d-flex > .col-9 > .form-control').clear().type('3');
+        // cy.get('#requireYn_false').click(); // 선택
+        // cy.get('div.col-3 > .btn').click(); // 옵션 추가
+        // cy.get('div.col-3 > .btn').click();
+        // cy.get('.ui-sortable-handle > :nth-child(2) > .text-secondary > .form-control').type('고기');
+        // cy.get('.ui-sortable-handle > :nth-child(3) > .text-secondary > .form-control').clear().type('3000');
+        // cy.get(':nth-child(2) > :nth-child(2) > .text-secondary > .form-control').type('계란');
+        // cy.get(':nth-child(2) > :nth-child(3) > .text-secondary > .form-control').clear().type('2000');
+        // cy.get(':nth-child(3) > :nth-child(2) > .text-secondary > .form-control').type('공기밥');
+        // cy.get(':nth-child(3) > :nth-child(3) > .text-secondary > .form-control').clear().type('1000');
+        // cy.get('.ms-auto').click();
+        // cy.wait(1 * 1000);
+        // cy.get('#global_modal_confirm').click();
     });
 });
 
