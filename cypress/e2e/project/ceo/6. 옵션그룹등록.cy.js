@@ -16,8 +16,8 @@ describe('Test', () => {
         loginModule.login({
             Site: `${Cypress.env('Ceo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `3046900670`,
-            Password: `3046900670a`,
+            Id: `${Cypress.env('FavTestId3')}`,
+            Password: `${Cypress.env('TestPwd')}`,
         });
     });
 
@@ -27,26 +27,48 @@ describe('Test', () => {
         cy.wait(1 * 1000);
         cy.get('[href="/menu/option"] > .btn').click();
 
-        function registerOptionGroup(size, price) {
+        function registerOptionGroup(optionGroup) {
+            const { size, options } = optionGroup;
+
             cy.get('.col-12 > .btn').click();
-            cy.get('.col-9 > .form-control').type(size);
-            cy.get('div.col-3 > .btn').click();
-            cy.get('.ui-sortable-handle > :nth-child(2) > .text-secondary > .form-control').type('Regular');
-            cy.get(':nth-child(2) > :nth-child(2) > .text-secondary > .form-control').type('Large');
-            cy.get(':nth-child(2) > :nth-child(3) > .text-secondary > .form-control').clear().type(price);
+            cy.get('[id="OP_002"]').click(); // 다중
+            cy.get('[name="optionMaxCount"]').clear().type('10'); // 수량
+            cy.get('[id="requireYn_false"]').click(); // 선택
+            cy.get('[name="optionGroupNm"]').type(size); // 그룹명
+            for (let i = 0; i < options.length - 1; i++) {
+                cy.get('div.col-3 > .btn').click();
+            }
+
+            options.forEach((option, index) => {
+                cy.get('[name="optionNm"]').eq(index).type(option.name); // 옵션명
+                cy.get('[name="optionPrice"]').eq(index).clear().type(option.price); // 가격
+            });
+
             cy.get('.ms-auto').click();
-            cy.wait(1 * 1000);
+            cy.wait(1000); // 1 second wait
             cy.get('#global_modal_confirm').click();
         }
 
         const optionGroups = [
-            { size: '사이즈선택(1)', price: '1000' },
-            { size: '사이즈선택(2)', price: '2000' },
-            { size: '사이즈선택(3)', price: '3000' },
+            {
+                size: '사이드메뉴',
+                options: [
+                    { name: '옥수수볼', price: '5000' },
+                    { name: '달걀듬뿍볶음밥', price: '4000' },
+                    { name: '의성마늘볶음밥', price: '4000' },
+                    { name: '샐러드 추가', price: '5000' },
+                    { name: '고르곤치즈볼', price: '6000' },
+                    { name: '와일드블랙소스', price: '1000' },
+                    { name: '허니케찹소스', price: '1000' },
+                    { name: '치즈트러플시즈닝', price: '2000' },
+                    { name: '무 추가', price: '1000' },
+                    { name: '레드디핑소스', price: '1000' },
+                ],
+            },
         ];
 
         optionGroups.forEach(group => {
-            registerOptionGroup(group.size, group.price);
+            registerOptionGroup(group);
         });
 
         // /* 선택 옵션그룹 등록 */

@@ -14,9 +14,9 @@ describe('Onprem Dashboard Test', () => {
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
-            Site: `${Cypress.env('Admin')}`,
+            Site: `${Cypress.env('DevAdmin')}`,
             Id: `${Cypress.env('AdminId')}`,
-            Password: `${Cypress.env('AdminPwd')}`,
+            Password: `${Cypress.env('TestPwd')}`,
         });
     });
 
@@ -40,7 +40,7 @@ describe('Onprem Dashboard Test', () => {
         // cy.get(':nth-child(5) > .input-group > :nth-child(2) > label').click();
         // cy.get(':nth-child(5) > .input-group > :nth-child(4) > label').click();
         cy.get('[name="partner_name"]').type('몬키'); // 사업자명
-        cy.get('[name="biz_number"]').type('53424234234');
+        cy.get('[name="biz_number"]').type(Cypress.env('DateLabel'));
         cy.get('[id="btnCheckBizNum"]').click();
         cy.get('[name="owner_name"]').type('강해성');
         cy.get('[name="tel"]').type(Cypress.env('Phone'));

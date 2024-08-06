@@ -17,17 +17,19 @@ describe('Onprem Dashboard Test', () => {
             Site: `${Cypress.env('Ceo')}`,
             Type: '대리점',
             Id: `${Cypress.env('StoreTestId1')}`,
-            Password: `${Cypress.env('AdminPwd')}`,
+            Password: `${Cypress.env('TestPwd')}`,
         });
     });
 
     it('Ceo Page Test', () => {
-        cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/account/partners"] > .btn').click(); // 계정관리
-        cy.get('[href="/account/store"] > .btn').click(); // 매장관리
-        cy.get('.m-3 > .col-3 > .btn').click(); // 매장등록
+        cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/account/partners"] > .btn')
+            .contains('계정관리')
+            .click(); // 계정관리
+        cy.get('[href="/account/store"] > .btn').contains('매장관리').click(); // 매장관리
+        cy.get('.m-3 > .col-3 > .btn').contains('매장등록').click(); // 매장등록
 
         /* 매장 등록 */
-        cy.get('#user-id').type(Cypress.env('FavTestId1')); // 아이디
+        cy.get('#user-id').type(Cypress.env('FavTestId3')); // 아이디
         cy.get('#btn-check-user-id').click();
         cy.get('#user-pass').type(Cypress.env('TestPwd')); // 비밀번호
         cy.get('#chk-user-pass').type(Cypress.env('TestPwd')); // 비밀번호 확인
@@ -36,7 +38,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#global_modal_body').contains('등록하시겠습니까?');
         cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
-        cy.get('#store-name').type('번개매장 안양지점'); // 매장명
+        cy.get('#store-name').type('교촌치킨(후불)'); // 매장명
 
         /* 매장로고 */
         cy.fixture('image/로고이미지/번개로고.jpg', 'base64').then(fileContent => {
@@ -69,9 +71,9 @@ describe('Onprem Dashboard Test', () => {
                 'Accept-Language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7,zh-CN;q=0.6,zh;q=0.5',
                 Authorization: `KakaoAK ${apiKey}`,
                 Host: 'dapi.kakao.com',
-                ka: 'sdk/4.4.15 os/javascript lang/ko-KR device/Win32 origin/http%3A%2F%2Fstaging-mngr.monthlykitchen.kr',
-                Origin: 'http://staging-mngr.monthlykitchen.kr',
-                Referer: 'http://staging-mngr.monthlykitchen.kr/',
+                ka: 'sdk/4.4.19 os/javascript lang/ko-KR device/Win32 origin/https%3A%2F%2Fceo.monki.net',
+                Origin: 'https://ceo.monki.net',
+                Referer: 'https://ceo.monki.net',
                 'User-Agent':
                     'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
             },
@@ -95,7 +97,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#address-detail').invoke('val', '1-1'); // 상세 주소
         cy.get('#biz-email').type(Cypress.env('TestEmail')); // 이메일
         cy.get('#bank-code').select(1); // 계좌정보
-        cy.get('#account-number').type('3333048408739'); // 계좌번호
+        cy.get('#account-number').type(Cypress.env('DateLabel')); // 계좌번호
         cy.get('#account-user').type('예금주'); // 예금주명
         cy.get('#btn-reg-store').click();
         cy.get('#global_modal_body').contains('입력한 정보로 생성하시겠습니까?');
@@ -103,7 +105,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#global_modal_confirm').click();
 
         /* 연동 정보 */
-        cy.contains('span', Cypress.env('FavTestId1'))
+        cy.contains('span', Cypress.env('FavTestId3'))
             .parents('tr')
             .within(() => {
                 cy.contains('관리').click();

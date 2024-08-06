@@ -14,45 +14,21 @@ describe('Onprem Dashboard Test', () => {
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
-            Site: `${Cypress.env('Ceo')}`,
-            Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('FavTestId1')}`,
+            Site: `${Cypress.env('StgCeo')}`,
+            Type: '사장님',
+            Id: `${Cypress.env('CeoTestId2')}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
 
     it('Ceo Page Test', () => {
         /* 메뉴관리 */
-        cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn').click();
+        cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         cy.wait(1 * 1000);
         cy.get('#product').click(); // 상품관리 탭
 
         const menuPrices = `
-            라면,4500
-            김밥,2500
-            참치김밥,4500
-            쫄면,5500
-            고기국수,6500
-            비빔면,6500
-            골뱅이무침,9500
-            비빔밥,6500
-            불고기,9500
-            초밥,10500
-            돈가스,8000
-            치즈돈가스,9500
-            케익,3500
-            샐러드,8500
-            피자,19900
-            코카콜라,2500
-            코카콜라제로,2500
-            펩시,2500
-            펩시제로,2500
-            스프라이트,2500
-            스프라이트제로,2500
-            새로,6000
-            진로,6000
-            카스,6000
-            테라,6000
+테스트,1000
         `;
 
         menuPrices
@@ -60,7 +36,7 @@ describe('Onprem Dashboard Test', () => {
             .split('\n')
             .forEach(item => {
                 const [menu, price] = item.trim().split(',');
-                menuModule.menu(menu, price, '지점');
+                menuModule.menu(menu, price, '앱');
             });
     });
 

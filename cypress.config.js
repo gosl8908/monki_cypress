@@ -75,19 +75,24 @@ module.exports = defineConfig({
 
         env: {
             /* Prod Sit */
-            Admin: 'https://crew.monki.net/',
-            Ceo: 'https://ceo.monki.net/',
+            Admin: 'https://crew.monki.net/users/login', //Prod 통합
+            Ceo: 'https://ceo.monki.net/users/login', //Prod 사장님
+
             /* STG Site */
             StgAdmin: 'http://staging-mngr.monthlykitchen.kr/users/login', //STG 통합
             StgCeo: 'http://staging-ceo.monthlykitchen.kr/users/login', //STG 사장님
+
             /* DEV Site */
-            DevAdmin: 'http://test-a.mkitchen.kr:3010/users/login', //DEV 통합
+            DevAdmin: 'http://develop-mngr.monthlykitchen.kr/users/login', //DEV 통합
             DevCeo: 'http://develop-ceo.monthlykitchen.kr/users/login', //DEV 사장님
+
             /* email */
             AdminEmail: 'hskang@monki.net',
             TestEmail: 'monkitest@ruu.kr',
+
             /* Admon Id */
             AdminId: 'hskang', // 통합관리자
+
             /* 통합관리자 Id */
             TestId: 'monkitest1',
             TestId2: 'monkitest2',
@@ -124,12 +129,13 @@ module.exports = defineConfig({
             /* Password */
             AdminPwd: 'gotjd0215!',
             TestPwd: 'test123!',
-            /* KIS PG */
+            /* KIS OFF-PG */
             KISMid: 'monthly01m',
             KISMid2: 'monthly02m',
             KISKey: 'FhvzXeFPMaNt/AF6D9Xppqy+56NfjodzQpcVWHTC1cKr0C4QQLaZTsQNPBYD4fOPiH2Sea1N50yKFGhZ9U33qQ==',
             KISKey2: 'wvaPslUxzvfjo0s0nomtu1CWepfGr5ILJHV/QzbXVaxqcEf9DR6IOIJ7CuHVzn9dJm0hCMYjnnr1oSozP/ehAQ==',
             KISTid: 'ZZ000982',
+            KISTid2: 'ZZ001412',
             /* Smatro PG */
             SmatroMid: 'mk0000001m',
             SmatroMid2: 'mk1000002m',

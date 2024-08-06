@@ -4,13 +4,23 @@ function menu(Name, Pay, Type = undefined) {
     cy.get('#productDivNo').select(1); // 상품분류
 
     /* 상품 이미지 */
-    const FileName = `image/메뉴이미지/${Name}.jpg`;
-    cy.fixture(FileName, 'base64').then(fileContent => {
+    const fileName = `${Name}.png`;
+    const filePath = `image/메뉴이미지/${fileName}`;
+    const extension = fileName.split('.').pop(); // 파일 확장자 추출
+
+    // 확장자에 따른 MIME 타입 설정
+    const mimeType =
+        extension === 'png'
+            ? 'image/png'
+            : extension === 'jpg' || extension === 'jpeg'
+              ? 'image/jpeg'
+              : 'application/octet-stream';
+    cy.fixture(filePath, 'base64').then(fileContent => {
         cy.get('input[type="file"][id="product-img-file"]').attachFile({
             fileContent,
-            filePath: FileName,
-            fileName: `${Name}.jpg`,
-            mimeType: 'image/jpeg',
+            filePath: filePath,
+            fileName: fileName,
+            mimeType: mimeType,
         });
     });
     cy.get('#PRDT_010').click(); // 품절 상태
@@ -21,6 +31,8 @@ function menu(Name, Pay, Type = undefined) {
         cy.get('#displayKioskYn').click(); // 노출 채널
     } else if (Type === '테이블오더') {
         cy.get('#displayTableorderYn').click(); // 노출 채널
+    } else if (Type === '앱') {
+        cy.get('#displayMonkiYn').click(); // 노출 채널
     } else {
         cy.get('#displayMonkiYn').click(); // 노출 채널
         cy.get('#displayKioskYn').click(); // 노출 채널

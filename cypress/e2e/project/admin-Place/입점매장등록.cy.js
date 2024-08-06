@@ -14,9 +14,9 @@ describe('Onprem Dashboard Test', () => {
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
-            Site: `${Cypress.env('Admin')}`,
+            Site: `${Cypress.env('StgAdmin')}`,
             Id: `${Cypress.env('StoreTestId1')}`,
-            Password: `${Cypress.env('AdminPwd')}`,
+            Password: `${Cypress.env('TestPwd')}`,
         });
     });
 
@@ -24,8 +24,8 @@ describe('Onprem Dashboard Test', () => {
         cy.get('[data-mnu="/kitchen/*"] > [href="#"] > p').click();
         cy.get('.menu-open > .nav > :nth-child(2) > .nav-link > p').click();
         cy.get('#btnAddStore').click();
-        cy.get('#store_nm').type('먼키지점'); // 매장이름
-        cy.get('#store_id').type('monki1'); // 매장코드
+        cy.get('#store_nm').type('먼키지점2'); // 매장이름
+        cy.get('#store_id').type('monki2'); // 매장코드
         cy.get('#btnCheckStoreId').click();
         cy.get(':nth-child(9) > .col-sm-2 > .btn').click();
         cy.get(':nth-child(1) > .list-data-center > input').click();
@@ -91,7 +91,7 @@ describe('Onprem Dashboard Test', () => {
             });
         });
 
-        cy.get('#user_id').type(Cypress.env('CeoTestId1'));
+        cy.get('#user_id').type(Cypress.env('CeoTestId2'));
         cy.get('#btnCheckUserId').click();
         cy.get('#user_pass').type(Cypress.env('TestPwd'));
         cy.get('#user_pass_chk').type(Cypress.env('TestPwd'));
@@ -101,12 +101,16 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#company_number').type('123412341234');
         cy.get('#account_number').type('3333048408739');
         cy.get('#account_user').type('강해성');
-        cy.get('#biz_name').type('먼키지점');
+        cy.get('#biz_name').type('먼키지점2');
         cy.get('.float-right > .btn').click();
         cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
 
-        cy.contains('먼키지점');
+        cy.contains('먼키지점2').click();
+        cy.get('#select_store_open_status').select('영업중');
+        cy.get('.btn-group > .btn').click();
+        cy.wait(2 * 1000);
+        cy.get('#global_modal_confirm').click();
     });
 
     //   cy.get('#global_modal_body').contains('입력한 내용으로 등록하시겠습니까?');
