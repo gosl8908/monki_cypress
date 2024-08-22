@@ -1,4 +1,4 @@
-const { loginModule, emailModule, menuModule } = require('../../module/manager.module.js');
+const { loginModule, emailModule, menuModule, tableModule } = require('../../module/manager.module.js');
 
 describe('Onprem Dashboard Test', () => {
     let TestFails = []; // 실패 원인을 저장할 변수
@@ -26,13 +26,16 @@ describe('Onprem Dashboard Test', () => {
         cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         cy.wait(1 * 1000);
 
-        cy.get('#btnAddProductDiv').click();
-        cy.wait(1 * 1000);
-        cy.get('.form-control').type('기본');
-        cy.wait(1 * 1000);
-        cy.get('.modal-footer > .btn-primary').click();
-        cy.wait(1 * 1000);
-        cy.get('#vueProductDivContainer').contains('기본');
+        const Product = cy.get('#vueProductDivContainer').contains('기본');
+        if (!Product) {
+            cy.get('#btnAddProductDiv').click();
+            cy.wait(1 * 1000);
+            cy.get('.form-control').type('기본');
+            cy.wait(1 * 1000);
+            cy.get('.modal-footer > .btn-primary').click();
+            cy.wait(1 * 1000);
+            cy.get('#vueProductDivContainer').contains('기본');
+        }
 
         cy.get('#product').click(); // 상품관리 탭
 
@@ -101,7 +104,7 @@ describe('Onprem Dashboard Test', () => {
                 cy.get('[href="/menu/menu-group"] > .btn').click();
 
                 const menuGroups = {
-                    테스트: ['테스트'],
+                    테스트: ['치킨'],
                 };
 
                 Object.entries(menuGroups).forEach(([group, items]) => {
@@ -211,7 +214,56 @@ describe('Onprem Dashboard Test', () => {
                     cy.wait(1 * 1000);
                     cy.go('back');
                 });
+
+                /* 상품 삭제 */
+                cy.get(
+                    '[data-scroll="false"][data-mnu="/menu/*"] > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn',
+                ).click();
+                cy.wait(1 * 1000);
+                cy.get('#product').click(); // 상품관리 탭
+                cy.wait(1 * 1000);
+                cy.get('#chk_all').check();
+                cy.wait(1 * 1000);
+                cy.get('#btnDelProduct').click();
+                cy.wait(1 * 1000);
+                cy.get('#global_modal_confirm').click();
+                cy.wait(1 * 1000);
+                cy.contains('조회결과가 없습니다.');
+                cy.wait(1 * 1000);
+
+                /* 옵션 삭제 */
+                cy.get('[href="/menu/option"] > .btn').click();
+                cy.wait(1 * 1000);
+                cy.get('.btn-outline-danger').click();
+                cy.wait(1 * 1000);
+                cy.get('#global_modal_confirm').click();
+                cy.wait(1 * 1000);
+                cy.contains('조회결과가 없습니다.');
+                cy.wait(1 * 1000);
+
+                /* 메뉴 그룹 삭제 */
+                cy.get('[href="/menu/menu-group"] > .btn').click();
+                cy.wait(1 * 1000);
+
+                cy.contains('span', '테스트')
+                    .parents('tr')
+
+                    .within(() => {
+                        cy.get('button').contains('삭제').click();
+                        cy.wait(1 * 1000);
+                    });
+                cy.get('#global_modal_confirm').click();
+                cy.wait(1 * 1000);
             });
+
+        /* 테이블관리 */
+        cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/store/main/basic"] > .btn').click();
+        cy.get('[href="/store/table-order/basic"] > .btn').click();
+        cy.get('#tableinfo').click();
+
+        tableModule.table('1층', '1');
+
+        cy.get('#btnTableDelete_0').click();
     });
 
     // afterEach('Status Check', () => {
