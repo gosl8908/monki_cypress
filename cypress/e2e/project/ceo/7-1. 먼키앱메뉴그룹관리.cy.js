@@ -15,8 +15,8 @@ describe('Onprem Dashboard Test', () => {
         cy.getAll();
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
-            Type: '사장님',
-            Id: `${Cypress.env('CeoTestId2')}`,
+            Type: '단골맛집 가맹점주',
+            Id: `${Cypress.env('FavTestId2')}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
@@ -28,7 +28,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('[href="/menu/menu-group"] > .btn').click();
 
         const menuGroups = {
-            NEW: ['테스트'],
+            테스트: ['테스트'],
         };
 
         Object.entries(menuGroups).forEach(([group, items]) => {
@@ -59,8 +59,7 @@ describe('Onprem Dashboard Test', () => {
         }
     });
     after('Send Email', () => {
-        const TestRange =
-            '1. 사장님 페이지 로그인';
+        const TestRange = '1. 사장님 페이지 로그인';
         emailModule.email({
             TestFails: TestFails,
             EmailTitle: `[${Cypress.env('EmailTitle')}]`,

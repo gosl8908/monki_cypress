@@ -27,15 +27,18 @@ describe('Onprem Dashboard Test', () => {
         cy.wait(1 * 1000);
 
         cy.get('#btnAddProductDiv').click();
+        cy.wait(1 * 1000);
         cy.get('.form-control').type('기본');
+        cy.wait(1 * 1000);
         cy.get('.modal-footer > .btn-primary').click();
+        cy.wait(1 * 1000);
         cy.get('#vueProductDivContainer').contains('기본');
 
         cy.get('#product').click(); // 상품관리 탭
 
         /* 메뉴 등록 */
         const menuPrices = `
-        테스트,1000
+        치킨,1000
         `;
         menuPrices
             .trim()
@@ -104,8 +107,6 @@ describe('Onprem Dashboard Test', () => {
                 Object.entries(menuGroups).forEach(([group, items]) => {
                     menuModule.menuGroup(group, 'App');
                     cy.wait(1000);
-                    menuModule.menuGroup(group);
-                    cy.wait(1000);
 
                     items.forEach(item => {
                         menuModule.menuAdd(item);
@@ -115,6 +116,7 @@ describe('Onprem Dashboard Test', () => {
                     cy.wait(1000);
                     cy.get('#global_modal_confirm').click();
                 });
+
                 cy.wait(1 * 1000);
                 cy.get('[href="/menu/app"] > .btn').click(); // 먼키앱메뉴
                 const menuArray = menuPrices
@@ -149,7 +151,7 @@ describe('Onprem Dashboard Test', () => {
                     cy.contains('span', text)
                         .parents('tr')
                         .within(() => {
-                            cy.contains(text).click();
+                            cy.get('.align-middle.text-center').eq(3).contains(text).click();
                         });
                     cy.wait(2 * 1000);
                     /* 미사용 / HOT / NEW / SALE / BEST */

@@ -63,10 +63,11 @@ function menuGroup(Name, Type = undefined) {
 }
 
 function menuAdd(Name) {
-    cy.contains('span', Name)
+    cy.get('#vueMenuContainer > .modal-content')
+        .contains('span', Name)
         .parents('tr')
         .within(() => {
-            cy.get('button').contains('추가').click();
+            cy.contains('추가').click();
         });
 }
 

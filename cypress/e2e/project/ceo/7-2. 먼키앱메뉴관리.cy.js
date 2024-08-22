@@ -74,7 +74,7 @@ describe('Onprem Dashboard Test', () => {
             cy.contains('span', text)
                 .parents('tr')
                 .within(() => {
-                    cy.contains(text).click();
+                    cy.get('.align-middle.text-center').eq(3).contains(text).click();
                 });
             cy.wait(2 * 1000);
             /* 미사용 / HOT / NEW / SALE / BEST */
