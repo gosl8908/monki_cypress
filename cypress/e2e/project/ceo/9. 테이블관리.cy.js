@@ -17,7 +17,7 @@ describe('Onprem Dashboard Test', () => {
             Site: `${Cypress.env('Ceo')}`,
             Type: '대리점',
             Id: `${Cypress.env('StoreTestId1')}`,
-            Password: `${Cypress.env('AdminPwd')}`,
+            Password: `${Cypress.env('TestPwd')}`,
         });
     });
 
@@ -26,7 +26,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#operation').click();
         cy.get('[href="/store/table-order/basic"] > .btn').click();
         cy.get('#tableinfo').click();
-        cy.get('#basic-store-no').select('번개매장 안양지점');
+        cy.get('#basic-store-no').select('교촌치킨(선불)');
         cy.get('.col-2 > .btn').click(); // 검색
 
         // /* 테이블변경 */
@@ -46,14 +46,15 @@ describe('Onprem Dashboard Test', () => {
         //     '#modalGroupRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
         // ).click();
 
-        tableModule.table('1층', '1-1');
-        tableModule.table('1층', '1-2');
-        tableModule.table('1층', '1-3');
+        tableModule.table('2층', '47');
+        tableModule.table('2층', '48');
+        tableModule.table('2층', '49');
+        tableModule.table('2층', '50');
 
         // tableModule.ground('2층', '2');
-        tableModule.table('2층', '2-1');
-        tableModule.table('2층', '2-2');
-        tableModule.table('2층', '2-3');
+        // tableModule.table('2층', '2-1');
+        // tableModule.table('2층', '2-2');
+        // tableModule.table('2층', '2-3');
     });
 
     // afterEach('Status Check', () => {

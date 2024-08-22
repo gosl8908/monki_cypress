@@ -14,9 +14,9 @@ describe('Onprem Dashboard Test', () => {
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
-            Site: `${Cypress.env('Ceo')}`,
-            Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('FavTestId1')}`,
+            Site: `${Cypress.env('StgCeo')}`,
+            Type: '사장님',
+            Id: `${Cypress.env('CeoTestId2')}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
@@ -28,12 +28,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('[href="/menu/menu-group"] > .btn').click();
 
         const menuGroups = {
-            분식: ['라면', '김밥', '참치김밥', '쫄면', '고기국수', '비빔면', '골뱅이무침'],
-            한식: ['비빔밥', '불고기'],
-            일식: ['돈가스', '치즈돈가스', '초밥'],
-            디저트: ['케익', '샐러드'],
-            양식: ['피자'],
-            음료: ['코카콜라', '코카콜라제로', '펩시', '펩시제로', '스프라이트', '스프라이트제로'],
+            NEW: ['테스트'],
         };
 
         Object.entries(menuGroups).forEach(([group, items]) => {
@@ -50,27 +45,27 @@ describe('Onprem Dashboard Test', () => {
         });
     });
 
-    // afterEach('Status Check', () => {
-    //     if (Failure) {
-    //         const ScreenshotFileName = `Ceo Page Test ${Cypress.env('DateLabel')}`;
-    //         cy.screenshot(ScreenshotFileName);
-    //         if (!Cypress.platform.includes('win')) {
-    //             const CurrentFile = f.getFileName(__filename);
-    //             Screenshots.push(`${CurrentFile}/${ScreenshotFileName}`);
-    //         } else {
-    //             Screenshots.push(`${ScreenshotFileName}`);
-    //         }
-    //         Failure = false;
-    //     }
-    // });
-    // after('Send Email', () => {
-    //     const TestRange =
-    //         '1. 사장님 페이지 로그인';
-    //     emailModule.email({
-    //         TestFails: TestFails,
-    //         EmailTitle: `[${Cypress.env('EmailTitle')}]`,
-    //         TestRange: TestRange,
-    //         Screenshots: Screenshots,
-    //     });
-    // });
+    afterEach('Status Check', () => {
+        if (Failure) {
+            const ScreenshotFileName = `Ceo Page Test ${Cypress.env('DateLabel')}`;
+            cy.screenshot(ScreenshotFileName);
+            if (!Cypress.platform.includes('win')) {
+                const CurrentFile = f.getFileName(__filename);
+                Screenshots.push(`${CurrentFile}/${ScreenshotFileName}`);
+            } else {
+                Screenshots.push(`${ScreenshotFileName}`);
+            }
+            Failure = false;
+        }
+    });
+    after('Send Email', () => {
+        const TestRange =
+            '1. 사장님 페이지 로그인';
+        emailModule.email({
+            TestFails: TestFails,
+            EmailTitle: `[${Cypress.env('EmailTitle')}]`,
+            TestRange: TestRange,
+            Screenshots: Screenshots,
+        });
+    });
 });
