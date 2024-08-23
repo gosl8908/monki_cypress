@@ -6,14 +6,12 @@ function login({ Site, Type = undefined, Id, Password }) {
         cy.get('#user_pass', { timeout: 30 * 1000 }).type(Password); // 비밀번호 입력
         cy.get('#btnLogin', { timeout: 30 * 1000 }).click();
         cy.wait(3 * 1000);
-        cy.log('로그인 성공');
     } else {
         cy.visit(Site);
         cy.get('#user_id').type(Id);
         cy.get('#user_pass').type(Password);
         cy.get('#btnLogin').click();
         cy.wait(3 * 1000);
-        cy.log('로그인 성공');
     }
 }
 module.exports = {

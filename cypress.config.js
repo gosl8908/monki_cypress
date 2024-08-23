@@ -5,8 +5,11 @@ const { defineConfig } = require('cypress');
 const { beforeRunHook, afterRunHook } = require('cypress-mochawesome-reporter/lib');
 
 /* Email Account */
-const EamilId = 'gosl8908@gmail.com';
-const EamilPwd = 'boft yzek iitd uuxa';
+const gmailEamilId = 'gosl8908@gmail.com';
+const gmailEamilPwd = 'boft yzek iitd uuxa';
+/* Email Account */
+const doorayEamilId = 'hskang@monki.net';
+const doorayEamilPwd = 'gotjd0215!';
 
 module.exports = defineConfig({
     viewportWidth: 1920,
@@ -43,24 +46,43 @@ module.exports = defineConfig({
                             });
                         });
                     }
-                    const transporter = nodemailer.createTransport({
+                    const gmailtransporter = nodemailer.createTransport({
                         host: 'smtp.gmail.com',
                         port: 587,
                         secure: false,
                         auth: {
-                            user: EamilId,
-                            pass: EamilPwd,
+                            user: gmailEamilId,
+                            pass: gmailEamilPwd,
                         },
                     });
-                    const mailOptions = {
-                        from: EamilId,
-                        to: 'gosl8908@gmail.com',
+
+                    // 두레이 메일용 transporter
+                    const dooraytransporter = nodemailer.createTransport({
+                        host: 'smtp.dooray.com',
+                        port: 465,
+                        secure: true, // STARTTLS
+                        auth: {
+                            user: doorayEamilId,
+                            pass: doorayEamilPwd,
+                        },
+                    });
+                    // const gmailmailOptions = {
+                    //     from: gmailEamilId,
+                    //     to: gmailEamilId,
+                    //     subject: subject,
+                    //     text: body,
+                    //     attachments: attachments,
+                    // };
+                    const dooraymailOptions = {
+                        from: doorayEamilId,
+                        to: doorayEamilId,
                         subject: subject,
                         text: body,
                         attachments: attachments,
                     };
-                    return transporter
-                        .sendMail(mailOptions)
+
+                    return dooraytransporter
+                        .sendMail(dooraymailOptions)
                         .then(info => {
                             console.log('이메일 성공적으로 전송됨: ' + info.response);
                             return true;

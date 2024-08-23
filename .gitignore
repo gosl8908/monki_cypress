@@ -158,6 +158,6 @@ package-lock.json
 .history/
 
 ######################
-# appium
+# cypress
 ######################
-monki_app/screenshot
+screenshots/
