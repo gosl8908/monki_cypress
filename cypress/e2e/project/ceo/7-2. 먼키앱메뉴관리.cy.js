@@ -93,140 +93,128 @@ describe('Onprem Dashboard Test', () => {
             cy.go('back');
         });
     });
+
+    // const pageChangeConditions1 = ['향어 3kg', '송어 3kg (5~6인분)'];
+
+    // const manageOptions = (text, pageChangeConditions) => {
+    //     if (pageChangeConditions.includes(text)) {
+    //         cy.get(':nth-child(3) > .page-link').click();
+    //     }
+    //     cy.contains('span', text)
+    //         .parents('tr')
+    //         .within(() => {
+    //             cy.get('button').eq(0).click();
+    //         });
+    //     cy.contains('span', '추가선택')
+    //         .parents('tr')
+    //         .within(() => {
+    //             cy.get('button').contains('추가').click();
+    //         });
+    //     cy.get('#vueOptionContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
+    //     cy.wait(1000);
+    //     cy.get('#global_modal_confirm').click();
+    //     cy.wait(1000);
+    // };
+
+    // texts1.forEach(text2 => manageOptions(text2, pageChangeConditions1));
+    // cy.get(':nth-child(2) > .page-link').click();
+
+    // const manageMenus = (text2, pageChangeConditions) => {
+    //     if (pageChangeConditions.includes(text2)) {
+    //         cy.get(':nth-child(3) > .page-link').click();
+    //     }
+    //     cy.contains('span', text2)
+    //         .parents('tr')
+    //         .within(() => {
+    //             cy.contains(text2).click();
+    //         });
+    //     cy.wait(3000);
+    //     cy.get('#bestMenuYn_true').click();
+    //     cy.wait(1000);
+
+    //     // const selectors = ['#MNBG_000', '#MNBG_101', '#MNBG_102', '#MNBG_103', '#MNBG_104'];
+    //     // const randomIndex = Math.floor(Math.random() * selectors.length);
+    //     // cy.get(selectors[randomIndex]).click();
+
+    //     cy.wait(1000);
+    //     cy.get('name="menuDesc"').type('초장+간장+와사비');
+    //     cy.wait(1000);
+    //     cy.get('#MN_001').click();
+    //     cy.wait(1000);
+    //     cy.get('.ms-auto').click();
+    //     cy.wait(1000);
+    //     cy.get('#global_modal_confirm').click();
+    //     cy.wait(1000);
+    //     cy.go('back');
+    // };
+
+    // texts2.forEach(text2 => manageMenus(text2, pageChangeConditions2));
+
+    // for (let i = 0; i < texts.length; i++) {
+    //     const text = texts[i];
+
+    //     /* 옵션관리 */
+    //     cy.contains('span', text)
+    //         .parents('tr')
+    //         .within(() => {
+    //             cy.get('button').eq(0).click();
+    //         });
+    //     cy.contains('span', '사이즈선택')
+    //         .parents('tr')
+    //         .within(() => {
+    //             cy.get('button').contains('추가').click();
+    //         });
+    //     cy.contains('span', '추가선택')
+    //         .parents('tr')
+    //         .within(() => {
+    //             cy.get('button').contains('추가').click();
+    //         });
+
+    //     cy.get('#vueOptionContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
+    //     cy.wait(1 * 1000);
+    //     cy.get('#global_modal_confirm').click();
+    //     cy.wait(1 * 1000);
+    // }
+    // cy.get(':nth-child(2) > .page-link').click();
+
+    // for (let i = 0; i < texts2.length; i++) {
+    //     const text = texts2[i];
+
+    //     /* 메뉴관리 */
+    //     cy.contains('span', text)
+    //         .parents('tr')
+    //         .within(() => {
+    //             cy.get('button').eq(1).click();
+    //         });
+    //     cy.wait(3 * 1000);
+    //     cy.get('#bestMenuYn_true').click(); // 대표메뉴
+    //     /* 뱃지 랜덤 부여 */
+    //     const selectors = ['#MNBG_000', '#MNBG_101', '#MNBG_102', '#MNBG_103', '#MNBG_104'];
+
+    //     // Generate a random index between 0 and the length of the array minus 1
+    //     const randomIndex = Math.floor(Math.random() * selectors.length);
+
+    //     // Use the random index to click one of the selectors
+    //     cy.get(selectors[randomIndex]).click();
+
+    //     cy.get('#MN_001').click(); // 앱 노출 여부
+
+    //     cy.get('.ms-auto').click(); // 변경하기
+    //     cy.wait(1 * 1000);
+    //     cy.get('#global_modal_confirm').click(); // 확인
+
+    //     cy.go('back');
+    // }
+
+    afterEach('Status Check', () => {
+        emailModule.screenshot(Failure, Screenshots);
+    });
+    after('Send Email', () => {
+        emailModule.email({
+            TestFails,
+            EmailTitle: `[${Cypress.env('EmailTitle')}]`,
+            TestRange: '먼키앱 메뉴 관리',
+            Screenshots,
+        });
+    });
 });
-
-// const pageChangeConditions1 = ['향어 3kg', '송어 3kg (5~6인분)'];
-
-// const manageOptions = (text, pageChangeConditions) => {
-//     if (pageChangeConditions.includes(text)) {
-//         cy.get(':nth-child(3) > .page-link').click();
-//     }
-//     cy.contains('span', text)
-//         .parents('tr')
-//         .within(() => {
-//             cy.get('button').eq(0).click();
-//         });
-//     cy.contains('span', '추가선택')
-//         .parents('tr')
-//         .within(() => {
-//             cy.get('button').contains('추가').click();
-//         });
-//     cy.get('#vueOptionContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
-//     cy.wait(1000);
-//     cy.get('#global_modal_confirm').click();
-//     cy.wait(1000);
-// };
-
-// texts1.forEach(text2 => manageOptions(text2, pageChangeConditions1));
-// cy.get(':nth-child(2) > .page-link').click();
-
-// const manageMenus = (text2, pageChangeConditions) => {
-//     if (pageChangeConditions.includes(text2)) {
-//         cy.get(':nth-child(3) > .page-link').click();
-//     }
-//     cy.contains('span', text2)
-//         .parents('tr')
-//         .within(() => {
-//             cy.contains(text2).click();
-//         });
-//     cy.wait(3000);
-//     cy.get('#bestMenuYn_true').click();
-//     cy.wait(1000);
-
-//     // const selectors = ['#MNBG_000', '#MNBG_101', '#MNBG_102', '#MNBG_103', '#MNBG_104'];
-//     // const randomIndex = Math.floor(Math.random() * selectors.length);
-//     // cy.get(selectors[randomIndex]).click();
-
-//     cy.wait(1000);
-//     cy.get('name="menuDesc"').type('초장+간장+와사비');
-//     cy.wait(1000);
-//     cy.get('#MN_001').click();
-//     cy.wait(1000);
-//     cy.get('.ms-auto').click();
-//     cy.wait(1000);
-//     cy.get('#global_modal_confirm').click();
-//     cy.wait(1000);
-//     cy.go('back');
-// };
-
-// texts2.forEach(text2 => manageMenus(text2, pageChangeConditions2));
-
-// for (let i = 0; i < texts.length; i++) {
-//     const text = texts[i];
-
-//     /* 옵션관리 */
-//     cy.contains('span', text)
-//         .parents('tr')
-//         .within(() => {
-//             cy.get('button').eq(0).click();
-//         });
-//     cy.contains('span', '사이즈선택')
-//         .parents('tr')
-//         .within(() => {
-//             cy.get('button').contains('추가').click();
-//         });
-//     cy.contains('span', '추가선택')
-//         .parents('tr')
-//         .within(() => {
-//             cy.get('button').contains('추가').click();
-//         });
-
-//     cy.get('#vueOptionContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
-//     cy.wait(1 * 1000);
-//     cy.get('#global_modal_confirm').click();
-//     cy.wait(1 * 1000);
-// }
-// cy.get(':nth-child(2) > .page-link').click();
-
-// for (let i = 0; i < texts2.length; i++) {
-//     const text = texts2[i];
-
-//     /* 메뉴관리 */
-//     cy.contains('span', text)
-//         .parents('tr')
-//         .within(() => {
-//             cy.get('button').eq(1).click();
-//         });
-//     cy.wait(3 * 1000);
-//     cy.get('#bestMenuYn_true').click(); // 대표메뉴
-//     /* 뱃지 랜덤 부여 */
-//     const selectors = ['#MNBG_000', '#MNBG_101', '#MNBG_102', '#MNBG_103', '#MNBG_104'];
-
-//     // Generate a random index between 0 and the length of the array minus 1
-//     const randomIndex = Math.floor(Math.random() * selectors.length);
-
-//     // Use the random index to click one of the selectors
-//     cy.get(selectors[randomIndex]).click();
-
-//     cy.get('#MN_001').click(); // 앱 노출 여부
-
-//     cy.get('.ms-auto').click(); // 변경하기
-//     cy.wait(1 * 1000);
-//     cy.get('#global_modal_confirm').click(); // 확인
-
-//     cy.go('back');
-// }
-
-// afterEach('Status Check', () => {
-//     if (Failure) {
-//         const ScreenshotFileName = `Ceo Page Test ${Cypress.env('DateLabel')}`;
-//         cy.screenshot(ScreenshotFileName);
-//         if (!Cypress.platform.includes('win')) {
-//             const CurrentFile = f.getFileName(__filename);
-//             Screenshots.push(`${CurrentFile}/${ScreenshotFileName}`);
-//         } else {
-//             Screenshots.push(`${ScreenshotFileName}`);
-//         }
-//         Failure = false;
-//     }
-// });
-// after('Send Email', () => {
-//     const TestRange =
-//         '1. 사장님 페이지 로그인';
-//     emailModule.email({
-//         TestFails: TestFails,
-//         EmailTitle: `[${Cypress.env('EmailTitle')}]`,
-//         TestRange: TestRange,
-//         Screenshots: Screenshots,
-//     });
-// });

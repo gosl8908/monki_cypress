@@ -273,25 +273,14 @@ describe('Onprem Dashboard Test', () => {
     });
 
     afterEach('Status Check', () => {
-        if (Failure) {
-            const ScreenshotFileName = `Ceo Page basic Test ${Cypress.env('DateLabel')}`;
-            cy.screenshot(ScreenshotFileName);
-            if (!Cypress.platform.includes('win')) {
-                const CurrentFile = f.getFileName(__filename);
-                Screenshots.push(`${CurrentFile}/${ScreenshotFileName}`);
-            } else {
-                Screenshots.push(`${ScreenshotFileName}`);
-            }
-            Failure = false;
-        }
+        emailModule.screenshot(Failure, Screenshots);
     });
     after('Send Email', () => {
-        const TestRange = '사장님 사이트 기본기능';
         emailModule.email({
-            TestFails: TestFails,
+            TestFails,
             EmailTitle: `[${Cypress.env('EmailTitle')}]`,
-            TestRange: TestRange,
-            Screenshots: Screenshots,
+            TestRange: '사장님 사이트 기본기능',
+            Screenshots,
         });
     });
 });

@@ -117,27 +117,15 @@ describe('Onprem Dashboard Test', () => {
             cy.go('back');
         });
     });
+    afterEach('Status Check', () => {
+        emailModule.screenshot(Failure, Screenshots);
+    });
+    after('Send Email', () => {
+        emailModule.email({
+            TestFails,
+            EmailTitle: `[${Cypress.env('EmailTitle')}]`,
+            TestRange: '테이블오더 메뉴 관리',
+            Screenshots,
+        });
+    });
 });
-// afterEach('Status Check', () => {
-//     if (Failure) {
-//         const ScreenshotFileName = `Ceo Page Test ${Cypress.env('DateLabel')}`;
-//         cy.screenshot(ScreenshotFileName);
-//         if (!Cypress.platform.includes('win')) {
-//             const CurrentFile = f.getFileName(__filename);
-//             Screenshots.push(`${CurrentFile}/${ScreenshotFileName}`);
-//         } else {
-//             Screenshots.push(`${ScreenshotFileName}`);
-//         }
-//         Failure = false;
-//     }
-// });
-// after('Send Email', () => {
-//     const TestRange =
-//         '1. 사장님 페이지 로그인';
-//     emailModule.email({
-//         TestFails: TestFails,
-//         EmailTitle: `[${Cypress.env('EmailTitle')}]`,
-//         TestRange: TestRange,
-//         Screenshots: Screenshots,
-//     });
-// });

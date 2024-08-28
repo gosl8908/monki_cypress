@@ -1,3 +1,14 @@
+function screenshot(Failure, Screenshots) {
+    if (Failure) {
+        const ScreenshotFileName = `Ceo Page Test ${Cypress.env('DateLabel')}`;
+        cy.screenshot(ScreenshotFileName);
+        Screenshots.push(
+            `${Cypress.platform.includes('win') ? '' : `${f.getFileName(__filename)}/`}${ScreenshotFileName}`,
+        );
+        Failure = false;
+    }
+    return Screenshots; // 배열을 반환
+}
 function email({ TestFails, EmailTitle, TestRange, Screenshots }) {
     const IsTestFailed = TestFails.length > 0;
     const EmailBody = `Cypress 자동화 테스트 스위트가 ${IsTestFailed ? '실패' : '성공'}하였습니다.
@@ -13,7 +24,7 @@ function email({ TestFails, EmailTitle, TestRange, Screenshots }) {
     cy.log('테스트가 성공적으로 완료되었습니다.');
 
     const EmailInfo = {
-        subject: `${EmailTitle} 자동화 테스트 결과`,
+        subject: `${EmailTitle}`,
         body: EmailBody,
         screenshotFileNames: Screenshots.map(name => name + '.png'), // 스크린샷 파일 이름들을 추가
     };
@@ -29,4 +40,5 @@ function email({ TestFails, EmailTitle, TestRange, Screenshots }) {
 
 module.exports = {
     email: email,
+    screenshot: screenshot,
 };
