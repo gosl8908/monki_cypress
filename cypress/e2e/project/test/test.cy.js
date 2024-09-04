@@ -23,7 +23,7 @@ describe('Test', () => {
     });
 
     it('Ceo Page Test', () => {
-        cy.contains('단골맛집');
+        cy.contains('123123123123');
     });
 
     afterEach('Status Check', () => {

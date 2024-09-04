@@ -28,4 +28,4 @@ jobs:
               run: yarn install
 
             - name: Run Cypress tests
-              run: npx cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }} --browser chrome --spec "cypress/e2e/project/Full/기본기능.cy.js"
+              run: npx cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }} --browser chrome --spec "cypress/e2e/project/test/test.cy.js"
