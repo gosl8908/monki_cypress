@@ -97,8 +97,8 @@ module.exports = defineConfig({
 
         env: {
             /* Prod Sit */
-            Admin: 'https://crew.monki.net/users/login', //Prod 통합
-            Ceo: 'https://ceo.monki.net/users/login', //Prod 사장님
+            Admin: 'https://crew.monki.net', //Prod 통합
+            Ceo: 'https://ceo.monki.net', //Prod 사장님
 
             /* STG Site */
             StgAdmin: 'http://staging-mngr.monthlykitchen.kr/users/login', //STG 통합
