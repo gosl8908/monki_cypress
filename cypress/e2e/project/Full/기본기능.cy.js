@@ -1,6 +1,6 @@
 const { loginModule, emailModule, menuModule, tableModule } = require('../../module/manager.module.js');
 
-describe('Onprem Dashboard Test', () => {
+describe('Automation Testing', () => {
     let TestFails = []; // 실패 원인을 저장할 변수
     let Screenshots = []; // 스크린샷을 저장할 배열
     let Failure = false;
@@ -16,7 +16,7 @@ describe('Onprem Dashboard Test', () => {
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('FavTestId1')}`,
+            Id: `${Cypress.env('FavTestId')[0]}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
@@ -28,7 +28,7 @@ describe('Onprem Dashboard Test', () => {
 
         const Product = cy.get('#vueProductDivContainer').contains('기본');
         if (!Product) {
-            cy.get('#btnAddProductDiv').click();
+            cy.get('#btnAddProductDiv').click().wait(1000);
             cy.wait(1 * 1000);
             cy.get('.form-control').type('기본');
             cy.wait(1 * 1000);

@@ -1,6 +1,6 @@
 function screenshot(Failure, Screenshots) {
     if (Failure) {
-        const ScreenshotFileName = `Ceo Page Test ${Cypress.env('DateLabel')}`;
+        const ScreenshotFileName = `${Cypress.env('DateLabel')}`;
         cy.screenshot(ScreenshotFileName);
         Screenshots.push(
             `${Cypress.platform.includes('win') ? '' : `${f.getFileName(__filename)}/`}${ScreenshotFileName}`,

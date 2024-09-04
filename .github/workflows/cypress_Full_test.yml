@@ -1,0 +1,31 @@
+name: Cypress E2E Tests
+
+on:
+    schedule:
+        - cron: '0 23 * * 0-4' # UTC 기준 매주 일요일 ~ 수요일 23:00 (11:00 PM)에 실행
+    push:
+        branches:
+            - main
+
+env:
+    TZ: 'Asia/Seoul'
+
+jobs:
+    cypress-run:
+        runs-on: ubuntu-latest
+        container:
+            image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
+
+        steps:
+            - uses: actions/checkout@v2
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '21.7.1'
+            - run: yarn add cypress@latest
+
+            - name: Install dependencies
+              run: yarn install
+
+            - name: Run Cypress tests
+              run: yarn cypress open --record --key ${{ secrets.CYPRESS_RECORD_KEY }} --browser chrome --spec "cypress/e2e/project/Full/기본기능.cy.js"
