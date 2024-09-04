@@ -74,6 +74,9 @@ Cypress.Commands.add('getAll', () => {
 });
 
 Cypress.on('uncaught:exception', (err, runnable) => {
-    // 에러를 무시하고 계속 진행
-    return false;
+    // '403' 오류를 무시하거나 로그를 추가할 수 있습니다.
+    if (err.message.includes('403')) {
+        return false; // 오류 무시
+    }
+    return true; // 다른 오류는 여전히 처리됨
 });
