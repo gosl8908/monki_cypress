@@ -1,14 +1,12 @@
 function login({ Site, Type = undefined, Id, Password }) {
-    cy.visit(
-        Site,
-        { timeout: 60 * 1000 },
-        {
-            headers: {
-                Accept: 'application/json, text/plain, */*',
-                'User-Agent': 'axios/0.18.0',
-            },
+    cy.visit(Site, {
+        timeout: 60 * 1000,
+        headers: {
+            Accept: 'application/json, text/plain, */*',
+            'User-Agent': 'axios/0.18.0',
         },
-    );
+    });
+
     if (Site === Cypress.env('Ceo') || Site === Cypress.env('StgCeo') || Site === Cypress.env('DevCeo')) {
         cy.get('#user_type').select(Type);
     }
