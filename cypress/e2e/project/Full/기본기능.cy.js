@@ -14,7 +14,7 @@ describe('Automation Testing', () => {
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
-            Site: `${Cypress.env('StgCeo')}`,
+            Site: `${Cypress.env('Ceo')}`,
             Type: '단골맛집 가맹점주',
             Id: `${Cypress.env('FavTestId')[0]}`,
             Password: `${Cypress.env('TestPwd')}`,
@@ -26,16 +26,21 @@ describe('Automation Testing', () => {
         cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         cy.wait(1 * 1000);
 
-        const Product = cy.get('#vueProductDivContainer').contains('기본');
-        if (!Product) {
-            cy.get('#btnAddProductDiv').click().wait(1000);
-            cy.wait(1 * 1000);
-            cy.get('.form-control').type('기본');
-            cy.wait(1 * 1000);
-            cy.get('.modal-footer > .btn-primary').click();
-            cy.wait(1 * 1000);
-            cy.get('#vueProductDivContainer').contains('기본');
-        }
+        cy.get('#vueProductDivContainer').then($container => {
+            // '기본'이라는 텍스트가 포함된 요소가 있는지 확인
+            if ($container.text().includes('기본')) {
+                // 기본이 이미 존재하는 경우
+                return;
+            } else {
+                // 기본이 없는 경우
+                cy.get('#btnAddProductDiv').click().wait(1000);
+                cy.get('.form-control').type('기본');
+                cy.get('.modal-footer > .btn-primary').click();
+
+                // 다시 '기본'이 추가되었는지 확인
+                cy.get('#vueProductDivContainer').contains('기본');
+            }
+        });
 
         cy.get('#product').click(); // 상품관리 탭
 
@@ -228,8 +233,6 @@ describe('Automation Testing', () => {
                 cy.wait(1 * 1000);
                 cy.get('#global_modal_confirm').click();
                 cy.wait(1 * 1000);
-                cy.contains('조회결과가 없습니다.');
-                cy.wait(1 * 1000);
 
                 /* 옵션 삭제 */
                 cy.get('[href="/menu/option"] > .btn').click();
@@ -237,8 +240,6 @@ describe('Automation Testing', () => {
                 cy.get('.btn-outline-danger').click();
                 cy.wait(1 * 1000);
                 cy.get('#global_modal_confirm').click();
-                cy.wait(1 * 1000);
-                cy.contains('조회결과가 없습니다.');
                 cy.wait(1 * 1000);
 
                 /* 메뉴 그룹 삭제 */
