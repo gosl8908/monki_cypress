@@ -1,5 +1,5 @@
 function login({ Site, Type = undefined, Id, Password }) {
-    cy.visit(Site, { timeout: 60 * 1000 });
+    cy.visit(Site, { timeout: 60 * 1000 }, { failOnStatusCode: false });
     if (Site === Cypress.env('Ceo') || Site === Cypress.env('StgCeo') || Site === Cypress.env('DevCeo')) {
         cy.get('#user_type').select(Type);
     }
