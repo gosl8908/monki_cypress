@@ -16,7 +16,6 @@ describe('Test', () => {
         cy.getAll();
         loginModule.login({
             Site: `${Cypress.env('Admin')}`,
-            Type: '단골맛집 가맹점주',
             Id: `${Cypress.env('FavTestId')[0]}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
