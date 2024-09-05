@@ -46,15 +46,15 @@ module.exports = defineConfig({
                             });
                         });
                     }
-                    const gmailtransporter = nodemailer.createTransport({
-                        host: 'smtp.gmail.com',
-                        port: 587,
-                        secure: false,
-                        auth: {
-                            user: gmailEamilId,
-                            pass: gmailEamilPwd,
-                        },
-                    });
+                    // const gmailtransporter = nodemailer.createTransport({
+                    //     host: 'smtp.gmail.com',
+                    //     port: 587,
+                    //     secure: false,
+                    //     auth: {
+                    //         user: gmailEamilId,
+                    //         pass: gmailEamilPwd,
+                    //     },
+                    // });
 
                     // 두레이 메일용 transporter
                     const dooraytransporter = nodemailer.createTransport({
@@ -98,7 +98,6 @@ module.exports = defineConfig({
         env: {
             /* Prod Sit */
             Admin: 'https://crew.monki.net/users/login', //Prod 통합
-            Ceo: 'https://ceo.monki.net/users/login', //Prod 사장님
             Ceo: 'https://ceo.monki.net/users/login', //Prod 사장님
 
             /* STG Site */
