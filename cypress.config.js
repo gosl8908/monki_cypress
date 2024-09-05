@@ -37,7 +37,8 @@ module.exports = defineConfig({
                     /* 스크린샷 있는 경우 첨부 */
                     if (screenshotFileNames && screenshotFileNames.length > 0) {
                         screenshotFileNames.forEach(screenshotFileName => {
-                            const path = `./cypress/screenshots/${screenshotFileName.split('/').slice(1).join('/')}`;
+                            const path = `./cypress/screenshots/${screenshotFileName}`;
+                            console.log(`Path: ${path}`);
                             attachments.push({
                                 filename: screenshotFileName,
                                 encoding: 'base64',

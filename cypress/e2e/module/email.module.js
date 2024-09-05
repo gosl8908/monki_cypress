@@ -25,7 +25,7 @@ function screenshot(Failure, Screenshots) {
 //     Failure = false;
 // }
 // return Screenshots; // 배열을 반환
-function email({ TestFails, EmailTitle, TestRange, Screenshots = { cloud: [] } }) {
+function email({ TestFails, EmailTitle, TestRange, Screenshots }) {
     const IsTestFailed = TestFails.length > 0;
     const EmailBody = `Cypress 자동화 테스트 스위트가 ${IsTestFailed ? '실패' : '성공'}하였습니다.
     테스트 실행 시간 : ${Cypress.env('DateLabelWeek')}
@@ -43,7 +43,6 @@ function email({ TestFails, EmailTitle, TestRange, Screenshots = { cloud: [] } }
         subject: `${EmailTitle}`,
         body: EmailBody,
         screenshotFileNames: Screenshots.map(name => name + '.png'), // 스크린샷 파일 이름들을 추가
-        cloudScreenshotFileNames: Screenshots.cloud ? Screenshots.cloud.map(name => name + '.png') : [], // 클라우드 스크린샷
     };
 
     cy.task('sendEmail', EmailInfo).then(success => {
