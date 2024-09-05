@@ -22,7 +22,7 @@ describe('Test', () => {
         });
     });
 
-    it('Ceo Page Test', () => {
+    it('Test', () => {
         // cy.contains('안양');
         cy.contains('123123123123');
     });

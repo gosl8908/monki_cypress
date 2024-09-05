@@ -60,10 +60,11 @@ module.exports = defineConfig({
                     /* 클라우드 스크린샷 첨부 */
                     if (cloudScreenshotFileNames && cloudScreenshotFileNames.length > 0) {
                         cloudScreenshotFileNames.forEach(screenshotFileName => {
+                            const fileName = screenshotFileName.split('/').pop(); // 파일 이름만 추출
                             // 클라우드 환경에서의 스크린샷 경로 처리 (예: 절대 경로 또는 클라우드 스토리지 URL)
-                            const path = `/home/runner/work/monki_cypress/monki_cypress/cypress/screenshots/${screenshotFileName}`;
+                            const path = `/home/runner/work/monki_cypress/monki_cypress/cypress/screenshots/${fileName}`;
                             attachments.push({
-                                filename: screenshotFileName,
+                                filename: fileName,
                                 encoding: 'base64',
                                 path: path,
                             });
