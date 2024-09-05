@@ -23,8 +23,8 @@ describe('Test', () => {
     });
 
     it('Test', () => {
-        // cy.contains('안양');
-        cy.contains('123123123123');
+        cy.contains('안양');
+        // cy.contains('123123123123');
     });
 
     afterEach('Status Check', () => {

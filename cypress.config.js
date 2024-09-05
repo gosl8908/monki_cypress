@@ -1,6 +1,8 @@
 /* cypress.config.js */
 const nodemailer = require('nodemailer');
 const { defineConfig } = require('cypress');
+const glob = require('glob');
+const fs = require('fs');
 /* 리포트 추가 */
 const { beforeRunHook, afterRunHook } = require('cypress-mochawesome-reporter/lib');
 
@@ -37,24 +39,19 @@ module.exports = defineConfig({
                     /* 스크린샷 있는 경우 첨부 */
                     if (screenshotFileNames && screenshotFileNames.length > 0) {
                         screenshotFileNames.forEach(screenshotFileName => {
-                            // 파일 이름에서 기본 디렉터리 경로를 제거하여 상대 경로를 생성
-                            const relativePath = screenshotFileName.replace(/^.*\/cypress\/screenshots\//, '');
-                            const path = `./cypress/screenshots/${relativePath}`;
-
-                            console.log(`Original screenshotFileName: ${screenshotFileName}`);
-                            console.log(`Relative Path: ${relativePath}`);
-                            console.log(`Path: ${path}`);
+                            const path = `./cypress/screenshots/${screenshotFileName}`;
+                            const cloudPath = `/home/runner/work/monki_cypress/monki_cypress/cypress/screenshots/**/${screenshotFileName}`;
+                            const cloudMatches = glob.sync(cloudPath);
+                            const filePath = fs.existsSync(path)
+                                ? path
+                                : cloudMatches.length > 0
+                                  ? cloudMatches[0]
+                                  : null;
 
                             attachments.push({
-                                filename: relativePath.split('/').pop(), // 파일 이름만 사용
+                                filename: screenshotFileName,
                                 encoding: 'base64',
-                                path: path,
-
-                                // const path = `./cypress/screenshots/${screenshotFileName}`;
-                                // attachments.push({
-                                //     filename: screenshotFileName,
-                                //     encoding: 'base64',
-                                //     path: path,
+                                path: filePath,
                             });
                         });
                     }
