@@ -15,7 +15,7 @@ describe('Test', () => {
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
-            Site: `${Cypress.env('Ceo')}`,
+            Site: `${Cypress.env('DevCeo')}`,
             Type: '단골맛집 가맹점주',
             Id: `${Cypress.env('FavTestId')[0]}`,
             Password: `${Cypress.env('TestPwd')}`,
@@ -23,7 +23,8 @@ describe('Test', () => {
     });
 
     it('Ceo Page Test', () => {
-        cy.contains('123123123123');
+        cy.contains('안양');
+        // cy.contains('123123123123');
     });
 
     afterEach('Status Check', () => {

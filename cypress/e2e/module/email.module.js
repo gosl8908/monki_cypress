@@ -7,12 +7,23 @@ function screenshot(Failure, Screenshots) {
     if (Failure) {
         const ScreenshotFileName = `${Cypress.env('DateLabel')}`;
         cy.screenshot(ScreenshotFileName);
-        Screenshots.push(
-            `${Cypress.platform.includes('win') ? '' : `${f.getFileName(__filename)}/`}${ScreenshotFileName}`,
-        );
+
+        // 플랫폼별 경로 차이 없이 단순하게 파일 이름만 추가
+        Screenshots.push(ScreenshotFileName);
+
         Failure = false;
     }
     return Screenshots; // 배열을 반환
+    // cy.log(`Screenshots folder: ${Cypress.config('screenshotsFolder')}`);
+    // if (Failure) {
+    //     const ScreenshotFileName = `${Cypress.env('DateLabel')}`;
+    //     cy.screenshot(ScreenshotFileName);
+    //     Screenshots.push(
+    //         `${Cypress.platform.includes('win') ? '' : `${f.getFileName(__filename)}/`}${ScreenshotFileName}`,
+    //     );
+    //     Failure = false;
+    // }
+    // return Screenshots; // 배열을 반환
 }
 function email({ TestFails, EmailTitle, TestRange, Screenshots }) {
     const IsTestFailed = TestFails.length > 0;
