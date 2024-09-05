@@ -99,6 +99,7 @@ module.exports = defineConfig({
             /* Prod Sit */
             Admin: 'https://crew.monki.net/users/login', //Prod 통합
             Ceo: 'https://ceo.monki.net/users/login', //Prod 사장님
+            Ceo: 'https://ceo.monki.net/users/login', //Prod 사장님
 
             /* STG Site */
             StgAdmin: 'http://staging-mngr.monthlykitchen.kr/users/login', //STG 통합
