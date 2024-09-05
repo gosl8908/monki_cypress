@@ -25,10 +25,5 @@ jobs:
             - name: Install dependencies
               run: yarn install
 
-            - name: Install necessary graphics libraries
-              run: |
-                  sudo apt-get update
-                  sudo apt-get install -y libgtk-3-0 libgdk-pixbuf2.0-0
-
             - name: Run Cypress tests
               run: yarn cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }} --spec "cypress/e2e/project/test/test.cy.js" --browser chrome

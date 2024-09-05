@@ -37,24 +37,39 @@ module.exports = defineConfig({
                 sendEmail({ recipient, subject, body, screenshotFileNames }) {
                     const attachments = [];
                     /* 스크린샷 있는 경우 첨부 */
-                    if (screenshotFileNames && screenshotFileNames.length > 0) {
+                    if (screenshotFileNames?.length) {
                         screenshotFileNames.forEach(screenshotFileName => {
-                            const path = `./cypress/screenshots/${screenshotFileName}`;
+                            const localPath = `./cypress/screenshots/${screenshotFileName}`;
                             const cloudPath = `/home/runner/work/monki_cypress/monki_cypress/cypress/screenshots/**/${screenshotFileName}`;
-                            const cloudMatches = glob.sync(cloudPath);
-                            const filePath = fs.existsSync(path)
-                                ? path
-                                : cloudMatches.length > 0
-                                  ? cloudMatches[0]
-                                  : null;
+                            const filePath = fs.existsSync(localPath) ? localPath : glob.sync(cloudPath)[0] || null;
 
-                            attachments.push({
-                                filename: screenshotFileName,
-                                encoding: 'base64',
-                                path: filePath,
-                            });
+                            if (filePath) {
+                                attachments.push({
+                                    filename: screenshotFileName,
+                                    encoding: 'base64',
+                                    path: filePath,
+                                });
+                            }
                         });
                     }
+                    // if (screenshotFileNames && screenshotFileNames.length > 0) {
+                    //     screenshotFileNames.forEach(screenshotFileName => {
+                    //         const path = `./cypress/screenshots/${screenshotFileName}`;
+                    //         const cloudPath = `/home/runner/work/monki_cypress/monki_cypress/cypress/screenshots/**/${screenshotFileName}`;
+                    //         const cloudMatches = glob.sync(cloudPath);
+                    //         const filePath = fs.existsSync(path)
+                    //             ? path
+                    //             : cloudMatches.length > 0
+                    //               ? cloudMatches[0]
+                    //               : null;
+
+                    //         attachments.push({
+                    //             filename: screenshotFileName,
+                    //             encoding: 'base64',
+                    //             path: filePath,
+                    //         });
+                    //     });
+                    // }
                     // 두레이 메일용 transporter
                     const dooraytransporter = nodemailer.createTransport({
                         host: 'smtp.dooray.com',
