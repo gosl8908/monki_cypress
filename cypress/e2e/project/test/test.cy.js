@@ -15,7 +15,7 @@ describe('Test', () => {
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
-            Site: `https://staging-ceo-v2.monthlykitchen.kr/`,
+            Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
             Id: `${Cypress.env('FavTestId')[0]}`,
             Password: `${Cypress.env('TestPwd')}`,
