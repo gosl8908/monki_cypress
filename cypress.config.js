@@ -32,27 +32,14 @@ module.exports = defineConfig({
             require('cypress-mochawesome-reporter/plugin')(on);
 
             on('task', {
-                sendEmail({ recipient, subject, body, screenshotFileNames, cloudScreenshotFileNames }) {
+                sendEmail({ recipient, subject, body, screenshotFileNames }) {
                     const attachments = [];
                     /* 스크린샷 있는 경우 첨부 */
                     if (screenshotFileNames && screenshotFileNames.length > 0) {
                         screenshotFileNames.forEach(screenshotFileName => {
-                            const path = `./cypress/screenshots/${screenshotFileName}`;
+                            const path = `./cypress/screenshots/${screenshotFileName.split('/').slice(1).join('/')}`;
                             attachments.push({
                                 filename: screenshotFileName,
-                                encoding: 'base64',
-                                path: path,
-                            });
-                        });
-                    }
-                    /* 클라우드 스크린샷 첨부 */
-                    if (cloudScreenshotFileNames && cloudScreenshotFileNames.length > 0) {
-                        cloudScreenshotFileNames.forEach(screenshotFileName => {
-                            const fileName = screenshotFileName.split('/').pop(); // 파일 이름만 추출
-                            // 클라우드 환경에서의 스크린샷 경로 처리 (예: 절대 경로 또는 클라우드 스토리지 URL)
-                            const path = `/home/runner/work/monki_cypress/monki_cypress/cypress/screenshots/${fileName}`;
-                            attachments.push({
-                                filename: fileName,
                                 encoding: 'base64',
                                 path: path,
                             });
