@@ -45,18 +45,6 @@ module.exports = defineConfig({
                             });
                         });
                     }
-
-                    // if (localScreenshotFileNames && localScreenshotFileNames.length > 0) {
-                    //     localScreenshotFileNames.forEach(screenshotFileName => {
-                    //         const path = `./cypress/screenshots/${screenshotFileName}`;
-                    //         attachments.push({
-                    //             filename: screenshotFileName,
-                    //             encoding: 'base64',
-                    //             path: path,
-                    //         });
-                    //     });
-                    // }
-
                     /* 클라우드 스크린샷 첨부 */
                     if (cloudScreenshotFileNames && cloudScreenshotFileNames.length > 0) {
                         cloudScreenshotFileNames.forEach(screenshotFileName => {

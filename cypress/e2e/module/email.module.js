@@ -43,7 +43,7 @@ function email({ TestFails, EmailTitle, TestRange, Screenshots = { cloud: [] } }
         subject: `${EmailTitle}`,
         body: EmailBody,
         screenshotFileNames: Screenshots.map(name => name + '.png'), // 스크린샷 파일 이름들을 추가
-        cloudScreenshotFileNames: Screenshots.clodu ? Screenshots.cloud.map(name => name + '.png') : [], // 클라우드 스크린샷
+        cloudScreenshotFileNames: Screenshots.cloud ? Screenshots.cloud.map(name => name + '.png') : [], // 클라우드 스크린샷
     };
 
     cy.task('sendEmail', EmailInfo).then(success => {
