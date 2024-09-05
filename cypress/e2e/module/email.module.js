@@ -34,7 +34,6 @@ function email({ TestFails, EmailTitle, TestRange, Screenshots }) {
         body: EmailBody,
         screenshotFileNames: Screenshots.map(name => name + '.png'), // 스크린샷 파일 이름들을 추가
     };
-    cy.log(`screenshotFileNames: ${screenshotFileNames}`);
     cy.task('sendEmail', EmailInfo).then(success => {
         if (success) {
             cy.log('이메일 전송 성공.');
