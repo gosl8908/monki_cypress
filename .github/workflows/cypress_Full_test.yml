@@ -11,7 +11,7 @@ env:
     TZ: 'Asia/Seoul'
 
 jobs:
-    cypress-run:
+    cypress-run-test1:
         runs-on: ubuntu-latest
 
         steps:
@@ -27,3 +27,19 @@ jobs:
 
             - name: Run Cypress tests
               run: yarn cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }} --spec "cypress/e2e/project/test/test.cy.js" --browser chrome
+
+    cypress-run-test2:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '21.7.1'
+            - run: yarn add cypress
+
+            - name: Install dependencies
+              run: yarn install
+
+            - name: Run Cypress test2
+              run: yarn cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }} --spec "cypress/e2e/project/test/test2.cy.js" --browser chrome

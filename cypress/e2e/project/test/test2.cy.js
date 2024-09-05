@@ -15,15 +15,15 @@ describe('Test', () => {
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
-            Site: `${Cypress.env('Ceo')}`,
+            Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('FavTestId')[0]}`,
+            Id: `${Cypress.env('FavTestId')[1]}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
 
     it('Test', () => {
-        cy.contains('123123123123');
+        cy.contains('단골맛집');
     });
 
     afterEach('Status Check', () => {

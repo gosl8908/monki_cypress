@@ -115,6 +115,16 @@ module.exports = defineConfig({
                     //     text: body,
                     //     attachments: attachments,
                     // };
+                    return gmailtransporter
+                        .sendMail(gmailmailOptions)
+                        .then(info => {
+                            console.log('이메일 성공적으로 전송됨: ' + info.response);
+                            return true;
+                        })
+                        .catch(error => {
+                            console.error('이메일 전송 실패: ' + error);
+                            return false;
+                        });
                 },
             });
         },
