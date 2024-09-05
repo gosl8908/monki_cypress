@@ -26,4 +26,8 @@ jobs:
               run: yarn install
 
             - name: Run Cypress tests
+              env:
+                  CYPRESS_SCREEN_WIDTH: 1920
+                  CYPRESS_SCREEN_HEIGHT: 1080
+                  CYPRESS_browser: chrome
               run: yarn cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }} --spec "cypress/e2e/project/test/test.cy.js" --browser chrome
