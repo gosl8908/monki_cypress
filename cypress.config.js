@@ -103,7 +103,7 @@ module.exports = defineConfig({
 
             /* STG Site */
             StgAdmin: 'http://staging-mngr.monthlykitchen.kr/users/login', //STG 통합
-            StgCeo: 'http://staging-ceo.monthlykitchen.kr/users/login', //STG 사장님
+            StgCeo: 'https://staging-ceo.monthlykitchen.kr/users/login', //STG 사장님
 
             /* DEV Site */
             DevAdmin: 'http://develop-mngr.monthlykitchen.kr/users/login', //DEV 통합
