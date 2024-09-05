@@ -32,9 +32,8 @@ module.exports = defineConfig({
             require('cypress-mochawesome-reporter/plugin')(on);
 
             on('task', {
-                sendEmail({ recipient, subject, body, screenshotFileNames }) {
+                sendEmail({ recipient, subject, body, screenshotFileNames, cloudScreenshotFileNames }) {
                     const attachments = [];
-
                     /* 스크린샷 있는 경우 첨부 */
                     if (screenshotFileNames && screenshotFileNames.length > 0) {
                         screenshotFileNames.forEach(screenshotFileName => {
@@ -46,16 +45,30 @@ module.exports = defineConfig({
                             });
                         });
                     }
-                    // const gmailtransporter = nodemailer.createTransport({
-                    //     host: 'smtp.gmail.com',
-                    //     port: 587,
-                    //     secure: false,
-                    //     auth: {
-                    //         user: gmailEamilId,
-                    //         pass: gmailEamilPwd,
-                    //     },
-                    // });
 
+                    // if (localScreenshotFileNames && localScreenshotFileNames.length > 0) {
+                    //     localScreenshotFileNames.forEach(screenshotFileName => {
+                    //         const path = `./cypress/screenshots/${screenshotFileName}`;
+                    //         attachments.push({
+                    //             filename: screenshotFileName,
+                    //             encoding: 'base64',
+                    //             path: path,
+                    //         });
+                    //     });
+                    // }
+
+                    /* 클라우드 스크린샷 첨부 */
+                    if (cloudScreenshotFileNames && cloudScreenshotFileNames.length > 0) {
+                        cloudScreenshotFileNames.forEach(screenshotFileName => {
+                            // 클라우드 환경에서의 스크린샷 경로 처리 (예: 절대 경로 또는 클라우드 스토리지 URL)
+                            const path = `/home/runner/work/monki_cypress/monki_cypress/cypress/screenshots/${screenshotFileName}`;
+                            attachments.push({
+                                filename: screenshotFileName,
+                                encoding: 'base64',
+                                path: path,
+                            });
+                        });
+                    }
                     // 두레이 메일용 transporter
                     const dooraytransporter = nodemailer.createTransport({
                         host: 'smtp.dooray.com',
@@ -66,13 +79,6 @@ module.exports = defineConfig({
                             pass: doorayEamilPwd,
                         },
                     });
-                    // const gmailmailOptions = {
-                    //     from: gmailEamilId,
-                    //     to: gmailEamilId,
-                    //     subject: subject,
-                    //     text: body,
-                    //     attachments: attachments,
-                    // };
                     const dooraymailOptions = {
                         from: doorayEamilId,
                         to: doorayEamilId,
@@ -91,6 +97,23 @@ module.exports = defineConfig({
                             console.error('이메일 전송 실패: ' + error);
                             return false;
                         });
+                    // const gmailtransporter = nodemailer.createTransport({
+                    //     host: 'smtp.gmail.com',
+                    //     port: 587,
+                    //     secure: false,
+                    //     auth: {
+                    //         user: gmailEamilId,
+                    //         pass: gmailEamilPwd,
+                    //     },
+                    // });
+
+                    // const gmailmailOptions = {
+                    //     from: gmailEamilId,
+                    //     to: gmailEamilId,
+                    //     subject: subject,
+                    //     text: body,
+                    //     attachments: attachments,
+                    // };
                 },
             });
         },
