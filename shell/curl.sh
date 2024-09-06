@@ -1,4 +1,4 @@
-curl -vvv --url 'smtp://smtp.dooray.com:465' \
+curl -vvv --url 'smtps://smtp.dooray.com:465' \
     --ssl-reqd \
     --mail-from 'hskang@monki.net' \
     --mail-rcpt 'hskang@monki.net' \
