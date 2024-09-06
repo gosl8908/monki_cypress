@@ -14,10 +14,10 @@ describe('Automation Testing', () => {
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
-            Site: `${Cypress.env('StgCeo')}`,
+            Site: `${Cypress.env('Ceo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('FavTestId')[0]}`,
-            Password: `${Cypress.env('TestPwd')}`,
+            Id: `monkitest2`,
+            Password: `test1234`,
         });
     });
 
@@ -42,6 +42,35 @@ describe('Automation Testing', () => {
                 cy.get('#vueProductDivContainer').contains('기본');
             }
         });
+    });
+
+    it('매장관리 테이블오더', () => {
+        cy.get('[data-mnu="/store/table-order,/store/table-order/*"]').click();
+
+        /* 대기이미지 */
+        cy.fixture('image/로고이미지/default.jpg', 'base64').then(fileContent => {
+            cy.get('input[type="file"][id="ready_img_file"]').attachFile({
+                fileContent,
+                filePath: 'image/로고이미지/default.jpg',
+                fileName: 'default.jpg',
+                mimeType: 'image/jpeg',
+            });
+        });
+        cy.wait(1 * 1000);
+        cy.get('.col-4 > #btnReadyImgSave').click();
+        cy.wait(1 * 1000);
+        cy.get('#global_modal_confirm').click();
+        cy.wait(1 * 1000);
+
+        /* 삭제 */
+        cy.get(':nth-child(2) > :nth-child(5) > .btn').click();
+        cy.wait(1 * 1000);
+        cy.get('#global_modal_confirm').click();
+        cy.wait(1 * 1000);
+        cy.get('.col-4 > #btnReadyImgSave').click();
+        cy.wait(1 * 1000);
+        cy.get('#global_modal_confirm').click();
+        cy.wait(1 * 1000);
     });
 
     const menuPrices = `치킨,1000`;
@@ -340,8 +369,6 @@ describe('Automation Testing', () => {
 
     it('테이블 관리', () => {
         /* 테이블관리 */
-        cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/store/main/basic"] > .btn').click();
-        cy.wait(1 * 1000);
         cy.get('[href="/store/table-order/basic"] > .btn').click();
         cy.wait(1 * 1000);
         cy.get('#tableinfo').click();

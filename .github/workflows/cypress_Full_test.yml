@@ -1,3 +1,76 @@
+# name: Cypress E2E Tests
+
+# on:
+#     schedule:
+#         - cron: '0 23 * * 0-4' # UTC 기준 매주 일요일 ~ 수요일 23:00 (11:00 PM)에 실행
+#     push:
+#         branches:
+#             - main
+
+# env:
+#     TZ: 'Asia/Seoul'
+
+# jobs:
+#     cypress-run-test1:
+#         runs-on: ubuntu-latest
+
+#         steps:
+#             - uses: actions/checkout@v2
+#             - name: Setup Node.js
+#               uses: actions/setup-node@v3
+#               with:
+#                   node-version: '21.7.1'
+#             - run: yarn add cypress@latest
+
+#             - name: Install dependencies
+#               run: yarn install
+
+#             - name: Run Cypress tests
+#               run: yarn cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }} --spec "cypress/e2e/project/test/test.cy.js" --browser chrome
+
+#     cypress-run-test2:
+#         runs-on: ubuntu-latest
+#         steps:
+#             - uses: actions/checkout@v2
+#             - name: Setup Node.js
+#               uses: actions/setup-node@v3
+#               with:
+#                   node-version: '21.7.1'
+#             - run: yarn add cypress@latest
+
+#             - name: Install dependencies
+#               run: yarn install
+
+#             - name: Run Cypress test2
+#               run: yarn cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }} --spec "cypress/e2e/project/test/test2.cy.js" --browser chrome
+
+#     basic_test:
+#         runs-on: ubuntu-latest
+#         steps:
+#             - uses: actions/checkout@v2
+#             - name: Setup Node.js
+#               uses: actions/setup-node@v3
+#               with:
+#                   node-version: '21.7.1'
+#             - run: yarn add cypress@latest
+
+#             - name: Install cURL
+#               run: |
+#                   sudo apt-get update && sudo apt-get install -y curl
+
+#             - name: Grant execute permission to shell scripts
+#               run: |
+#                   chmod +x -R ./shell
+
+#             - name: List shell script files
+#               run: |
+#                   ls -la ./shell
+
+#             - name: Execute shell script
+#               run: |
+#                   export CYPRESS_RECORD_KEY="${{ secrets.CYPRESS_RECORD_KEY }}"
+#                   ./shell/기본기능.sh
+
 name: Cypress E2E Tests
 
 on:
@@ -25,11 +98,15 @@ jobs:
             - name: Install dependencies
               run: yarn install
 
-            - name: Run Cypress tests
-              run: yarn cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }} --spec "cypress/e2e/project/test/test.cy.js" --browser chrome
+            - name: Install xvfb
+              run: sudo apt-get install -y xvfb
+
+            - name: Run Cypress tests with 1280x720 resolution
+              run: xvfb-run --auto-servernum --server-args="-screen 0 1280x720x24" yarn cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }} --spec "cypress/e2e/project/test/test.cy.js" --browser chrome
 
     cypress-run-test2:
         runs-on: ubuntu-latest
+
         steps:
             - uses: actions/checkout@v2
             - name: Setup Node.js
@@ -41,11 +118,15 @@ jobs:
             - name: Install dependencies
               run: yarn install
 
-            - name: Run Cypress test2
-              run: yarn cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }} --spec "cypress/e2e/project/test/test2.cy.js" --browser chrome
+            - name: Install xvfb
+              run: sudo apt-get install -y xvfb
+
+            - name: Run Cypress test2 with 1280x720 resolution
+              run: xvfb-run --auto-servernum --server-args="-screen 0 1280x720x24" yarn cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }} --spec "cypress/e2e/project/test/test2.cy.js" --browser chrome
 
     basic_test:
         runs-on: ubuntu-latest
+
         steps:
             - uses: actions/checkout@v2
             - name: Setup Node.js
@@ -54,19 +135,17 @@ jobs:
                   node-version: '21.7.1'
             - run: yarn add cypress@latest
 
-            - name: Install cURL
+            - name: Install cURL and xvfb
               run: |
-                  sudo apt-get update && sudo apt-get install -y curl
+                  sudo apt-get update && sudo apt-get install -y curl xvfb
 
             - name: Grant execute permission to shell scripts
-              run: |
-                  chmod +x -R ./shell
+              run: chmod +x -R ./shell
 
             - name: List shell script files
-              run: |
-                  ls -la ./shell
+              run: ls -la ./shell
 
-            - name: Execute shell script
+            - name: Execute shell script with 1280x720 resolution
               run: |
                   export CYPRESS_RECORD_KEY="${{ secrets.CYPRESS_RECORD_KEY }}"
-                  ./shell/test.sh
+                  xvfb-run --auto-servernum --server-args="-screen 0 1280x720x24" ./shell/기본기능.sh
