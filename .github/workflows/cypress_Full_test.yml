@@ -20,7 +20,7 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version: '21.7.1'
-            - run: yarn add cypress
+            - run: yarn add cypress@latest
 
             - name: Install dependencies
               run: yarn install
@@ -36,10 +36,37 @@ jobs:
               uses: actions/setup-node@v3
               with:
                   node-version: '21.7.1'
-            - run: yarn add cypress
+            - run: yarn add cypress@latest
 
             - name: Install dependencies
               run: yarn install
 
             - name: Run Cypress test2
               run: yarn cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }} --spec "cypress/e2e/project/test/test2.cy.js" --browser chrome
+
+    basic_test:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '21.7.1'
+            - run: yarn add cypress@latest
+
+            - name: Install cURL
+              run: |
+                  apt-get update && apt-get install -y curl
+
+            - name: Grant execute permission to shell scripts
+              run: |
+                  chmod +x -R ./shell
+
+            - name: List shell script files
+              run: |
+                  ls -la ./shell
+
+            - name: Execute shell script
+              run: |
+                  export CYPRESS_RECORD_KEY="${{ secrets.CYPRESS_RECORD_KEY }}"
+                  ./shell/기본기능.sh
