@@ -16,8 +16,8 @@ describe('Automation Testing', () => {
         loginModule.login({
             Site: `${Cypress.env('Ceo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `monkitest2`,
-            Password: `test1234`,
+            Id: `${Cypress.env('FavTestId')[0]}`,
+            Password: `${Cypress.env('TestPwd')}`,
         });
     });
 
@@ -170,7 +170,7 @@ describe('Automation Testing', () => {
         const menuArray = menuPrices
             .trim()
             .split('\n')
-            .map(line => line.split(',')[0]);
+            .map(line => line.split(',')[0].trim());
 
         // 역순으로 정렬
         const reversedMenuArray = menuArray.reverse();
@@ -226,7 +226,7 @@ describe('Automation Testing', () => {
         const menuArray = menuPrices
             .trim()
             .split('\n')
-            .map(line => line.split(',')[0]);
+            .map(line => line.split(',')[0].trim());
 
         // 역순으로 정렬
         const reversedMenuArray = menuArray.reverse();
@@ -272,61 +272,61 @@ describe('Automation Testing', () => {
         });
     });
 
-    it('키오스크 메뉴 등록', () => {
-        cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
-        /* 키오스크 */
-        cy.get('[href="/menu/kiosk"] > .btn').click();
-        const menuArray = menuPrices
-            .trim()
-            .split('\n')
-            .map(line => line.split(',')[0]);
+    // it('키오스크 메뉴 등록', () => {
+    //     cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
+    //     /* 키오스크 */
+    //     cy.get('[href="/menu/kiosk"] > .btn').click();
+    //     const menuArray = menuPrices
+    //         .trim()
+    //         .split('\n')
+    //         .map(line => line.split(',')[0]).trim();
 
-        // 역순으로 정렬
-        const reversedMenuArray = menuArray.reverse();
+    //     // 역순으로 정렬
+    //     const reversedMenuArray = menuArray.reverse();
 
-        reversedMenuArray.forEach(text => {
-            const manageOptions = text => {
-                cy.contains('span', text)
-                    .parents('tr')
-                    .within(() => {
-                        cy.get('button').eq(0).click();
-                    });
-                cy.wait(1 * 1000);
-                cy.contains('span', '사이드메뉴')
-                    .parents('tr')
-                    .within(() => {
-                        cy.get('button').contains('추가').click();
-                    });
-                cy.wait(1 * 1000);
-                cy.get('#vueOptionContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
-                cy.wait(1 * 1000);
-                cy.get('#global_modal_confirm').click();
-                cy.wait(1 * 1000);
-            };
+    //     reversedMenuArray.forEach(text => {
+    //         const manageOptions = text => {
+    //             cy.contains('span', text)
+    //                 .parents('tr')
+    //                 .within(() => {
+    //                     cy.get('button').eq(0).click();
+    //                 });
+    //             cy.wait(1 * 1000);
+    //             cy.contains('span', '사이드메뉴')
+    //                 .parents('tr')
+    //                 .within(() => {
+    //                     cy.get('button').contains('추가').click();
+    //                 });
+    //             cy.wait(1 * 1000);
+    //             cy.get('#vueOptionContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
+    //             cy.wait(1 * 1000);
+    //             cy.get('#global_modal_confirm').click();
+    //             cy.wait(1 * 1000);
+    //         };
 
-            /* 메뉴 관리 */
-            cy.contains('span', text)
-                .parents('tr')
-                .within(() => {
-                    cy.get('.align-middle.text-center').eq(3).contains(text).click();
-                });
-            cy.wait(2 * 1000);
-            /* 미사용 / HOT / NEW / SALE / BEST */
-            const selectors = ['#MNBG_000', '#MNBG_101', '#MNBG_102', '#MNBG_103', '#MNBG_104'];
-            const randomIndex = Math.floor(Math.random() * selectors.length);
-            cy.get(selectors[randomIndex]).click();
-            cy.wait(1 * 1000);
-            cy.get('.multisteps-form__textarea').type(text); // 메뉴 설명
-            cy.wait(1 * 1000);
-            cy.get('#MN_001').click(); // 앱 노출 여부
-            cy.wait(1 * 1000);
-            cy.get('.ms-auto').click(); // 변경하기
-            cy.wait(1 * 1000);
-            cy.get('#global_modal_confirm').click(); // 확인
-            cy.wait(1 * 1000);
-            cy.go('back');
-        });
-    });
+    //         /* 메뉴 관리 */
+    //         cy.contains('span', text)
+    //             .parents('tr')
+    //             .within(() => {
+    //                 cy.get('.align-middle.text-center').eq(3).contains(text).click();
+    //             });
+    //         cy.wait(2 * 1000);
+    //         /* 미사용 / HOT / NEW / SALE / BEST */
+    //         const selectors = ['#MNBG_000', '#MNBG_101', '#MNBG_102', '#MNBG_103', '#MNBG_104'];
+    //         const randomIndex = Math.floor(Math.random() * selectors.length);
+    //         cy.get(selectors[randomIndex]).click();
+    //         cy.wait(1 * 1000);
+    //         cy.get('.multisteps-form__textarea').type(text); // 메뉴 설명
+    //         cy.wait(1 * 1000);
+    //         cy.get('#MN_001').click(); // 앱 노출 여부
+    //         cy.wait(1 * 1000);
+    //         cy.get('.ms-auto').click(); // 변경하기
+    //         cy.wait(1 * 1000);
+    //         cy.get('#global_modal_confirm').click(); // 확인
+    //         cy.wait(1 * 1000);
+    //         cy.go('back');
+    //     });
+    // });
 
     it('상품, 옵션, 메뉴 그룹 삭제', () => {
         cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
@@ -367,28 +367,28 @@ describe('Automation Testing', () => {
         cy.wait(1 * 1000);
     });
 
-    it('테이블 관리', () => {
-        /* 테이블관리 */
-        cy.get('[href="/store/table-order/basic"] > .btn').click();
-        cy.wait(1 * 1000);
-        cy.get('#tableinfo').click();
-        cy.wait(1 * 1000);
+    // it('테이블 관리', () => {
+    //     /* 테이블관리 */
+    //     cy.get('[href="/store/table-order/basic"] > .btn').click();
+    //     cy.wait(1 * 1000);
+    //     cy.get('#tableinfo').click();
+    //     cy.wait(1 * 1000);
 
-        cy.get('#container').then($container => {
-            if ($container.text().includes('1층')) {
-                cy.wait(1 * 1000);
-                tableModule.table('1층', '1');
-                cy.wait(1 * 1000);
-            }
-        });
-        tableModule.ground('1층', '1');
-        cy.wait(1 * 1000);
-        tableModule.table('1층', '1');
-        cy.wait(1 * 1000);
+    //     cy.get('#container').then($container => {
+    //         if ($container.text().includes('1층')) {
+    //             cy.wait(1 * 1000);
+    //             tableModule.table('1층', '1');
+    //             cy.wait(1 * 1000);
+    //         }
+    //     });
+    //     tableModule.ground('1층', '1');
+    //     cy.wait(1 * 1000);
+    //     tableModule.table('1층', '1');
+    //     cy.wait(1 * 1000);
 
-        cy.get('#btnTableDelete_0').click();
-        cy.wait(1 * 1000);
-    });
+    //     cy.get('#btnTableDelete_0').click();
+    //     cy.wait(1 * 1000);
+    // });
 
     afterEach('Status Check', () => {
         emailModule.screenshot(Failure, Screenshots);

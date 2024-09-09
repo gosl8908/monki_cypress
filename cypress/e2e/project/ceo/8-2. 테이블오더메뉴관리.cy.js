@@ -16,8 +16,8 @@ describe('Onprem Dashboard Test', () => {
         loginModule.login({
             Site: `${Cypress.env('Ceo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('FavTestId3')}`,
-            Password: `${Cypress.env('TestPwd')}`,
+            Id: `monkitest2`,
+            Password: `test1234`,
         });
     });
 
@@ -28,42 +28,31 @@ describe('Onprem Dashboard Test', () => {
         cy.get('[href="/menu/table-order/main"] > .btn').click();
 
         const menuPrices = `
-테라,6000
-카스,6000
-진로,6000
-새로,6000
-스프라이트-제로,2500
-스프라이트,2500
-펩시-제로,2500
-펩시,2500
-코카콜라-제로,2500
-코카콜라,2500
-허니순살,23000
-허니콤보,23000
-허니오리지날,19000
-레드스틱,23000
-레드윙,23000
-레드순살,23000
-레드콤보,23000
-레드오리지날,20000
-교촌스틱,22000
-교촌윙,22000
-교촌순살,22000
-교촌콤보,22000
-교촌오리지날,19000
-허니점보윙,19000
-레드점보윙,19000
-교촌점보윙,19000
-반반점보윙(허니-교촌),19000
-반반점보윙(교촌-레드),19000
-반반점보윙(레드-허니),19000
+        레드오리지날,20000
+        레드콤보,23000
+        레드순살,23000
+        레드윙,23000
+        레드스틱,23000
+        허니오리지날,19000
+        허니콤보,23000
+        허니순살,23000
+        코카콜라,2500
+        코카콜라-제로,2500
+        펩시,2500
+        펩시-제로,2500
+        스프라이트,2500
+        스프라이트-제로,2500
+        새로,5000
+        진로,5000
+        카스,5000
+        테라,5000
         `;
 
         // 메뉴 가격 목록을 배열로 변환하고, 메뉴 항목만 추출
         const menuArray = menuPrices
             .trim() // 문자열의 시작과 끝의 공백을 제거합니다.
             .split('\n') // 각 줄을 배열의 요소로 분리합니다.
-            .map(line => line.split(',')[0]); // 각 줄을 쉼표로 분리하고 첫 번째 요소(메뉴 항목)만 가져옵니다.
+            .map(line => line.split(',')[0].trim()); // 각 줄을 쉼표로 분리하고 첫 번째 요소(메뉴 항목)만 가져옵니다.
 
         // 역순으로 정렬
         const reversedMenuArray = menuArray.reverse();
@@ -82,7 +71,7 @@ describe('Onprem Dashboard Test', () => {
             cy.contains('span', text)
                 .parents('tr')
                 .within(() => {
-                    cy.get('button').eq(0).click();
+                    cy.get('button').click();
                 });
             cy.contains('span', '사이드메뉴') // 옵션명
                 .parents('tr')

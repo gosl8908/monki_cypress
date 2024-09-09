@@ -4,7 +4,7 @@ function menu(Name, Pay, Type = undefined) {
     cy.get('#productDivNo').select(1); // 상품분류
 
     /* 상품 이미지 */
-    const fileName = `${Name}.png`;
+    const fileName = `${Name}.jpg`;
     const filePath = `image/메뉴이미지/${fileName}`;
     const extension = fileName.split('.').pop(); // 파일 확장자 추출
 

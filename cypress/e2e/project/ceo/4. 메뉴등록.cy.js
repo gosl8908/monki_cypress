@@ -14,10 +14,10 @@ describe('Onprem Dashboard Test', () => {
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
-            Site: `${Cypress.env('StgCeo')}`,
-            Type: '사장님',
-            Id: `${Cypress.env('CeoTestId2')}`,
-            Password: `${Cypress.env('TestPwd')}`,
+            Site: `${Cypress.env('Ceo')}`,
+            Type: '단골맛집 가맹점주',
+            Id: `monkitest2`,
+            Password: `test1234`,
         });
     });
 
@@ -28,7 +28,16 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#product').click(); // 상품관리 탭
 
         const menuPrices = `
-테스트,1000
+        코카콜라,2500
+        코카콜라-제로,2500
+        펩시,2500
+        펩시-제로,2500
+        스프라이트,2500
+        스프라이트-제로,2500
+        새로,5000
+        진로,5000
+        카스,5000
+        테라,5000
         `;
 
         menuPrices
@@ -36,7 +45,7 @@ describe('Onprem Dashboard Test', () => {
             .split('\n')
             .forEach(item => {
                 const [menu, price] = item.trim().split(',');
-                menuModule.menu(menu, price, '앱');
+                menuModule.menu(menu, price);
             });
     });
 

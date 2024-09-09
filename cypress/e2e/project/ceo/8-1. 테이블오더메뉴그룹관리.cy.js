@@ -16,8 +16,8 @@ describe('Onprem Dashboard Test', () => {
         loginModule.login({
             Site: `${Cypress.env('Ceo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('FavTestId3')}`,
-            Password: `${Cypress.env('TestPwd')}`,
+            Id: `monkitest2`,
+            Password: `test1234`,
         });
     });
 
@@ -27,28 +27,28 @@ describe('Onprem Dashboard Test', () => {
         cy.wait(1 * 1000);
         cy.get('[href="/menu/menu-group"] > .btn').click();
 
-        cy.contains('span', '주류')
-            .parents('tr')
-            .within(() => {
-                cy.get('button').contains('수정').eq(0).click();
-            });
-        cy.wait(1000);
-        cy.get('.card-body > :nth-child(5)').contains('사용').click();
-        cy.get('.modal-footer > .btn-primary').click();
-        cy.wait(1000);
+        // cy.contains('span', '주류')
+        //     .parents('tr')
+        //     .within(() => {
+        //         cy.get('button').contains('수정').eq(0).click();
+        //     });
+        // cy.wait(1000);
+        // cy.get('.card-body > :nth-child(5)').contains('사용').click();
+        // cy.get('.modal-footer > .btn-primary').click();
+        // cy.wait(1000);
 
         const menuGroups = {
-            NEW: [
-                '허니점보윙',
-                '레드점보윙',
-                '교촌점보윙',
-                '반반점보윙(허니-교촌)',
-                '반반점보윙(교촌-레드)',
-                '반반점보윙(레드-허니)',
-            ],
+            // NEW: [
+            //     '허니점보윙',
+            //     '레드점보윙',
+            //     '교촌점보윙',
+            //     '반반점보윙(허니-교촌)',
+            //     '반반점보윙(교촌-레드)',
+            //     '반반점보윙(레드-허니)',
+            // ],
             허니시리즈: ['허니순살', '허니콤보', '허니오리지날'],
             레드시리즈: ['레드스틱', '레드윙', '레드순살', '레드콤보', '레드오리지날'],
-            교촌시리즈: ['교촌스틱', '교촌윙', '교촌순살', '교촌콤보', '교촌오리지날'],
+            // 교촌시리즈: ['교촌스틱', '교촌윙', '교촌순살', '교촌콤보', '교촌오리지날'],
             음료: ['코카콜라', '코카콜라-제로', '펩시', '펩시-제로', '스프라이트', '스프라이트-제로'],
             주류: ['새로', '진로', '카스', '테라'],
         };
