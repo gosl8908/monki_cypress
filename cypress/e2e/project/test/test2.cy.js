@@ -21,40 +21,20 @@ describe('Test', () => {
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
-    // it('테이블 관리', () => {
-    //     /* 테이블관리 */
-    //     cy.get('[href="/store/table-order/basic"] > .btn').click();
-    //     cy.wait(1 * 1000);
-    //     cy.get('#tableinfo').click();
-    //     cy.wait(1 * 1000);
 
-    //     cy.get('#container').then($container => {
-    //         if ($container.text().includes('1층')) {
-    //             tableModule.table('1층', '1');
-    //             cy.wait(1 * 1000);
-    //         }
-    //     });
-    //     tableModule.ground('1층', '1');
-    //     cy.wait(1 * 1000);
-    //     tableModule.table('1층', '1');
-    //     cy.wait(1 * 1000);
-
-    //     cy.get('#btnTableDelete_0').click();
-    //     cy.wait(1 * 1000);
-    // });
     it('Test', () => {
         cy.contains('단골맛집');
     });
 
-    // afterEach('Status Check', () => {
-    //     emailModule.screenshot(Failure, Screenshots);
-    // });
-    // after('Send Email', () => {
-    //     emailModule.email({
-    //         TestFails,
-    //         EmailTitle: `[${Cypress.env('EmailTitle')}]`,
-    //         TestRange: '1. 사장님 페이지 로그인',
-    //         Screenshots,
-    //     });
-    // });
+    afterEach('Status Check', () => {
+        emailModule.screenshot(Failure, Screenshots);
+    });
+    after('Send Email', () => {
+        emailModule.email({
+            TestFails,
+            EmailTitle: `[${Cypress.env('EmailTitle')}]`,
+            TestRange: '1. 사장님 페이지 로그인',
+            Screenshots,
+        });
+    });
 });

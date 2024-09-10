@@ -85,7 +85,7 @@ describe('Automation Testing', () => {
             .split('\n')
             .forEach(item => {
                 const [menu, price] = item.trim().split(',');
-                menuModule.menu(menu, price);
+                menuModule.menu(menu, price, 'png');
 
                 /* 메뉴그룹 생성 */
                 const categories = ['테스트'];

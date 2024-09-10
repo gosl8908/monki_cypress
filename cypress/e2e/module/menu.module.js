@@ -1,10 +1,10 @@
-function menu(Name, Pay, Type = undefined) {
+function menu(Name, Pay, Extension, Type = undefined) {
     // 상품 등록
     cy.get('#btnAddProduct').click();
     cy.get('#productDivNo').select(1); // 상품분류
 
     /* 상품 이미지 */
-    const fileName = `${Name}.jpg`;
+    const fileName = `${Name}.${Extension}`;
     const filePath = `image/메뉴이미지/${fileName}`;
     const extension = fileName.split('.').pop(); // 파일 확장자 추출
 

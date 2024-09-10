@@ -28,7 +28,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('[href="/menu/menu-group"] > .btn').click();
 
         /* 메뉴그룹 생성 */
-        const categories = ['허니시리즈', '레드시리즈'];
+        const categories = ['테스트'];
 
         categories.forEach(category => {
             cy.get('#btnAddMenuGroup').click();

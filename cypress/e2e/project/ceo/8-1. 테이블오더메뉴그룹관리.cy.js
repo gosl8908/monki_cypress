@@ -27,15 +27,17 @@ describe('Onprem Dashboard Test', () => {
         cy.wait(1 * 1000);
         cy.get('[href="/menu/menu-group"] > .btn').click();
 
-        // cy.contains('span', '주류')
-        //     .parents('tr')
-        //     .within(() => {
-        //         cy.get('button').contains('수정').eq(0).click();
-        //     });
-        // cy.wait(1000);
-        // cy.get('.card-body > :nth-child(5)').contains('사용').click();
-        // cy.get('.modal-footer > .btn-primary').click();
-        // cy.wait(1000);
+        //form-group // 사용
+        //form-group disabled // 미사용
+        cy.contains('span', '주류')
+            .parents('tr')
+            .within(() => {
+                cy.get('button').contains('수정').eq(0).click();
+            });
+        cy.wait(1000);
+        cy.get('.card-body > :nth-child(5)').contains('사용').click();
+        cy.get('.modal-footer > .btn-primary').click();
+        cy.wait(1000);
 
         const menuGroups = {
             // NEW: [
