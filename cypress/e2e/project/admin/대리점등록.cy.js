@@ -1,4 +1,4 @@
-const { loginModule, emailModule } = require('../../module/manager.module.js');
+const { loginModule, emailModule, apiModule } = require('../../module/manager.module.js');
 
 describe('Onprem Dashboard Test', () => {
     let TestFails = []; // 실패 원인을 저장할 변수
@@ -14,9 +14,9 @@ describe('Onprem Dashboard Test', () => {
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
-            Site: `${Cypress.env('DevAdmin')}`,
+            Site: `${Cypress.env('Admin')}`,
             Id: `${Cypress.env('AdminId')}`,
-            Password: `${Cypress.env('TestPwd')}`,
+            Password: `${Cypress.env('AdminPwd')}`,
         });
     });
 
@@ -24,7 +24,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('.sidebar').contains('협력사 관리').click();
         cy.get('.sidebar').contains('대리점 관리').click();
         cy.get('#btnAddAgency').contains('대리점 등록').click();
-        cy.get(':nth-child(1) > .input-group > .form-control').type(Cypress.env('StoreTestId1'));
+        cy.get(':nth-child(1) > .input-group > .form-control').type(Cypress.env('StoreTestId')[1]);
         cy.get(
             '#vueAgencyModal > .modal-dialog > .modal-content > .modal-body > .row > .col-12 > .card > .card-body > :nth-child(1)',
         )
@@ -56,74 +56,54 @@ describe('Onprem Dashboard Test', () => {
         //     // iframe 내부의 요소 선택 및 동작 수행
         //     cy.iframe().find('.post_search', { timeout: 10000 }).type('test');
         // });
-        const apiKey = '419ed37eb9960d76f12d9ff0610d327a';
-        const query = encodeURIComponent('경기 안양시 동안구 평촌대로 60-55');
 
-        const url = `http://dapi.kakao.com/v2/local/search/address.json?query=${query}&page=1&size=10`;
+        // 모듈화된 API 호출
+        apiModule
+            .api('경기 안양시 동안구 평촌대로 60-55')
+            .then(({ address_name, road_address_name, x, y, zipcode }) => {
+                // 주소 데이터를 각 입력 필드에 삽입
+                cy.get('[name="road_address"]').invoke('val', address_name);
+                cy.log('address:', address_name);
+                cy.log('road_address:', road_address_name);
+                cy.get('[name="zipcode"]').invoke('val', zipcode);
 
-        cy.request({
-            method: 'GET',
-            url: url,
-            headers: {
-                Accept: '*/*',
-                'Accept-Encoding': 'gzip, deflate',
-                'Accept-Language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7,zh-CN;q=0.6,zh;q=0.5',
-                Authorization: `KakaoAK ${apiKey}`,
-                Host: 'dapi.kakao.com',
-                ka: 'sdk/4.4.15 os/javascript lang/ko-KR device/Win32 origin/http%3A%2F%2Fstaging-mngr.monthlykitchen.kr',
-                Origin: 'http://staging-mngr.monthlykitchen.kr',
-                Referer: 'http://staging-mngr.monthlykitchen.kr/',
-                'User-Agent':
-                    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-            },
-        }).then(response => {
-            // 응답을 검증하거나 필요한 테스트를 진행
-            expect(response.status).to.eq(200);
-            expect(response.body).to.have.property('documents');
-            expect(response.body).to.have.property('meta');
+                cy.window().then(window => {
+                    const element = window.document.getElementById('vueAgencyModal');
+                    cy.log(element);
+                    window.Vue && element.__vue__._data.form;
+                    const vueInstance = element.__vue__._data.form;
 
-            /* 주소 입력 */
-            const addressNames = response.body.documents.map(document => document.road_address.address_name);
-            const zipcode = response.body.documents.map(document => document.road_address.zone_no);
-            cy.get('[name="road_address"]').invoke('val', addressNames.join(', '));
-            cy.get('[name="zipcode"]').invoke('val', zipcode.join(', '));
+                    cy.log(vueInstance);
+                    vueInstance.road_address = address_name; // road_address 값 입력 대괄호 생략
+                    // vueInstance.road_address = addressNames[0]; // road_address 값 입력 대괄호 생략
 
-            cy.window().then(window => {
-                const element = window.document.getElementById('vueAgencyModal');
-                cy.log(element);
-                window.Vue && element.__vue__._data.form;
-                const vueInstance = element.__vue__._data.form;
-
-                cy.log(vueInstance);
-                vueInstance.road_address = addressNames[0]; // road_address 값 입력 대괄호 생략
-
-                cy.log('partner_no: ', vueInstance.partner_no);
-                cy.log('parent_partner_no: ', vueInstance.parent_partner_no);
-                cy.log('user_id: ', vueInstance.user_id);
-                cy.log('is_checked_id: ', vueInstance.is_checked_id);
-                cy.log('user_pwd: ', vueInstance.user_pwd);
-                cy.log('check_user_pwd: ', vueInstance.check_user_pwd);
-                cy.log('is_checked_pwd: ', vueInstance.is_checked_pwd);
-                cy.log('pos_partner_type: ', vueInstance.pos_partner_type);
-                cy.log('partner_name: ', vueInstance.partner_name);
-                cy.log('biz_number: ', vueInstance.biz_number);
-                cy.log('is_checked_biz_num: ', vueInstance.is_checked_biz_num);
-                cy.log('sub_biz_number: ', vueInstance.sub_biz_number);
-                cy.log('owner_name: ', vueInstance.owner_name);
-                cy.log('tel: ', vueInstance.tel);
-                cy.log('zipcode: ', vueInstance.zipcode);
-                cy.log('road_address: ', vueInstance.road_address);
-                cy.log('address_detail: ', vueInstance.address_detail);
-                cy.log('valid_status: ', vueInstance.valid_status);
-                cy.log('memo: ', vueInstance.memo);
-                cy.log('road_address', vueInstance.road_address);
-                cy.log('zipcode', vueInstance.zipcode);
-                cy.get('#vueAgencyModal > .modal-dialog > .modal-content > .modal-footer > .btn-primary').click();
-                cy.get('#global_modal_body').contains('입력한 내용으로 등록하시겠습니까?');
-                cy.wait(1 * 1000);
-                cy.get('#global_modal_confirm').click();
+                    cy.log('partner_no: ', vueInstance.partner_no);
+                    cy.log('parent_partner_no: ', vueInstance.parent_partner_no);
+                    cy.log('user_id: ', vueInstance.user_id);
+                    cy.log('is_checked_id: ', vueInstance.is_checked_id);
+                    cy.log('user_pwd: ', vueInstance.user_pwd);
+                    cy.log('check_user_pwd: ', vueInstance.check_user_pwd);
+                    cy.log('is_checked_pwd: ', vueInstance.is_checked_pwd);
+                    cy.log('pos_partner_type: ', vueInstance.pos_partner_type);
+                    cy.log('partner_name: ', vueInstance.partner_name);
+                    cy.log('biz_number: ', vueInstance.biz_number);
+                    cy.log('is_checked_biz_num: ', vueInstance.is_checked_biz_num);
+                    cy.log('sub_biz_number: ', vueInstance.sub_biz_number);
+                    cy.log('owner_name: ', vueInstance.owner_name);
+                    cy.log('tel: ', vueInstance.tel);
+                    cy.log('zipcode: ', vueInstance.zipcode);
+                    cy.log('road_address: ', vueInstance.road_address);
+                    cy.log('address_detail: ', vueInstance.address_detail);
+                    cy.log('valid_status: ', vueInstance.valid_status);
+                    cy.log('memo: ', vueInstance.memo);
+                    cy.log('road_address', vueInstance.road_address);
+                    cy.log('zipcode', vueInstance.zipcode);
+                    cy.get('#vueAgencyModal > .modal-dialog > .modal-content > .modal-footer > .btn-primary').click();
+                    cy.get('#global_modal_body').contains('입력한 내용으로 등록하시겠습니까?');
+                    cy.wait(1 * 1000);
+                    cy.get('#global_modal_confirm').click();
+                });
             });
-        });
     });
 
     afterEach('Status Check', () => {

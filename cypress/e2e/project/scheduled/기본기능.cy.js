@@ -337,34 +337,47 @@ describe('Automation Testing', () => {
         cy.wait(1 * 1000);
         cy.get('#product').click(); // 상품관리 탭
         cy.wait(1 * 1000);
-        cy.get('#chk_all').check();
-        cy.wait(1 * 1000);
-        cy.get('#btnDelProduct').click();
-        cy.wait(1 * 1000);
-        cy.get('#global_modal_confirm').click();
-        cy.wait(1 * 1000);
+        cy.get('.main-content').then($container => {
+            if (!$container.text().includes('조회결과가 없습니다.')) {
+                cy.get('#chk_all').check();
+                cy.wait(1 * 1000);
+                cy.get('#btnDelProduct').click();
+                cy.wait(1 * 1000);
+                cy.get('#global_modal_confirm').click();
+                cy.wait(1 * 1000);
+            }
+        });
 
         /* 옵션 삭제 */
         cy.get('[href="/menu/option"] > .btn').click();
         cy.wait(1 * 1000);
-        cy.get('.btn-outline-danger').click();
-        cy.wait(1 * 1000);
-        cy.get('#global_modal_confirm').click();
-        cy.wait(1 * 1000);
+
+        cy.get('.main-content').then($container => {
+            if (!$container.text().includes('조회결과가 없습니다.')) {
+                cy.get('.btn-outline-danger').eq(0).click();
+                cy.wait(1 * 1000);
+                cy.get('#global_modal_confirm').click();
+                cy.wait(1 * 1000);
+            }
+        });
 
         /* 메뉴 그룹 삭제 */
         cy.get('[href="/menu/menu-group"] > .btn').click();
         cy.wait(1 * 1000);
 
-        cy.contains('span', '테스트')
-            .parents('tr')
+        cy.get('.main-content').then($container => {
+            if ($container.text().includes('테스트')) {
+                cy.contains('span', '테스트')
+                    .parents('tr')
 
-            .within(() => {
-                cy.get('button').contains('삭제').click();
+                    .within(() => {
+                        cy.get('button').contains('삭제').click();
+                        cy.wait(1 * 1000);
+                    });
+                cy.get('#global_modal_confirm').click();
                 cy.wait(1 * 1000);
-            });
-        cy.get('#global_modal_confirm').click();
-        cy.wait(1 * 1000);
+            }
+        });
     });
 
     // it('테이블 관리', () => {

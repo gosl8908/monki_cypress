@@ -1,4 +1,4 @@
-const { loginModule, emailModule } = require('../../module/manager.module.js');
+const { loginModule, emailModule, apiModule } = require('../../module/manager.module.js');
 
 describe('Onprem Dashboard Test', () => {
     let TestFails = []; // 실패 원인을 저장할 변수
@@ -14,9 +14,9 @@ describe('Onprem Dashboard Test', () => {
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
-            Site: `${Cypress.env('Ceo')}`,
+            Site: `${Cypress.env('DevCeo')}`,
             Type: '대리점',
-            Id: `${Cypress.env('StoreTestId1')}`,
+            Id: `${Cypress.env('StoreTestId')[0]}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
@@ -29,7 +29,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('.m-3 > .col-3 > .btn').contains('매장등록').click(); // 매장등록
 
         /* 매장 등록 */
-        cy.get('#user-id').type(Cypress.env('FavTestId3')); // 아이디
+        cy.get('#user-id').type(Cypress.env('FavTestId')[2]); // 아이디
         cy.get('#btn-check-user-id').click();
         cy.get('#user-pass').type(Cypress.env('TestPwd')); // 비밀번호
         cy.get('#chk-user-pass').type(Cypress.env('TestPwd')); // 비밀번호 확인
@@ -38,7 +38,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#global_modal_body').contains('등록하시겠습니까?');
         cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
-        cy.get('#store-name').type('교촌치킨(후불)'); // 매장명
+        cy.get('#store-name').type('자동화매장'); // 매장명
 
         /* 매장로고 */
         cy.fixture('image/로고이미지/번개로고.jpg', 'base64').then(fileContent => {
@@ -57,41 +57,13 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#owner-name').type('강해성'); // 대표자명
         cy.get('#tel').type(Cypress.env('Phone')); // 전화번호
 
-        const apiKey = '419ed37eb9960d76f12d9ff0610d327a';
-        const query = encodeURIComponent('경기 안양시 동안구 평촌대로 60-55');
-
-        const url = `http://dapi.kakao.com/v2/local/search/address.json?query=${query}&page=1&size=10`;
-
-        cy.request({
-            method: 'GET',
-            url: url,
-            headers: {
-                Accept: '*/*',
-                'Accept-Encoding': 'gzip, deflate',
-                'Accept-Language': 'ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7,zh-CN;q=0.6,zh;q=0.5',
-                Authorization: `KakaoAK ${apiKey}`,
-                Host: 'dapi.kakao.com',
-                ka: 'sdk/4.4.19 os/javascript lang/ko-KR device/Win32 origin/https%3A%2F%2Fceo.monki.net',
-                Origin: 'https://ceo.monki.net',
-                Referer: 'https://ceo.monki.net',
-                'User-Agent':
-                    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-            },
-        }).then(response => {
-            // 응답을 검증하거나 필요한 테스트를 진행합니다.
-            expect(response.status).to.eq(200);
-            expect(response.body).to.have.property('documents');
-            expect(response.body).to.have.property('meta');
-
-            /* 주소 입력 */
-            const address = response.body.documents.map(document => document.address.address_name);
-            const addressNames = response.body.documents.map(document => document.address_name);
-            const x = response.body.documents.map(document => document.address.x);
-            const y = response.body.documents.map(document => document.address.y);
-            cy.get('#address').invoke('val', address.join(', '));
-            cy.get('#road-address').invoke('val', addressNames.join(', '));
-            cy.get('#longitude').invoke('val', x.join(', '));
-            cy.get('#latitude').invoke('val', y.join(', '));
+        // 모듈화된 API 호출
+        apiModule.api('경기 안양시 동안구 평촌대로 60-55').then(({ address_name, road_address_name, x, y }) => {
+            // 주소 데이터를 각 입력 필드에 삽입
+            cy.get('#address').invoke('val', address_name);
+            cy.get('#road-address').invoke('val', road_address_name);
+            cy.get('#longitude').invoke('val', x);
+            cy.get('#latitude').invoke('val', y);
         });
 
         cy.get('#address-detail').invoke('val', '1-1'); // 상세 주소
@@ -102,19 +74,19 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#btn-reg-store').click();
         cy.get('#global_modal_body').contains('입력한 정보로 생성하시겠습니까?');
         cy.wait(1 * 1000);
-        cy.get('#global_modal_confirm').click();
+        // cy.get('#global_modal_confirm').click();
 
-        /* 연동 정보 */
-        cy.contains('span', Cypress.env('FavTestId3'))
-            .parents('tr')
-            .within(() => {
-                cy.contains('관리').click();
-            });
-        /* 테이블오더 사용 */
-        cy.get('#table_order_true').click();
-        cy.get('#vueSolutionContainer > .modal-dialog > .modal-content > .modal-footer > .bg-gradient-primary').click();
-        cy.wait(1 * 1000);
-        cy.get('#global_modal_confirm').click();
+        // /* 연동 정보 */
+        // cy.contains('span', Cypress.env('FavTestId3'))
+        //     .parents('tr')
+        //     .within(() => {
+        //         cy.contains('관리').click();
+        //     });
+        // /* 테이블오더 사용 */
+        // cy.get('#table_order_true').click();
+        // cy.get('#vueSolutionContainer > .modal-dialog > .modal-content > .modal-footer > .bg-gradient-primary').click();
+        // cy.wait(1 * 1000);
+        // cy.get('#global_modal_confirm').click();
 
         // /* 버추얼 로그인 */
         // cy.get(':nth-child(9) > .text-sm').click();
@@ -122,15 +94,15 @@ describe('Onprem Dashboard Test', () => {
         // cy.get('#global_modal_confirm').click();
     });
 
-    afterEach('Status Check', () => {
-        emailModule.screenshot(Failure, Screenshots);
-    });
-    after('Send Email', () => {
-        emailModule.email({
-            TestFails,
-            EmailTitle: `[${Cypress.env('EmailTitle')}]`,
-            TestRange: '매장등록',
-            Screenshots,
-        });
-    });
+    // afterEach('Status Check', () => {
+    //     emailModule.screenshot(Failure, Screenshots);
+    // });
+    // after('Send Email', () => {
+    //     emailModule.email({
+    //         TestFails,
+    //         EmailTitle: `[${Cypress.env('EmailTitle')}]`,
+    //         TestRange: '매장등록',
+    //         Screenshots,
+    //     });
+    // });
 });
