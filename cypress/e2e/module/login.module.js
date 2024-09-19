@@ -12,6 +12,7 @@ function login({ Site, Type = undefined, Id, Password }) {
     cy.get('#btnLogin', { timeout: 30 * 1000 }).click();
     cy.wait(3 * 1000);
 }
+
 module.exports = {
     login: login,
 };

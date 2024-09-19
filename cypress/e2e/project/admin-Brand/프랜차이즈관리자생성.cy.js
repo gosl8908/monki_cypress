@@ -24,7 +24,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('[data-mnu="/administrators/*"] > [href="#"]').click();
         cy.get('[data-mnu="/administrators/*"] > .nav > :nth-child(2) > .nav-link > p').click();
         cy.get('#btnRegAdmin').click();
-        cy.get('#admin_id').type(Cypress.env('TestId3'));
+        cy.get('#admin_id').type(Cypress.env('TestId')[2]);
         cy.get('#btnChkAdminId').click();
         cy.get('#admin_pass').type(Cypress.env('AdminPwd'));
         cy.get('#admin_nm').type('강해성');
@@ -40,7 +40,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('.toast')
             .contains('등록했습니다', { timeout: 10 * 1000 })
             .should('be.visible');
-        cy.get('.col-sm-12').contains(Cypress.env('TestId3'));
+        cy.get('.col-sm-12').contains(Cypress.env('TestId')[2]);
 
         // /* 삭제 */
         // cy.get('.col-sm-12')

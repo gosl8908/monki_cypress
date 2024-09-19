@@ -73,6 +73,6 @@ function menuAdd(Name) {
 
 module.exports = {
     menu: menu,
-    menuGroup: menuGroup,
-    menuAdd: menuAdd,
+    menuGroup,
+    menuAdd,
 };

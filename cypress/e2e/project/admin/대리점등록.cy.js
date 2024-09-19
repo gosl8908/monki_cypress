@@ -98,12 +98,12 @@ describe('Onprem Dashboard Test', () => {
                     cy.log('memo: ', vueInstance.memo);
                     cy.log('road_address', vueInstance.road_address);
                     cy.log('zipcode', vueInstance.zipcode);
-                    cy.get('#vueAgencyModal > .modal-dialog > .modal-content > .modal-footer > .btn-primary').click();
-                    cy.get('#global_modal_body').contains('입력한 내용으로 등록하시겠습니까?');
-                    cy.wait(1 * 1000);
-                    cy.get('#global_modal_confirm').click();
                 });
             });
+        cy.get('#vueAgencyModal > .modal-dialog > .modal-content > .modal-footer > .btn-primary').click();
+        cy.get('#global_modal_body').contains('입력한 내용으로 등록하시겠습니까?');
+        cy.wait(1 * 1000);
+        cy.get('#global_modal_confirm').click();
     });
 
     afterEach('Status Check', () => {

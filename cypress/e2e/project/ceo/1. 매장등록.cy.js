@@ -94,15 +94,15 @@ describe('Onprem Dashboard Test', () => {
         // cy.get('#global_modal_confirm').click();
     });
 
-    // afterEach('Status Check', () => {
-    //     emailModule.screenshot(Failure, Screenshots);
-    // });
-    // after('Send Email', () => {
-    //     emailModule.email({
-    //         TestFails,
-    //         EmailTitle: `[${Cypress.env('EmailTitle')}]`,
-    //         TestRange: '매장등록',
-    //         Screenshots,
-    //     });
-    // });
+    afterEach('Status Check', () => {
+        emailModule.screenshot(Failure, Screenshots);
+    });
+    after('Send Email', () => {
+        emailModule.email({
+            TestFails,
+            EmailTitle: `[${Cypress.env('EmailTitle')}]`,
+            TestRange: '매장등록',
+            Screenshots,
+        });
+    });
 });

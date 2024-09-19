@@ -4,7 +4,6 @@ describe('Test', () => {
     let TestFails = []; // 실패 원인을 저장할 변수
     let Screenshots = []; // 스크린샷을 저장할 배열
     let Failure = false;
-
     Cypress.on('fail', (err, runnable) => {
         const ErrMessage = err.message || '알 수 없는 이유로 실패함';
         !TestFails.includes(ErrMessage) && TestFails.push(ErrMessage);
@@ -27,14 +26,14 @@ describe('Test', () => {
     });
 
     afterEach('Status Check', () => {
-        emailModule.screenshot(Failure, Screenshots);
+        // emailModule.screenshot(Failure, Screenshots);
     });
     after('Send Email', () => {
-        emailModule.email({
-            TestFails,
-            EmailTitle: `[${Cypress.env('EmailTitle')}]`,
-            TestRange: '1. 사장님 페이지 로그인',
-            Screenshots,
-        });
+        // emailModule.email({
+        //     TestFails,
+        //     EmailTitle: `[${Cypress.env('EmailTitle')}]`,
+        //     TestRange: '1. 사장님 페이지 로그인',
+        //     Screenshots,
+        // });
     });
 });

@@ -16,7 +16,7 @@ describe('Onprem Dashboard Test', () => {
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('FavTestId2')}`,
+            Id: `${Cypress.env('FavTestId')[1]}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });

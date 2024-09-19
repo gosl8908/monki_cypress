@@ -32,7 +32,6 @@ module.exports = defineConfig({
         setupNodeEvents(on, config) {
             // implement node event listeners here
             require('cypress-mochawesome-reporter/plugin')(on);
-
             on('task', {
                 sendEmail({ recipient, subject, body, screenshotFileNames }) {
                     const attachments = [];
@@ -197,6 +196,7 @@ module.exports = defineConfig({
             /* Password */
             AdminPwd: 'gotjd0215!',
             TestPwd: 'test123!',
+            TestPwd2: 'test1234',
             /* KIS OFF-PG */
             KISMid: 'monthly01m',
             KISMid2: 'monthly02m',
