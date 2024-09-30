@@ -52,11 +52,13 @@ describe('Onprem Dashboard Test', () => {
             //     if (pageChangeConditions.includes(text)) {
             //         cy.get(':nth-child(3) > .page-link').click();
             //     }
-            //     cy.contains('span', text)
-            //         .parents('tr')
-            //         .within(() => {
-            //             cy.get('button').eq(0).click();
-            //         });
+            /* 옵션관리 */
+            cy.get('span')
+                .filter((i, el) => el.textContent.trim() === text)
+                .parents('tr')
+                .within(() => {
+                    cy.get('button').eq(0).click();
+                });
             //     cy.wait(1 * 1000);
             //     cy.contains('span', '추가선택')
             //         .parents('tr')

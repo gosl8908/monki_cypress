@@ -177,7 +177,9 @@ describe('Automation Testing', () => {
 
         reversedMenuArray.forEach(text => {
             const manageOptions = text => {
-                cy.contains('span', text)
+                /* 옵션관리 */
+                cy.get('span')
+                    .filter((i, el) => el.textContent.trim() === text)
                     .parents('tr')
                     .within(() => {
                         cy.get('button').eq(0).click();
@@ -233,11 +235,13 @@ describe('Automation Testing', () => {
 
         reversedMenuArray.forEach(text => {
             /* 옵션관리 */
-            cy.contains('span', text)
+            cy.get('span')
+                .filter((i, el) => el.textContent.trim() === text)
                 .parents('tr')
                 .within(() => {
-                    cy.get('button').eq(0).click();
+                    cy.get('button').click();
                 });
+
             cy.contains('span', '사이드메뉴') // 옵션명
                 .parents('tr')
                 .within(() => {
@@ -287,6 +291,9 @@ describe('Automation Testing', () => {
         cy.wait(1 * 1000);
         cy.get('#btnItemFormCheck').click();
         cy.wait(1 * 1000);
+        cy.get('#container')
+            .contains('물', { timeout: 10 * 1000 })
+            .should('be.visible');
     });
 
     // it('키오스크 메뉴 등록', () => {

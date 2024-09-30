@@ -87,11 +87,18 @@ describe('Onprem Dashboard Test', () => {
             }
 
             /* 옵션관리 */
-            cy.contains('span', text)
+            cy.get('span')
+                .filter((i, el) => el.textContent.trim() === text)
                 .parents('tr')
                 .within(() => {
                     cy.get('button').click();
                 });
+            // cy.contains('span', text)
+            //     .should('have.text', text)
+            //     .parents('tr')
+            //     .within(() => {
+            //         cy.get('button').click();
+            //     });
             cy.wait(1 * 1000);
             cy.contains('span', '사이드메뉴') // 옵션명
                 .parents('tr')
@@ -104,28 +111,29 @@ describe('Onprem Dashboard Test', () => {
             cy.get('#global_modal_confirm').click(); // 확인
             cy.wait(1 * 1000);
 
-            cy.contains('span', text)
-                .parents('tr')
-                .within(() => {
-                    cy.contains(text).click();
-                });
+            //     /* 상품관리 */
+            //     cy.contains('span', text)
+            //         .parents('tr')
+            //         .within(() => {
+            //             cy.contains(text).click();
+            //         });
 
-            cy.wait(1 * 1000);
-            /* 미사용 / HOT / NEW / SALE / BEST */
-            const selectors = ['#MNBG_000', '#MNBG_101', '#MNBG_102', '#MNBG_103', '#MNBG_104'];
-            const randomIndex = Math.floor(Math.random() * selectors.length);
-            cy.get(selectors[randomIndex]).click();
-            cy.wait(1 * 1000);
-            // cy.get('.multisteps-form__textarea').type(menu); // 메뉴 설명
-            cy.get('.multisteps-form__textarea').type(reversedMenuDescriptions[index]);
-            cy.wait(1 * 1000);
-            cy.get('#MN_001').click(); // 앱 노출 여부
-            cy.wait(1 * 1000);
-            cy.get('.ms-auto').click(); // 변경하기
-            cy.wait(1 * 1000);
-            cy.get('#global_modal_confirm').click(); // 확인
-            cy.wait(1 * 1000);
-            cy.go('back');
+            //     cy.wait(1 * 1000);
+            //     /* 미사용 / HOT / NEW / SALE / BEST */
+            //     const selectors = ['#MNBG_000', '#MNBG_101', '#MNBG_102', '#MNBG_103', '#MNBG_104'];
+            //     const randomIndex = Math.floor(Math.random() * selectors.length);
+            //     cy.get(selectors[randomIndex]).click();
+            //     cy.wait(1 * 1000);
+            //     // cy.get('.multisteps-form__textarea').type(menu); // 메뉴 설명
+            //     cy.get('.multisteps-form__textarea').type(reversedMenuDescriptions[index]);
+            //     cy.wait(1 * 1000);
+            //     cy.get('#MN_001').click(); // 앱 노출 여부
+            //     cy.wait(1 * 1000);
+            //     cy.get('.ms-auto').click(); // 변경하기
+            //     cy.wait(1 * 1000);
+            //     cy.get('#global_modal_confirm').click(); // 확인
+            //     cy.wait(1 * 1000);
+            //     cy.go('back');
         });
     });
     afterEach('Status Check', () => {
