@@ -4,7 +4,12 @@ function login({ Site, Type = undefined, Id, Password }) {
         passOnStatusCode: false,
     });
 
-    if (Site === Cypress.env('Ceo') || Site === Cypress.env('StgCeo') || Site === Cypress.env('DevCeo')) {
+    if (
+        Site === Cypress.env('Ceo') ||
+        Site === Cypress.env('StgCeo') ||
+        Site === Cypress.env('DevCeo') ||
+        Site === 'http://43.202.11.133:3002/users/login'
+    ) {
         cy.get('#user_type').select(Type);
     }
     cy.get('#user_id', { timeout: 30 * 1000 }).type(Id); // 이메일 입력

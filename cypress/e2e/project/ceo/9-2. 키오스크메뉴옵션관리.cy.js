@@ -14,7 +14,7 @@ describe('Onprem Dashboard Test', () => {
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
-            Site: `${Cypress.env('StgCeo')}`,
+            Site: `http://43.202.11.133:3002/users/login`,
             Type: '단골맛집 가맹점주',
             Id: `${Cypress.env('TestId')[1]}`,
             Password: `${Cypress.env('TestPwd2')}`,
@@ -25,7 +25,7 @@ describe('Onprem Dashboard Test', () => {
         /* 메뉴관리 */
         cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn').click();
         cy.wait(1 * 1000);
-        cy.get('[href="/menu/table-order/main"] > .btn').click();
+        cy.get('[href="/menu/kiosk"] > .btn').click();
 
         const menuPrices = `
         교촌옥수수통안심,23000
@@ -86,32 +86,30 @@ describe('Onprem Dashboard Test', () => {
                 cy.get('.pagination').contains('4').click();
             }
 
-            /* 상품관리 */
+            /* 옵션관리 */
             cy.get('span')
-                .filter((i, el) => el.textContent.trim() === text) // 정확히 일치하는 텍스트 필터링
+                .filter((i, el) => el.textContent.trim() === text)
                 .parents('tr')
                 .within(() => {
-                    cy.get('span') // 클릭할 요소도 정확히 일치하는 텍스트 찾기
-                        .filter((i, el) => el.textContent.trim() === text)
-                        .click();
+                    cy.get('button').click();
                 });
-
+            // cy.contains('span', text)
+            //     .should('have.text', text)
+            //     .parents('tr')
+            //     .within(() => {
+            //         cy.get('button').click();
+            //     });
             cy.wait(1 * 1000);
-            /* 미사용 / HOT / NEW / SALE / BEST */
-            const selectors = ['#MNBG_000', '#MNBG_101', '#MNBG_102', '#MNBG_103', '#MNBG_104'];
-            const randomIndex = Math.floor(Math.random() * selectors.length);
-            cy.get(selectors[randomIndex]).click();
+            cy.contains('span', '사이드메뉴') // 옵션명
+                .parents('tr')
+                .within(() => {
+                    cy.get('button').contains('추가').click();
+                });
             cy.wait(1 * 1000);
-            // cy.get('.multisteps-form__textarea').type(menu); // 메뉴 설명
-            cy.get('.multisteps-form__textarea').type(reversedMenuDescriptions[index]);
-            cy.wait(1 * 1000);
-            cy.get('#MN_001').click(); // 앱 노출 여부
-            cy.wait(1 * 1000);
-            cy.get('.ms-auto').click(); // 변경하기
+            cy.get('#vueOptionContainer > .modal-content > .modal-footer > .bg-gradient-primary').click(); // 추가/변경
             cy.wait(1 * 1000);
             cy.get('#global_modal_confirm').click(); // 확인
             cy.wait(1 * 1000);
-            cy.go('back');
         });
     });
     afterEach('Status Check', () => {

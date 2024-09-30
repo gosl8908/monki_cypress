@@ -55,9 +55,11 @@ function menuGroup(Name, Type = undefined) {
         .parents('tr')
         .within(() => {
             if (Type === 'App') {
-                cy.get('button').contains('메뉴 관리').eq(0).click();
-            } else {
-                cy.get('button').contains('메뉴 관리 ').eq(0).click();
+                cy.get('button').contains('관리').eq(0).click(); // 먼키앱
+            } else if (Type === '키오스크') {
+                cy.get('td.isMenukiosk').find('button').contains('관리').click(); // 키오스크
+            } else if (Type === '테이블오더') {
+                cy.get('button').contains(' 관리 ').click(); // 테이블오더
             }
         });
 }
