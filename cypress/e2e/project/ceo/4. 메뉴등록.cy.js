@@ -16,7 +16,7 @@ describe('Onprem Dashboard Test', () => {
         loginModule.login({
             Site: `${Cypress.env('Ceo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('monkitest')[1]}`,
+            Id: `${Cypress.env('TestId')[1]}`,
             Password: `${Cypress.env('TestPwd2')}`,
         });
     });
@@ -28,7 +28,21 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#product').click(); // 상품관리 탭
 
         const menuPrices = `
-        테스트,1000
+        교촌옥수수통안심,23000
+        교촌옥수수순살,23000
+        교촌옥수수오리지날,20000
+        반반오리지날,20000
+        반반콤보,23000
+        반반순살,23000
+        반반윙,23000
+        반반스틱,23000
+        레허반반순살,23000
+        시그니처순살세트,33000
+        리얼후라이드,20000
+        살살후라이드미니,7000
+        살살후라이드,20000
+        파채소이살살,19000
+        
         `;
 
         menuPrices
@@ -36,7 +50,7 @@ describe('Onprem Dashboard Test', () => {
             .split('\n')
             .forEach(item => {
                 const [menu, price] = item.trim().split(',');
-                menuModule.menu(menu, price, 'jpg');
+                menuModule.menu(menu, price, 'png');
             });
     });
 

@@ -26,14 +26,14 @@ describe('Test', () => {
     });
 
     afterEach('Status Check', () => {
-        // emailModule.screenshot(Failure, Screenshots);
+        emailModule.screenshot(Failure, Screenshots);
     });
     after('Send Email', () => {
-        // emailModule.email({
-        //     TestFails,
-        //     EmailTitle: `[${Cypress.env('EmailTitle')}]`,
-        //     TestRange: '1. 사장님 페이지 로그인',
-        //     Screenshots,
-        // });
+        emailModule.email({
+            TestFails,
+            EmailTitle: `[${Cypress.env('EmailTitle')}]`,
+            TestRange: '1. 사장님 페이지 로그인',
+            Screenshots,
+        });
     });
 });

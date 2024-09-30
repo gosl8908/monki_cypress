@@ -37,6 +37,7 @@ describe('지점 등록 Test', () => {
             cy.get('#road-address').invoke('val', road_address_name);
             cy.get('#longitude').invoke('val', x);
             cy.get('#latitude').invoke('val', y);
+            cy.get('#address_detail').type('1');
         });
 
         // const apiKey = '419ed37eb9960d76f12d9ff0610d327a';
@@ -75,7 +76,6 @@ describe('지점 등록 Test', () => {
         //     cy.get('#longitude').invoke('val', x.join(', '));
         //     cy.get('#latitude').invoke('val', y.join(', '));
         // });
-        cy.get('#address_detail').type('1');
 
         cy.fixture('image/로고이미지/번개상단.png', 'base64').then(fileContent => {
             cy.get('input[type="FILE"]').eq(1).attachFile({

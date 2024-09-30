@@ -271,6 +271,23 @@ describe('Automation Testing', () => {
             cy.go('back');
         });
     });
+    it('테이블오더 직원 호출 등록', () => {
+        cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
+        /* 테이블오더 */
+        cy.get('[href="/menu/table-order/main"] > .btn').click();
+        cy.wait(1 * 1000);
+
+        cy.get('#employee').click();
+        cy.wait(1 * 1000);
+        cy.get('#btnEmployeeAdd').click();
+        cy.wait(1 * 1000);
+        cy.get('#add_ItemName').type('물');
+        cy.wait(1 * 1000);
+        cy.get('#btnItemNameCheck').click();
+        cy.wait(1 * 1000);
+        cy.get('#btnItemFormCheck').click();
+        cy.wait(1 * 1000);
+    });
 
     // it('키오스크 메뉴 등록', () => {
     //     cy.get('[name="gnb-menu"]').contains('메뉴관리').click();

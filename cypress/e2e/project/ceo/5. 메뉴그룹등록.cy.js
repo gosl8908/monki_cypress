@@ -16,7 +16,7 @@ describe('Onprem Dashboard Test', () => {
         loginModule.login({
             Site: `${Cypress.env('Ceo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('monkitest')[1]}`,
+            Id: `${Cypress.env('TestId')[1]}`,
             Password: `${Cypress.env('TestPwd2')}`,
         });
     });
@@ -28,7 +28,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('[href="/menu/menu-group"] > .btn').click();
 
         /* 메뉴그룹 생성 */
-        const categories = ['테스트'];
+        const categories = ['NEW', '믹스시리즈', '후라이드시리즈'];
 
         categories.forEach(category => {
             cy.get('#btnAddMenuGroup').click();
