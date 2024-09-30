@@ -70,24 +70,6 @@ describe('Test', () => {
         optionGroups.forEach(group => {
             registerOptionGroup(group);
         });
-
-        // /* 선택 옵션그룹 등록 */
-        // cy.get('.col-12 > .btn').click();
-        // cy.get('.col-9 > .form-control').type('추가선택');
-        // cy.get('#OP_002').click(); // 다중
-        // cy.get(':nth-child(3) > .d-flex > .col-9 > .form-control').clear().type('3');
-        // cy.get('#requireYn_false').click(); // 선택
-        // cy.get('div.col-3 > .btn').click(); // 옵션 추가
-        // cy.get('div.col-3 > .btn').click();
-        // cy.get('.ui-sortable-handle > :nth-child(2) > .text-secondary > .form-control').type('고기');
-        // cy.get('.ui-sortable-handle > :nth-child(3) > .text-secondary > .form-control').clear().type('3000');
-        // cy.get(':nth-child(2) > :nth-child(2) > .text-secondary > .form-control').type('계란');
-        // cy.get(':nth-child(2) > :nth-child(3) > .text-secondary > .form-control').clear().type('2000');
-        // cy.get(':nth-child(3) > :nth-child(2) > .text-secondary > .form-control').type('공기밥');
-        // cy.get(':nth-child(3) > :nth-child(3) > .text-secondary > .form-control').clear().type('1000');
-        // cy.get('.ms-auto').click();
-        // cy.wait(1 * 1000);
-        // cy.get('#global_modal_confirm').click();
     });
 
     afterEach('Status Check', () => {
