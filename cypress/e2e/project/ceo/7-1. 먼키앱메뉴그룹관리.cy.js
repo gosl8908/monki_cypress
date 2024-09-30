@@ -55,16 +55,10 @@ describe('Onprem Dashboard Test', () => {
         };
 
         Object.entries(menuGroups).forEach(([group, items]) => {
-            menuModule.menuGroup(group, 'App');
-            cy.wait(1000);
-
             items.forEach(item => {
-                menuModule.menuAdd(item);
+                menuModule.menuGroup(group, item, 'App');
+                cy.wait(1000);
             });
-
-            cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
-            cy.wait(1000);
-            cy.get('#global_modal_confirm').click();
         });
     });
 

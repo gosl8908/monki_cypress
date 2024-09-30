@@ -48,10 +48,14 @@ function menu(Name, Pay, Extension, Type = undefined) {
     cy.get('.ms-auto').click();
     cy.wait(1 * 1000);
     cy.get('#global_modal_confirm').click();
+    cy.wait(1 * 1000);
+    cy.get('#container')
+        .contains(Name, { timeout: 10 * 1000 })
+        .should('be.visible');
 }
 
-function menuGroup(Name, Type = undefined) {
-    cy.contains('span', Name)
+function menuGroup(group, item, Type = undefined) {
+    cy.contains('span', group)
         .parents('tr')
         .within(() => {
             if (Type === 'App') {
@@ -62,19 +66,37 @@ function menuGroup(Name, Type = undefined) {
                 cy.get('button').contains(' 관리 ').click(); // 테이블오더
             }
         });
-}
-
-function menuAdd(Name) {
+    cy.wait(1000);
     cy.get('#vueMenuContainer > .modal-content')
-        .contains('span', Name)
+        .contains('span', item)
         .parents('tr')
         .within(() => {
             cy.contains('추가').click();
         });
+
+    cy.wait(1000);
+    cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
+    cy.wait(1000);
+    cy.get('#global_modal_confirm').click();
+    cy.wait(1000);
+
+    if (Type === '주류') {
+        cy.contains('span', '주류')
+            .parents('tr')
+            .within(() => {
+                cy.get('button').contains('수정').click();
+            });
+        cy.wait(1000);
+        cy.get('[id="use_kiosk_yn_true"]').click();
+        cy.wait(1000);
+        cy.get('[id="use_tableorder_yn_true"]').click();
+        cy.wait(1000);
+        cy.get('.modal-footer > .btn-primary').click();
+        cy.wait(1000);
+    }
 }
 
 module.exports = {
     menu: menu,
     menuGroup,
-    menuAdd,
 };

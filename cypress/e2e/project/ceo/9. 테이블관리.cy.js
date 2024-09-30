@@ -29,32 +29,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#basic-store-no').select('교촌치킨(선불)');
         cy.get('.col-2 > .btn').click(); // 검색
 
-        // /* 테이블변경 */
-        // cy.get(
-        //     '#divGroundResourceTableView_0 > :nth-child(1) > .height-200 > .text-center > :nth-child(1) > #btnTableEdit_0',
-        // ).click();
-        // cy.get('#add_resource_name').clear().type('1-1번');
-        // cy.get('#btnTableNameOverCheck').click();
-        // cy.get(
-        //     '#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
-        // ).click();
-
-        // /* 구역 수정 */
-        // cy.get('#btnGroupEdit_0').click();
-        // cy.get('#add_ground_name').clear().type('1층');
-        // cy.get(
-        //     '#modalGroupRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
-        // ).click();
-
-        tableModule.table('2층', '47');
-        tableModule.table('2층', '48');
-        tableModule.table('2층', '49');
         tableModule.table('2층', '50');
-
-        // tableModule.ground('2층', '2');
-        // tableModule.table('2층', '2-1');
-        // tableModule.table('2층', '2-2');
-        // tableModule.table('2층', '2-3');
     });
 
     afterEach('Status Check', () => {

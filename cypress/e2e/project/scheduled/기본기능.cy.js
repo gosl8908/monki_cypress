@@ -151,6 +151,8 @@ describe('Automation Testing', () => {
         };
         Object.entries(menuGroups).forEach(([group, items]) => {
             menuModule.menuGroup(group, 'App');
+            menuModule.menuGroup(group, '테이블오더');
+            // menuModule.menuGroup(group, '키오스크');
             cy.wait(1000);
 
             items.forEach(item => {
@@ -176,26 +178,24 @@ describe('Automation Testing', () => {
         const reversedMenuArray = menuArray.reverse();
 
         reversedMenuArray.forEach(text => {
-            const manageOptions = text => {
-                /* 옵션관리 */
-                cy.get('span')
-                    .filter((i, el) => el.textContent.trim() === text)
-                    .parents('tr')
-                    .within(() => {
-                        cy.get('button').eq(0).click();
-                    });
-                cy.wait(1 * 1000);
-                cy.contains('span', '사이드메뉴')
-                    .parents('tr')
-                    .within(() => {
-                        cy.get('button').contains('추가').click();
-                    });
-                cy.wait(1 * 1000);
-                cy.get('#vueOptionContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
-                cy.wait(1 * 1000);
-                cy.get('#global_modal_confirm').click();
-                cy.wait(1 * 1000);
-            };
+            /* 옵션관리 */
+            cy.get('span')
+                .filter((i, el) => el.textContent.trim() === text)
+                .parents('tr')
+                .within(() => {
+                    cy.get('button').eq(0).click();
+                });
+            cy.wait(1 * 1000);
+            cy.contains('span', '사이드메뉴')
+                .parents('tr')
+                .within(() => {
+                    cy.get('button').contains('추가').click();
+                });
+            cy.wait(1 * 1000);
+            cy.get('#vueOptionContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
+            cy.wait(1 * 1000);
+            cy.get('#global_modal_confirm').click();
+            cy.wait(1 * 1000);
 
             /* 메뉴 관리 */
             cy.contains('span', text)
@@ -275,6 +275,7 @@ describe('Automation Testing', () => {
             cy.go('back');
         });
     });
+
     it('테이블오더 직원 호출 등록', () => {
         cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         /* 테이블오더 */
@@ -303,38 +304,43 @@ describe('Automation Testing', () => {
     //     const menuArray = menuPrices
     //         .trim()
     //         .split('\n')
-    //         .map(line => line.split(',')[0]).trim();
+    //         .map(line => line.split(',')[0])
+    //         .trim();
 
     //     // 역순으로 정렬
     //     const reversedMenuArray = menuArray.reverse();
 
     //     reversedMenuArray.forEach(text => {
-    //         const manageOptions = text => {
-    //             cy.contains('span', text)
-    //                 .parents('tr')
-    //                 .within(() => {
-    //                     cy.get('button').eq(0).click();
-    //                 });
-    //             cy.wait(1 * 1000);
-    //             cy.contains('span', '사이드메뉴')
-    //                 .parents('tr')
-    //                 .within(() => {
-    //                     cy.get('button').contains('추가').click();
-    //                 });
-    //             cy.wait(1 * 1000);
-    //             cy.get('#vueOptionContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
-    //             cy.wait(1 * 1000);
-    //             cy.get('#global_modal_confirm').click();
-    //             cy.wait(1 * 1000);
-    //         };
-
-    //         /* 메뉴 관리 */
-    //         cy.contains('span', text)
+    //         /* 옵션관리 */
+    //         cy.get('span')
+    //             .filter((i, el) => el.textContent.trim() === text)
     //             .parents('tr')
     //             .within(() => {
-    //                 cy.get('.align-middle.text-center').eq(3).contains(text).click();
+    //                 cy.get('button').click();
     //             });
-    //         cy.wait(2 * 1000);
+    //         cy.wait(1 * 1000);
+    //         cy.contains('span', '사이드메뉴')
+    //             .parents('tr')
+    //             .within(() => {
+    //                 cy.get('button').contains('추가').click();
+    //             });
+    //         cy.wait(1 * 1000);
+    //         cy.get('#vueOptionContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
+    //         cy.wait(1 * 1000);
+    //         cy.get('#global_modal_confirm').click();
+    //         cy.wait(1 * 1000);
+
+    //         /* 상품관리 */
+    //         cy.get('span')
+    //             .filter((i, el) => el.textContent.trim() === text) // 정확히 일치하는 텍스트 필터링
+    //             .parents('tr')
+    //             .within(() => {
+    //                 cy.get('span') // 클릭할 요소도 정확히 일치하는 텍스트 찾기
+    //                     .filter((i, el) => el.textContent.trim() === text)
+    //                     .click();
+    //             });
+    //         cy.wait(1 * 1000);
+
     //         /* 미사용 / HOT / NEW / SALE / BEST */
     //         const selectors = ['#MNBG_000', '#MNBG_101', '#MNBG_102', '#MNBG_103', '#MNBG_104'];
     //         const randomIndex = Math.floor(Math.random() * selectors.length);

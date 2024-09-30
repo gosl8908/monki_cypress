@@ -101,7 +101,7 @@ describe('Onprem Dashboard Test', () => {
             const randomIndex = Math.floor(Math.random() * selectors.length);
             cy.get(selectors[randomIndex]).click();
             cy.wait(1 * 1000);
-            cy.get('.multisteps-form__textarea').type(text); // 메뉴 설명
+            cy.get('.multisteps-form__textarea').type(reversedMenuDescriptions[index]);
             cy.wait(1 * 1000);
             cy.get('#MN_001').click(); // 앱 노출 여부
             cy.wait(1 * 1000);

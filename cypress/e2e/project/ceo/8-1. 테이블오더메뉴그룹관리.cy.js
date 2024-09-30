@@ -27,18 +27,6 @@ describe('Onprem Dashboard Test', () => {
         cy.wait(1 * 1000);
         cy.get('[href="/menu/menu-group"] > .btn').click();
 
-        //form-group // 사용
-        //form-group disabled // 미사용
-        // cy.contains('span', '주류')
-        //     .parents('tr')
-        //     .within(() => {
-        //         cy.get('button').contains('수정').eq(0).click();
-        //     });
-        // cy.wait(1000);
-        // cy.get('.card-body > :nth-child(5)').contains('사용').click();
-        // cy.get('.modal-footer > .btn-primary').click();
-        // cy.wait(1000);
-
         const menuGroups = {
             NEW: ['교촌옥수수통안심', '교촌옥수수순살', '교촌옥수수오리지날'],
             믹스시리즈: [
@@ -67,16 +55,10 @@ describe('Onprem Dashboard Test', () => {
         };
 
         Object.entries(menuGroups).forEach(([group, items]) => {
-            menuModule.menuGroup(group, '테이블오더');
-            cy.wait(1000);
-
             items.forEach(item => {
-                menuModule.menuAdd(item);
+                menuModule.menuGroup(group, item, '테이블오더');
+                cy.wait(1000);
             });
-
-            cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
-            cy.wait(1000);
-            cy.get('#global_modal_confirm').click();
         });
     });
 
