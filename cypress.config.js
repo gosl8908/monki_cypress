@@ -14,8 +14,10 @@ const doorayEamilId = 'hskang@monki.net';
 const doorayEamilPwd = 'gotjd0215!';
 
 module.exports = defineConfig({
-    viewportWidth: 1920,
-    viewportHeight: 1080,
+    // viewportWidth: 1920,
+    // viewportHeight: 1080,
+    viewportWidth: process.env.GITHUB_ACTIONS ? 1000 : 1920,
+    viewportHeight: process.env.GITHUB_ACTIONS ? 660 : 1080,
     pageLoadTimeout: 60 * 1000,
     redirectionLimit: 30,
     experimentalStudio: true,
