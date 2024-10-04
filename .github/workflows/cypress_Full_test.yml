@@ -102,8 +102,8 @@ jobs:
               run: |
                   sudo apt-get install -y fonts-nanum xvfb
 
-            - name: Run Cypress tests with 1920x1080 resolution
-              run: xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" yarn cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }} --spec "cypress/e2e/project/test/test.cy.js" --browser chrome
+            - name: Run Cypress tests with 1000x660 resolution
+              run: xvfb-run --auto-servernum --server-args="-screen 0 1000x660x24" yarn cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }} --spec "cypress/e2e/project/test/test.cy.js" --browser chrome
 
     cypress-run-test2:
         runs-on: ubuntu-latest
@@ -123,8 +123,8 @@ jobs:
               run: |
                   sudo apt-get install -y fonts-nanum xvfb
 
-            - name: Run Cypress test2 with 1920x1080 resolution
-              run: xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" yarn cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }} --spec "cypress/e2e/project/test/test2.cy.js" --browser chrome
+            - name: Run Cypress test2 with 1000x660 resolution
+              run: xvfb-run --auto-servernum --server-args="-screen 0 1000x660x24" yarn cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }} --spec "cypress/e2e/project/test/test2.cy.js" --browser chrome
 
     basic_test:
         runs-on: ubuntu-latest
