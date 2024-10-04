@@ -32,7 +32,7 @@ describe('Onprem Dashboard Test', () => {
         tableModule.table('2층', '50');
     });
 
-    afterEach('Status Check', () => {
+    afterEach('Status Check', function () {
         emailModule.screenshot(Failure, Screenshots, this.currentTest);
     });
     after('Send Email', () => {

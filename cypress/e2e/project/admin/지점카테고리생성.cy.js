@@ -38,7 +38,7 @@ describe('Onprem Dashboard Test', () => {
         cy.contains('적용했습니다.');
     });
 
-    afterEach('Status Check', () => {
+    afterEach('Status Check', function () {
         emailModule.screenshot(Failure, Screenshots, this.currentTest);
     });
     after('Send Email', () => {

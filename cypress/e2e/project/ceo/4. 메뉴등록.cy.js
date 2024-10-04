@@ -53,7 +53,7 @@ describe('Onprem Dashboard Test', () => {
             });
     });
 
-    afterEach('Status Check', () => {
+    afterEach('Status Check', function () {
         emailModule.screenshot(Failure, Screenshots, this.currentTest);
     });
     after('Send Email', () => {

@@ -27,7 +27,7 @@ describe('Test', () => {
         cy.contains('단골맛집');
     });
 
-    afterEach('Status Check', () => {
+    afterEach('Status Check', function () {
         emailModule.screenshot(Failure, Screenshots, this.currentTest);
     });
     after('Send Email', () => {

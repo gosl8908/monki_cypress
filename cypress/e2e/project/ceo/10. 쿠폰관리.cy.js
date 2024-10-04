@@ -37,7 +37,7 @@ describe('Onprem Dashboard Test', () => {
         cy.get('#global_modal_confirm').contains('확인').click();
     });
 
-    afterEach('Status Check', () => {
+    afterEach('Status Check', function () {
         emailModule.screenshot(Failure, Screenshots, this.currentTest);
     });
     after('Send Email', () => {

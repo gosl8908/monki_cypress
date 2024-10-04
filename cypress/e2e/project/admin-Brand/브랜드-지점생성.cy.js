@@ -140,7 +140,7 @@ describe('지점 등록 Test', () => {
         cy.get('.card-default > .col-12 > .card').contains('대표 메뉴');
     });
 
-    afterEach('Status Check', () => {
+    afterEach('Status Check', function () {
         emailModule.screenshot(Failure, Screenshots, this.currentTest);
     });
     after('Send Email', () => {

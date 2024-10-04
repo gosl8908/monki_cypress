@@ -125,7 +125,7 @@ describe('Onprem Dashboard Test', () => {
     //   cy.get('#global_modal_body').contains('입력한 내용으로 등록하시겠습니까?');
     //   cy.get('#global_modal_confirm').click();
 
-    afterEach('Status Check', () => {
+    afterEach('Status Check', function () {
         emailModule.screenshot(Failure, Screenshots, this.currentTest);
     });
     after('Send Email', () => {

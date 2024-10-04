@@ -113,7 +113,7 @@ describe('Onprem Dashboard Test', () => {
             cy.go('back');
         });
     });
-    afterEach('Status Check', () => {
+    afterEach('Status Check', function () {
         emailModule.screenshot(Failure, Screenshots, this.currentTest);
     });
     after('Send Email', () => {
