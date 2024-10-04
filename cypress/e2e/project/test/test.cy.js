@@ -22,12 +22,32 @@ describe('Test', () => {
         });
     });
 
-    it('Test', () => {
+    it('Test1', () => {
+        cy.contains('123123123', { timeout: 1 * 1000 });
+    });
+    it('Test2', () => {
+        cy.contains('123123123', { timeout: 1 * 1000 });
+    });
+    it('Test3', () => {
         cy.contains('123123123', { timeout: 1 * 1000 });
     });
 
-    afterEach('Status Check', () => {
-        emailModule.screenshot(Failure, Screenshots);
+    afterEach('Status Check', function () {
+        emailModule.screenshot(Failure, Screenshots, this.currentTest);
+        // const f = {
+        //     getFileName: filePath => {
+        //         return filePath.split('/').pop(); // 파일 경로에서 파일명만 추출
+        //     },
+        // };
+        // if (Failure) {
+        //     const ScreenshotFileName = `${Cypress.env('DateLabel')}_${this.currentTest.title}`;
+        //     cy.screenshot(ScreenshotFileName, { capture: 'fullPage' });
+
+        //     // 플랫폼별 경로 차이 없이 단순하게 파일 이름만 추가
+        //     Screenshots.push(ScreenshotFileName);
+
+        //     Failure = false;
+        // }
     });
     after('Send Email', () => {
         emailModule.email({

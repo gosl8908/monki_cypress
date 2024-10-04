@@ -28,7 +28,7 @@ describe('Test', () => {
     });
 
     afterEach('Status Check', () => {
-        emailModule.screenshot(Failure, Screenshots);
+        emailModule.screenshot(Failure, Screenshots, this.currentTest);
     });
     after('Send Email', () => {
         emailModule.email({

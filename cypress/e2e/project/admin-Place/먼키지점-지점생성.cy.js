@@ -103,7 +103,7 @@ describe('지점 등록 Test', () => {
         cy.get('.card-default > .col-12 > .card').contains('대표 메뉴');
     });
     afterEach('Status Check', () => {
-        emailModule.screenshot(Failure, Screenshots);
+        emailModule.screenshot(Failure, Screenshots, this.currentTest);
     });
     after('Send Email', () => {
         emailModule.email({

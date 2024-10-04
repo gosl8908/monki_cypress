@@ -1,11 +1,11 @@
-function screenshot(Failure, Screenshots) {
+function screenshot(Failure, Screenshots, currentTest) {
     const f = {
         getFileName: filePath => {
             return filePath.split('/').pop(); // 파일 경로에서 파일명만 추출
         },
     };
     if (Failure) {
-        const ScreenshotFileName = `${Cypress.env('DateLabel')}`;
+        const ScreenshotFileName = `${currentTest.title}_${Cypress.env('DateLabel')}`;
         cy.screenshot(ScreenshotFileName, { capture: 'fullPage' });
 
         // 플랫폼별 경로 차이 없이 단순하게 파일 이름만 추가

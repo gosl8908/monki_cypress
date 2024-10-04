@@ -62,7 +62,7 @@ describe('Onprem Dashboard Test', () => {
     });
 
     afterEach('Status Check', () => {
-        emailModule.screenshot(Failure, Screenshots);
+        emailModule.screenshot(Failure, Screenshots, this.currentTest);
     });
     after('Send Email', () => {
         const TestRange = '1. 사장님 페이지 로그인';
