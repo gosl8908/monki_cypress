@@ -6,7 +6,7 @@ function screenshot(Failure, Screenshots) {
     };
     if (Failure) {
         const ScreenshotFileName = `${Cypress.env('DateLabel')}`;
-        cy.screenshot(ScreenshotFileName);
+        cy.screenshot(ScreenshotFileName, { capture: 'fullPage' });
 
         // 플랫폼별 경로 차이 없이 단순하게 파일 이름만 추가
         Screenshots.push(ScreenshotFileName);
