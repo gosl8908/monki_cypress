@@ -25,12 +25,6 @@ describe('Test', () => {
     it('Test', () => {
         cy.contains('123123123', { timeout: 1 * 1000 });
     });
-    it('Test', () => {
-        cy.contains('번개');
-    });
-    it('Test', () => {
-        cy.contains('번개');
-    });
 
     afterEach('Status Check', () => {
         emailModule.screenshot(Failure, Screenshots);
@@ -39,7 +33,7 @@ describe('Test', () => {
         emailModule.email({
             TestFails,
             EmailTitle: `[${Cypress.env('EmailTitle')}]`,
-            TestRange: '1. 사장님 페이지 로그인',
+            TestRange: '1. 테스트',
             Screenshots,
         });
     });

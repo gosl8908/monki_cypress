@@ -12,6 +12,7 @@ describe('Test', () => {
         throw err;
     });
     beforeEach(() => {
+        Failure = false; // Failure 변수를 false로 초기화
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
@@ -33,7 +34,7 @@ describe('Test', () => {
         emailModule.email({
             TestFails,
             EmailTitle: `[${Cypress.env('EmailTitle')}]`,
-            TestRange: '1. 사장님 페이지 로그인',
+            TestRange: '1. 테스트',
             Screenshots,
         });
     });
