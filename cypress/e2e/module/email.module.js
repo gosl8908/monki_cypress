@@ -13,7 +13,7 @@ function screenshot(Failure, Screenshots) {
 
         Failure = false;
     }
-    return Screenshots; // 배열을 반환
+    return Screenshots;
 }
 function email({ TestFails, EmailTitle, TestRange, Screenshots }) {
     const IsTestFailed = TestFails.length > 0;

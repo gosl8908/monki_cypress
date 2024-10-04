@@ -19,6 +19,7 @@ describe('Automation Testing', () => {
             Id: `${Cypress.env('FavTestId')[0]}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
+        Failure = true;
     });
 
     it('메뉴 관리', () => {
@@ -150,18 +151,11 @@ describe('Automation Testing', () => {
             테스트: ['치킨'],
         };
         Object.entries(menuGroups).forEach(([group, items]) => {
-            menuModule.menuGroup(group, 'App');
-            menuModule.menuGroup(group, '테이블오더');
-            // menuModule.menuGroup(group, '키오스크');
-            cy.wait(1000);
-
             items.forEach(item => {
-                menuModule.menuAdd(item);
+                menuModule.menuGroup(group, item, 'App');
+                menuModule.menuGroup(group, item, '테이블오더');
+                // menuModule.menuGroup(group, item, '키오스크');
             });
-
-            cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
-            cy.wait(1000);
-            cy.get('#global_modal_confirm').click();
         });
     });
 
@@ -169,6 +163,7 @@ describe('Automation Testing', () => {
         cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         /* 먼키앱 */
         cy.get('[href="/menu/app"] > .btn').click();
+
         const menuArray = menuPrices
             .trim()
             .split('\n')
@@ -252,6 +247,7 @@ describe('Automation Testing', () => {
             cy.get('#global_modal_confirm').click(); // 확인
             cy.wait(2 * 1000);
 
+            /* 메뉴 관리 */
             cy.contains('span', text)
                 .parents('tr')
                 .within(() => {
@@ -293,7 +289,7 @@ describe('Automation Testing', () => {
         cy.get('#btnItemFormCheck').click();
         cy.wait(1 * 1000);
         cy.get('#container')
-            .contains('물', { timeout: 10 * 1000 })
+            .contains('물', { timeout: 3 * 1000 })
             .should('be.visible');
     });
 
@@ -358,11 +354,11 @@ describe('Automation Testing', () => {
     //     });
     // });
 
-    it('상품, 옵션, 메뉴 그룹 삭제', () => {
+    it('상품 삭제', () => {
         cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         /* 상품 삭제 */
         cy.get(
-            '[data-scroll="false"][data-mnu="/menu/*"] > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn',
+            '[data-scroll="false"][data-mnu="/menu/*"] > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn', // 상품관리
         ).click();
         cy.wait(1 * 1000);
         cy.get('#product').click(); // 상품관리 탭
@@ -377,7 +373,9 @@ describe('Automation Testing', () => {
                 cy.wait(1 * 1000);
             }
         });
-
+    });
+    it('옵션 삭제', () => {
+        cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         /* 옵션 삭제 */
         cy.get('[href="/menu/option"] > .btn').click();
         cy.wait(1 * 1000);
@@ -390,7 +388,9 @@ describe('Automation Testing', () => {
                 cy.wait(1 * 1000);
             }
         });
-
+    });
+    it('메뉴 그룹 삭제', () => {
+        cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         /* 메뉴 그룹 삭제 */
         cy.get('[href="/menu/menu-group"] > .btn').click();
         cy.wait(1 * 1000);

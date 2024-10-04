@@ -11,6 +11,7 @@ describe('Test', () => {
         throw err;
     });
     beforeEach(() => {
+        Failure = false; // Failure 변수를 false로 초기화
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
@@ -22,11 +23,32 @@ describe('Test', () => {
     });
 
     it('Test', () => {
-        cy.contains('123123123');
+        cy.contains('123123123', { timeout: 1 * 1000 });
+    });
+    it('Test', () => {
+        cy.contains('번개');
+    });
+    it('Test', () => {
+        cy.contains('번개');
     });
 
     afterEach('Status Check', () => {
         emailModule.screenshot(Failure, Screenshots);
+        // const f = {
+        //     getFileName: filePath => {
+        //         return filePath.split('/').pop(); // 파일 경로에서 파일명만 추출
+        //     },
+        // };
+        // if (Failure) {
+        //     const ScreenshotFileName = `${Cypress.env('DateLabel')}`;
+        //     cy.screenshot(ScreenshotFileName);
+
+        //     // 플랫폼별 경로 차이 없이 단순하게 파일 이름만 추가
+        //     Screenshots.push(ScreenshotFileName);
+
+        //     Failure = false;
+        //     // return Screenshots;
+        // }
     });
     after('Send Email', () => {
         emailModule.email({

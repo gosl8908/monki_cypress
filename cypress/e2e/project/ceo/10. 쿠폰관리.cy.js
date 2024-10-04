@@ -25,9 +25,13 @@ describe('Onprem Dashboard Test', () => {
         cy.get(':nth-child(3) > .container-fluid > .d-flex').contains('운영관리').click();
         cy.get('[style="display: block;"] > .container-fluid > .d-flex').contains('쿠폰관리').click();
         cy.get('.col-12 > .btn').contains('쿠폰 등록').click();
-        cy.get('#coupon_nm').type(Cypress.env('Date') + ' 쿠폰테스트');
-        cy.get('#coupon_price').type('10000');
-        cy.get('#min_order_price').type('5000');
+
+        /* 쿠폰 정보 */
+        cy.get('#coupon_nm').type(Cypress.env('Date') + ' 쿠폰테스트'); // 쿠폰명
+        cy.get('#coupon_price').type('10000'); // 쿠폰 할인 금액
+        cy.wait(1 * 1000);
+        cy.get('#min_order_price').type('5000'); // 최소 주문 금액
+        cy.wait(1 * 1000);
         cy.get('#page_modal_confirm').contains('적용').click();
         cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').contains('확인').click();

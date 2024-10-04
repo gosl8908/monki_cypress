@@ -42,7 +42,6 @@ describe('Onprem Dashboard Test', () => {
         살살후라이드미니,7000
         살살후라이드,20000
         파채소이살살,19000
-        
         `;
 
         menuPrices
