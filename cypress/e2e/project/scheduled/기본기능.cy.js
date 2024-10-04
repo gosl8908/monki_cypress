@@ -20,7 +20,6 @@ describe('Automation Testing', () => {
             Id: `${Cypress.env('FavTestId')[0]}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
-        Failure = true;
     });
 
     it('메뉴 관리', () => {
