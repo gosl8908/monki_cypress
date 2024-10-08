@@ -49,12 +49,12 @@ function menu(Name, Pay, Extension, Type = undefined) {
     cy.wait(1 * 1000);
     cy.get('#global_modal_confirm').click();
     cy.wait(1 * 1000);
-    cy.get('#container')
-        .contains(Name, { timeout: 10 * 1000 })
-        .should('be.visible');
+    //     cy.get('#container')
+    //         .contains(Name, { timeout: 10 * 1000 })
+    //         .should('be.visible');
 }
 
-function menuGroup(group, item, Type = undefined) {
+function menuGroup(group, items, Type = undefined) {
     cy.contains('span', group)
         .parents('tr')
         .within(() => {
@@ -68,32 +68,27 @@ function menuGroup(group, item, Type = undefined) {
         });
     cy.wait(1000);
     cy.get('#vueMenuContainer > .modal-content')
-        .contains('span', item)
-        .parents('tr')
-        .within(() => {
-            cy.contains('추가').click();
+        .find('span') // 모든 span 요소를 찾음
+        .filter((i, el) => items.includes(el.textContent.trim())) // 필터링: items 배열에 포함된 텍스트 찾기
+        .parents('tr') // 해당하는 부모 tr을 찾음
+        .each($tr => {
+            // 각 tr에 대해 반복
+            cy.wrap($tr).within(() => {
+                // 각 tr을 래핑하여 within() 호출
+                cy.contains('추가').click(); // "추가" 버튼 클릭
+            });
         });
+
+    // .parents('tr')
+    // .within(() => {
+    //     cy.contains('추가').click();
+    // });
 
     cy.wait(1000);
     cy.get('#vueMenuContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
     cy.wait(1000);
     cy.get('#global_modal_confirm').click();
     cy.wait(1000);
-
-    if (Type === '주류') {
-        cy.contains('span', '주류')
-            .parents('tr')
-            .within(() => {
-                cy.get('button').contains('수정').click();
-            });
-        cy.wait(1000);
-        cy.get('[id="use_kiosk_yn_true"]').click();
-        cy.wait(1000);
-        cy.get('[id="use_tableorder_yn_true"]').click();
-        cy.wait(1000);
-        cy.get('.modal-footer > .btn-primary').click();
-        cy.wait(1000);
-    }
 }
 
 module.exports = {

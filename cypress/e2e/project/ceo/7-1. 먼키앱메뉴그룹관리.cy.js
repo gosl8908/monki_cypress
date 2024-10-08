@@ -39,7 +39,7 @@ describe('Onprem Dashboard Test', () => {
                 '시그니처순살세트',
             ],
             후라이드시리즈: ['리얼후라이드', '살살후라이드미니', '살살후라이드', '파채소이살살'],
-            점보시리즈: [
+            점보윙시리즈: [
                 '허니점보윙',
                 '레드점보윙',
                 '교촌점보윙',
@@ -51,14 +51,10 @@ describe('Onprem Dashboard Test', () => {
             레드시리즈: ['레드스틱', '레드윙', '레드순살', '레드콤보', '레드오리지날'],
             교촌시리즈: ['교촌스틱', '교촌윙', '교촌순살', '교촌콤보', '교촌오리지날'],
             음료: ['코카콜라', '코카콜라-제로', '펩시', '펩시-제로', '스프라이트', '스프라이트-제로'],
-            주류: ['새로', '진로', '카스', '테라'],
         };
-
         Object.entries(menuGroups).forEach(([group, items]) => {
-            items.forEach(item => {
-                menuModule.menuGroup(group, item, 'App');
-                cy.wait(1000);
-            });
+            menuModule.menuGroup(group, items, 'App');
+            cy.wait(1000);
         });
     });
 

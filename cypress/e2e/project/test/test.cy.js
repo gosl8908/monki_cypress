@@ -25,13 +25,6 @@ describe('Test', () => {
     it('Test1', () => {
         cy.contains('123123123', { timeout: 1 * 1000 });
     });
-    it('Test2', () => {
-        cy.contains('123123123', { timeout: 1 * 1000 });
-    });
-    it('Test3', () => {
-        cy.contains('123123123', { timeout: 1 * 1000 });
-    });
-
     afterEach('Status Check', function () {
         emailModule.screenshot(Failure, Screenshots, this.currentTest);
         // const f = {

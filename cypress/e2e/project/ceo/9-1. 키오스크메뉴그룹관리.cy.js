@@ -55,10 +55,8 @@ describe('Onprem Dashboard Test', () => {
         };
 
         Object.entries(menuGroups).forEach(([group, items]) => {
-            items.forEach(item => {
-                menuModule.menuGroup(group, item, '키오스크');
-                cy.wait(1000);
-            });
+            menuModule.menuGroup(group, items, '키오스크');
+            cy.wait(1000);
         });
     });
 
