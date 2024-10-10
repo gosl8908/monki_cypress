@@ -14,7 +14,7 @@ describe('Test', () => {
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
-            Site: `${Cypress.env('Ceo')}`,
+            Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
             Id: `${Cypress.env('FavTestId')[0]}`,
             Password: `${Cypress.env('TestPwd')}`,
@@ -32,7 +32,7 @@ describe('Test', () => {
 
             cy.get('.col-12 > .btn').click();
             cy.get('[id="OP_002"]').click(); // 다중
-            cy.get('[name="optionMaxCount"]').clear().type('10'); // 수량
+            cy.get('[name="optionMaxCount"]').clear().type('2'); // 수량
             cy.get('[id="requireYn_false"]').click(); // 선택
             cy.get('[name="optionGroupNm"]').type(size); // 그룹명
             for (let i = 0; i < options.length - 1; i++) {
@@ -48,22 +48,33 @@ describe('Test', () => {
             cy.wait(1000); // 1 second wait
             cy.get('#global_modal_confirm').click();
         }
+        // const menuPrices = `
+        // 옥수수볼,5000
+        // 달걀듬뿍볶음밥,4000
+        // 의성마늘볶음밥,4000
+        // 샐러드 추가,5000
+        // 고르곤치즈볼,6000
+        // 와일드블랙소스,1000
+        // 허니케찹소스,1000
+        // 치즈트러플시즈닝,2000
+        // 무 추가,1000
+        // 레드디핑소스,1000
+        // `;
+        const menuPrices = `
+        테스트,1000
+        `;
+        const optionsArray = menuPrices
+            .trim()
+            .split('\n')
+            .map(line => {
+                const [name, price] = line.split(',').map(item => item.trim());
+                return { name, price };
+            });
 
         const optionGroups = [
             {
                 size: '사이드메뉴',
-                options: [
-                    { name: '옥수수볼', price: '5000' },
-                    { name: '달걀듬뿍볶음밥', price: '4000' },
-                    { name: '의성마늘볶음밥', price: '4000' },
-                    { name: '샐러드 추가', price: '5000' },
-                    { name: '고르곤치즈볼', price: '6000' },
-                    { name: '와일드블랙소스', price: '1000' },
-                    { name: '허니케찹소스', price: '1000' },
-                    { name: '치즈트러플시즈닝', price: '2000' },
-                    { name: '무 추가', price: '1000' },
-                    { name: '레드디핑소스', price: '1000' },
-                ],
+                options: optionsArray,
             },
         ];
 

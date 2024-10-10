@@ -131,10 +131,21 @@ describe('Automation Testing', () => {
             cy.get('#global_modal_confirm').click();
         }
 
+        const menuPrices = `
+        테스트,1000
+        `;
+        const optionsArray = menuPrices
+            .trim()
+            .split('\n')
+            .map(line => {
+                const [name, price] = line.split(',').map(item => item.trim());
+                return { name, price };
+            });
+
         const optionGroups = [
             {
                 size: '사이드메뉴',
-                options: [{ name: '테스트옵션', price: '1000' }],
+                options: optionsArray,
             },
         ];
 
@@ -151,11 +162,12 @@ describe('Automation Testing', () => {
             테스트: ['치킨'],
         };
         Object.entries(menuGroups).forEach(([group, items]) => {
-            items.forEach(item => {
-                menuModule.menuGroup(group, item, 'App');
-                menuModule.menuGroup(group, item, '테이블오더');
-                // menuModule.menuGroup(group, item, '키오스크');
-            });
+            menuModule.menuGroup(group, items, 'App');
+            cy.wait(1000);
+            menuModule.menuGroup(group, items, '테이블오더');
+            cy.wait(1000);
+            menuModule.menuGroup(group, items, '키오스크');
+            cy.wait(1000);
         });
     });
 
