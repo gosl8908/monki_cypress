@@ -15,15 +15,15 @@ function screenshot(Failure, Screenshots, currentTest) {
     }
     return Screenshots;
 }
-function email({ TestFails, EmailTitle, TestRange, Screenshots }) {
+function email({ TestFails, EmailTitle, TestRange, Screenshots, currentTest }) {
     const IsTestFailed = TestFails.length > 0;
-    const EmailBody = `Cypress 자동화 테스트 스위트가 ${IsTestFailed ? '실패' : '성공'}하였습니다.
-    테스트 실행 시간 : ${Cypress.env('DateLabelWeek')}
-    테스트 범위 : ${TestRange}
+    const EmailBody = `Cypress 자동화 테스트 스위트가 ${IsTestFailed ? '실패' : '성공'}하였습니다.\n
+    테스트 실행 시간 : ${Cypress.env('DateLabelWeek')}\n
+    테스트 범위 : ${TestRange}\n
     ${
         IsTestFailed
             ? `
-    테스트 실패 원인 : ${TestFails.join('\n')}`
+    테스트 실패 원인 : ${currentTest.map((title, index) => `${title}: ${TestFails[index]}`).join('\n')}`
             : ''
     }`;
 

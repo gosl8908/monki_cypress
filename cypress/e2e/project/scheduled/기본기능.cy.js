@@ -4,9 +4,14 @@ describe('Automation Testing', () => {
     let TestFails = []; // 실패 원인을 저장할 변수
     let Screenshots = []; // 스크린샷을 저장할 배열
     let Failure = false;
+    let FailedTests = []; // 실패한 테스트 정보를 저장할 배열
+
     Cypress.on('fail', (err, runnable) => {
         const ErrMessage = err.message || '알 수 없는 이유로 실패함';
-        !TestFails.includes(ErrMessage) && TestFails.push(ErrMessage);
+        if (!TestFails.includes(ErrMessage)) {
+            TestFails.push(ErrMessage);
+            FailedTests.push(runnable.title); // 실패한 테스트의 타이틀을 저장
+        }
         Failure = true;
         throw err;
     });
@@ -166,8 +171,8 @@ describe('Automation Testing', () => {
             cy.wait(1000);
             menuModule.menuGroup(group, items, '테이블오더');
             cy.wait(1000);
-            menuModule.menuGroup(group, items, '키오스크');
-            cy.wait(1000);
+            // menuModule.menuGroup(group, items, '키오스크');
+            // cy.wait(1000);
         });
     });
 
@@ -449,12 +454,13 @@ describe('Automation Testing', () => {
         emailModule.screenshot(Failure, Screenshots, this.currentTest);
     });
 
-    after('Send Email', () => {
+    after('Send Email', function () {
         emailModule.email({
             TestFails,
             EmailTitle: `[${Cypress.env('EmailTitle')}]`,
             TestRange: '사장님 사이트 기본기능',
             Screenshots,
+            currentTest: FailedTests,
         });
     });
 });

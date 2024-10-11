@@ -4,10 +4,14 @@ describe('Test', () => {
     let TestFails = []; // 실패 원인을 저장할 변수
     let Screenshots = []; // 스크린샷을 저장할 배열
     let Failure = false;
+    let FailedTests = []; // 실패한 테스트 정보를 저장할 배열
 
     Cypress.on('fail', (err, runnable) => {
         const ErrMessage = err.message || '알 수 없는 이유로 실패함';
-        !TestFails.includes(ErrMessage) && TestFails.push(ErrMessage);
+        if (!TestFails.includes(ErrMessage)) {
+            TestFails.push(ErrMessage);
+            FailedTests.push(runnable.title); // 실패한 테스트의 타이틀을 저장
+        }
         Failure = true;
         throw err;
     });
@@ -23,19 +27,26 @@ describe('Test', () => {
         });
     });
 
-    it('Test', () => {
-        cy.contains('단골맛집');
+    it('Test1', () => {
+        cy.contains('단골맛집', { timeout: 1 * 1000 });
+    });
+    it('Test2', () => {
+        cy.contains('345', { timeout: 1 * 1000 });
+    });
+    it('Test3', () => {
+        cy.contains('678', { timeout: 1 * 1000 });
     });
 
     afterEach('Status Check', function () {
         emailModule.screenshot(Failure, Screenshots, this.currentTest);
     });
-    after('Send Email', () => {
+    after('Send Email', function () {
         emailModule.email({
             TestFails,
             EmailTitle: `[${Cypress.env('EmailTitle')}]`,
             TestRange: '1. 테스트',
             Screenshots,
+            currentTest: FailedTests,
         });
     });
 });
