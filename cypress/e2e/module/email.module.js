@@ -1,3 +1,25 @@
+function screenshot2(FailureObj, Screenshots, currentTest) {
+    const f = {
+        getFileName: filePath => {
+            return filePath.split('/').pop(); // 파일 경로에서 파일명만 추출
+        },
+    };
+
+    if (FailureObj.Failure) {
+        // Check the property of the object
+        const sanitizedTitle = currentTest.title.replace(/[^a-z0-9]/gi, '_'); // Sanitize title for filename
+        const ScreenshotFileName = `${sanitizedTitle}_${Cypress.env('DateLabel')}`;
+
+        cy.screenshot(ScreenshotFileName, { capture: 'fullPage' });
+
+        // 플랫폼별 경로 차이 없이 단순하게 파일 이름만 추가
+        Screenshots.push(ScreenshotFileName);
+
+        FailureObj.Failure = false; // Update the Failure state in the object
+    }
+
+    return Screenshots;
+}
 function screenshot(Failure, Screenshots, currentTest) {
     const f = {
         getFileName: filePath => {
@@ -23,7 +45,7 @@ function email({ TestFails, EmailTitle, TestRange, Screenshots, currentTest }) {
     ${
         IsTestFailed
             ? `
-    테스트 실패 원인 : ${currentTest.map((title, index) => `${title}: ${TestFails[index]}`).join('\n')}`
+    테스트 실패 원인 : \n${currentTest.map((title, index) => `${title}: ${TestFails[index]}`).join('\n')}`
             : ''
     }`;
 
@@ -46,4 +68,5 @@ function email({ TestFails, EmailTitle, TestRange, Screenshots, currentTest }) {
 module.exports = {
     email: email,
     screenshot: screenshot,
+    screenshot2: screenshot2,
 };

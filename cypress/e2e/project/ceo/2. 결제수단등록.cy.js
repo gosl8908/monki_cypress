@@ -1,12 +1,17 @@
 const { loginModule, emailModule, payModule } = require('../../module/manager.module.js');
 
-describe('Onprem Dashboard Test', () => {
+describe('결제수단 등록', () => {
     let TestFails = []; // 실패 원인을 저장할 변수
     let Screenshots = []; // 스크린샷을 저장할 배열
     let Failure = false;
+    let FailedTests = []; // 실패한 테스트 정보를 저장할 배열
+
     Cypress.on('fail', (err, runnable) => {
         const ErrMessage = err.message || '알 수 없는 이유로 실패함';
-        !TestFails.includes(ErrMessage) && TestFails.push(ErrMessage);
+        if (!TestFails.includes(ErrMessage)) {
+            TestFails.push(ErrMessage);
+            FailedTests.push(runnable.title); // 실패한 테스트의 타이틀을 저장
+        }
         Failure = true;
         throw err;
     });
@@ -67,6 +72,7 @@ describe('Onprem Dashboard Test', () => {
             EmailTitle: `[${Cypress.env('EmailTitle')}]`,
             TestRange: '결제 수단 등록',
             Screenshots,
+            currentTest: FailedTests,
         });
     });
 });

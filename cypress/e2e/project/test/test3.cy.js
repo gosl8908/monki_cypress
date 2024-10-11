@@ -1,6 +1,6 @@
-const { loginModule, tableModule, emailModule } = require('../../module/manager.module.js');
+const { loginModule, emailModule } = require('../../module/manager.module.js');
 
-describe('테이블관리', () => {
+describe('Test', () => {
     let TestFails = []; // 실패 원인을 저장할 변수
     let Screenshots = []; // 스크린샷을 저장할 배열
     let Failure = false;
@@ -20,23 +20,21 @@ describe('테이블관리', () => {
         cy.getAll();
         loginModule.login({
             Site: `${Cypress.env('Ceo')}`,
-            Type: '대리점',
-            Id: `${Cypress.env('StoreTestId')[2]}`,
+            Type: '단골맛집 가맹점주',
+            Id: `${Cypress.env('FavTestId')[0]}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
 
-    it('Ceo Page Test', () => {
-        /* 테이블관리 */
-        cy.get('#operation').click();
-        cy.get('[href="/store/table-order/basic"] > .btn').click();
-        cy.get('#tableinfo').click();
-        cy.get('#basic-store-no').select('교촌치킨(선불)');
-        cy.get('.col-2 > .btn').click(); // 검색
-
-        tableModule.table('2층', '50');
+    it('Test1', () => {
+        cy.contains('단골맛집', { timeout: 1 * 1000 });
     });
-
+    it('Test2', () => {
+        cy.contains('345', { timeout: 1 * 1000 });
+    });
+    it('Test3', () => {
+        cy.contains('678', { timeout: 1 * 1000 });
+    });
     afterEach('Status Check', function () {
         emailModule.screenshot(Failure, Screenshots, this.currentTest);
     });
@@ -44,7 +42,7 @@ describe('테이블관리', () => {
         emailModule.email({
             TestFails,
             EmailTitle: `[${Cypress.env('EmailTitle')}]`,
-            TestRange: '테이블 관리',
+            TestRange: '1. 테스트',
             Screenshots,
             currentTest: FailedTests,
         });

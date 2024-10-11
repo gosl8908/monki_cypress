@@ -72,6 +72,17 @@ Cypress.Commands.add('getAll', () => {
     cy.getAllLocalStorage(); // 로컬 삭제
     cy.getAllSessionStorage(); // 세션 삭제
 });
+Cypress.Commands.add('err', (TestFails, FailedTests, FailureObj) => {
+    Cypress.on('fail', (err, runnable) => {
+        const ErrMessage = err.message || '알 수 없는 이유로 실패함';
+        if (!TestFails.includes(ErrMessage)) {
+            TestFails.push(ErrMessage);
+            FailedTests.push(runnable.title); // 실패한 테스트의 타이틀을 저장
+        }
+        FailureObj.Failure = true; // Using an object to track the failure
+        throw err;
+    });
+});
 
 Cypress.on('uncaught:exception', (err, runnable) => {
     // 여기서 원하는 조건에 따라 에러를 무시할 수 있습니다.

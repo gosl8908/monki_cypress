@@ -16,7 +16,6 @@ describe('Automation Testing', () => {
         throw err;
     });
     beforeEach(() => {
-        Failure = false; // Failure 변수를 false로 초기화
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
@@ -454,7 +453,7 @@ describe('Automation Testing', () => {
         emailModule.screenshot(Failure, Screenshots, this.currentTest);
     });
 
-    after('Send Email', function () {
+    after('Send Email', () => {
         emailModule.email({
             TestFails,
             EmailTitle: `[${Cypress.env('EmailTitle')}]`,

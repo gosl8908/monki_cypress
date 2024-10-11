@@ -11,7 +11,6 @@ describe('Test', () => {
         throw err;
     });
     beforeEach(() => {
-        Failure = false; // Failure 변수를 false로 초기화
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
