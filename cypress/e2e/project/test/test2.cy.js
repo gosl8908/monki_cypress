@@ -1,4 +1,4 @@
-const { loginModule, emailModule, tableModule } = require('../../module/manager.module.js');
+const { loginModule, emailModule } = require('../../module/manager.module.js');
 
 describe('Test', () => {
     let Screenshots = []; // 스크린샷을 저장할 배열
@@ -19,13 +19,23 @@ describe('Test', () => {
 
     it('Test1', () => {
         cy.contains('단골맛집', { timeout: 1 * 1000 });
+
+        cy.get('[href="/sales/monki/main"] > .btn').click();
+
+        cy.get('#container').contains('전체매출 현황').should('be.visible');
+
+        cy.get('[href="/sales/renew/monkiapp"] > .btn').click();
+        cy.get('#container').contains('앱 일자/기간별 매출 현황').should('be.visible');
+
+        cy.get('[href="/sales/renew/tableorder"] > .btn').click();
+        cy.get('#container').contains('후불결제 사용 매장은 POS에서 매출 확인이 가능합니다.').should('be.visible');
     });
-    it('Test2', () => {
-        cy.contains('345', { timeout: 1 * 1000 });
-    });
-    it('Test3', () => {
-        cy.contains('678', { timeout: 1 * 1000 });
-    });
+    // it('Test2', () => {
+    //     cy.contains('345', { timeout: 1 * 1000 });
+    // });
+    // it('Test3', () => {
+    //     cy.contains('678', { timeout: 1 * 1000 });
+    // });
 
     afterEach('Status Check', function () {
         emailModule.screenshot2(FailureObj, Screenshots, this.currentTest);

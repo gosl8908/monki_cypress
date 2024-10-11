@@ -26,6 +26,75 @@ describe('Automation Testing', () => {
         });
     });
 
+    it('로그인', () => {
+        cy.get('[href="/users/logout"]').click();
+        loginModule.login({
+            Site: `${Cypress.env('StgCeo')}`,
+            Type: '대리점',
+            Id: `${Cypress.env('StoreTestId')[0]}`,
+            Password: `${Cypress.env('TestPwd')}`,
+        });
+        cy.get('[href="/users/logout"]').click();
+        loginModule.login({
+            Site: `${Cypress.env('StgCeo')}`,
+            Type: '사장님',
+            Id: `${Cypress.env('CeoTestId')[0]}`,
+            Password: `${Cypress.env('TestPwd2')}`,
+        });
+    });
+
+    it('앱 정보 수정', () => {
+        /* 앱정보 */
+        cy.get('[href="/store/monki"] > .btn').click();
+
+        cy.get('.card-body > :nth-child(1) > .form-control')
+            .clear()
+            .type(`자동화 테스트 ${Cypress.env('DateLabel')}`);
+        cy.get('.card-body > :nth-child(2) > .form-control')
+            .clear()
+            .type(`자동화 테스트 ${Cypress.env('DateLabel')}`);
+        cy.get('.card-body > :nth-child(3) > .form-control')
+            .clear()
+            .type(`자동화 테스트 ${Cypress.env('DateLabel')}`);
+        cy.get('.card-header > .btn').click();
+        cy.get('#global_modal_body').contains('적용하시겠습니까?').should('be.visible');
+        cy.wait(1 * 1000);
+        cy.get('#global_modal_confirm').click();
+
+        /* 주문설정 */
+        cy.get('#set-order-tab').click();
+
+        cy.get('.col-9 > :nth-child(1) > .form-control').clear().type('0');
+        cy.get('.col-9 > :nth-child(3) > .form-control').clear().type('30');
+        cy.get(':nth-child(2) > .col-auto > .form-check-input').click();
+        cy.get(':nth-child(3) > :nth-child(2) > .form-check-input').click();
+        cy.get(':nth-child(4) > .col-auto > .form-check-input').click();
+        cy.get(':nth-child(4) > .form-check-input').click();
+        cy.get('#global_info_modal_container > .modal-dialog > .modal-content > .modal-header')
+            .contains('시간 예약 주문 상태 변경')
+            .should('be.visible');
+        cy.wait(1 * 1000);
+        cy.get('#global_info_modal_cancel_confirm').click();
+        cy.get('#basic-detail-section > .p-3 > .card > .card-footer > .btn').click();
+        cy.get('#global_modal_body').contains('변경하시겠습니까?').should('be.visible');
+        cy.wait(1 * 1000);
+        cy.get('#global_modal_confirm').click();
+
+        /* 영업 일시중지 */
+        cy.get('#pause-tab').click();
+
+        cy.get('#pause-detail-section > .p-3 > .card > .card-footer > :nth-child(1)').click();
+        cy.wait(1 * 1000);
+        cy.get('#global_modal_confirm').click();
+
+        cy.wait(1 * 1000);
+        cy.get('#pause-detail-section > .p-3 > .card > .card-body').contains('일시중지').should('be.visible');
+        cy.get('#pause-detail-section > .p-3 > .card > .card-footer > :nth-child(1)').click();
+        cy.wait(1 * 1000);
+        cy.get('#global_modal_confirm').click();
+        cy.wait(1 * 1000);
+    });
+
     it('메뉴 관리', () => {
         /* 메뉴관리 */
         cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
@@ -424,6 +493,18 @@ describe('Automation Testing', () => {
                 cy.wait(1 * 1000);
             }
         });
+    });
+
+    it('매출 현황', () => {
+        cy.get('[href="/sales/monki/main"] > .btn').click();
+
+        cy.get('#container').contains('전체매출 현황').should('be.visible');
+
+        cy.get('[href="/sales/renew/monkiapp"] > .btn').click();
+        cy.get('#container').contains('앱 일자/기간별 매출 현황').should('be.visible');
+
+        cy.get('[href="/sales/renew/tableorder"] > .btn').click();
+        cy.get('#container').contains('후불결제 사용 매장은 POS에서 매출 확인이 가능합니다.').should('be.visible');
     });
 
     // it('테이블 관리', () => {
