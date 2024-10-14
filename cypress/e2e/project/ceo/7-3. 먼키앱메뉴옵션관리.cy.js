@@ -68,21 +68,24 @@ describe('먼키앱 메뉴 옵션 관리', () => {
         반반점보윙(레드-허니),19000
         `;
 
-        // 메뉴 가격 목록을 배열로 변환하고, 메뉴 항목만 추출
+        // 메뉴를 배열로 변환
         const menuArray = menuPrices
-            .trim() // 문자열의 시작과 끝의 공백을 제거합니다.
-            .split('\n') // 각 줄을 배열의 요소로 분리합니다.
-            .map(line => line.split(',')[0].trim()); // 각 줄을 쉼표로 분리하고 첫 번째 요소(메뉴 항목)만 가져옵니다.
+            .trim()
+            .split('\n')
+            .map(line => {
+                const [menu] = line.split(',').map(item => item.trim()); // 메뉴 이름만 추출
+                return { menu };
+            });
 
-        // 역순으로 정렬
+        // 배열 역순으로 처리
         const reversedMenuArray = menuArray.reverse();
-
-        reversedMenuArray.forEach(text => {
+        reversedMenuArray.forEach(({ menu }) => {
+            // 'text.menu'로 접근
             const checkMenuVisibility = (currentPage = 1) => {
                 cy.wait(1 * 1000);
                 cy.get('#container').then($container => {
                     const isMenuVisible =
-                        $container.find('span').filter((i, el) => el.textContent.trim() === text).length > 0;
+                        $container.find('span').filter((i, el) => el.textContent.trim() === menu).length > 0;
 
                     if (!isMenuVisible) {
                         cy.get('.pagination')
@@ -102,7 +105,8 @@ describe('먼키앱 메뉴 옵션 관리', () => {
                                 cy.get('button').click();
                             });
                         cy.wait(1 * 1000);
-                        cy.contains('span', '사이드메뉴') // 옵션명
+                        cy.get('#vueOptionContainer > .modal-content > .modal-body')
+                            .contains('span', '사이드메뉴') // 옵션명
                             .parents('tr')
                             .within(() => {
                                 cy.get('button').contains('추가').click();

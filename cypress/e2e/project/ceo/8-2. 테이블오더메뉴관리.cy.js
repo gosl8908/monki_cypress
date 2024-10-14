@@ -141,6 +141,7 @@ describe('테이블오더 메뉴 관리', () => {
 
         reversedMenuArray.forEach(text => {
             const checkMenuVisibility = (currentPage = 1) => {
+                cy.wait(1 * 1000);
                 cy.get('#vueTableOrderContainer').then($container => {
                     const isMenuVisible =
                         $container.find('span').filter((i, el) => el.textContent.trim() === text).length > 0;

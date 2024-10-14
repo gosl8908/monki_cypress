@@ -1,12 +1,17 @@
-const { loginModule, emailModule } = require('../../module/manager.module.js');
+const { loginModule, emailModule, menuModule } = require('../../module/manager.module.js');
 
 describe('Test', () => {
     let TestFails = []; // 실패 원인을 저장할 변수
     let Screenshots = []; // 스크린샷을 저장할 배열
     let Failure = false;
+    let FailedTests = []; // 실패한 테스트 정보를 저장할 배열
+
     Cypress.on('fail', (err, runnable) => {
         const ErrMessage = err.message || '알 수 없는 이유로 실패함';
-        !TestFails.includes(ErrMessage) && TestFails.push(ErrMessage);
+        if (!TestFails.includes(ErrMessage)) {
+            TestFails.push(ErrMessage);
+            FailedTests.push(runnable.title); // 실패한 테스트의 타이틀을 저장
+        }
         Failure = true;
         throw err;
     });
@@ -14,64 +19,34 @@ describe('Test', () => {
         cy.setDateToEnv();
         cy.getAll();
         loginModule.login({
-            Site: `${Cypress.env('Ceo')}`,
+            Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('FavTestId')[0]}`,
-            Password: `${Cypress.env('TestPwd')}`,
+            Id: `${Cypress.env('TestId')[1]}`,
+            Password: `${Cypress.env('TestPwd2')}`,
         });
     });
+    const menuPrices = `
+    꽈배기,4000,처음엔 바삭하고 씹을수록 쫄깃한, 겉바속쫀 꽈배기(3ea)
+    달걀듬뿍볶음밥,4500,교촌과 가장 잘 어울리는 치밥 메뉴, 부드러운 스크램블 달걀이 듬뿍 들어가 고소한 맛이 일품인 볶음밥
+    국물맵떡,9000,깔끔한 매운맛 국물이 일품! 치킨이랑 더욱 잘 어울리는 기본에 충실한 국물 밀떡볶이
+    퐁듀치즈볼(3개),3500,쫄깃한 찹쌀볼을 한 입 물면 퐁듀치즈가 와르르! 쫄깃 바삭 퐁듀치즈볼(3ea)
+    퐁듀치즈볼(6개),6000,쫄깃한 찹쌀볼을 한 입 물면 퐁듀치즈가 와르르! 쫄깃 바삭 퐁듀치즈볼(사워크림씨즈닝 포함)(6ea)
+    고르곤치즈볼(3개),3500,달콤한 초코 찹쌀볼에 고르곤졸라치즈를 듬뿍 넣어 단짠의 매력을 더한 치즈볼(3ea)
+    고르곤치즈볼(6개),6000,달콤한 초코 찹쌀볼에 고르곤졸라치즈를 듬뿍 넣어 단짠의 매력을 더한 치즈볼(사워크림씨즈닝 포함)(6ea)
+    웨지감자,4000,깨끗하고 고소한 교촌전용유에 바삭하게 튀겨낸 담백한 감자튀김
+    칩카사바,2000,열대 뿌리 식물인 카사바를 튀기고, 그 위에 진한 풍미의 치즈트러플시즈닝을 뿌려낸 바삭한 칩 메뉴
+    포테이토앤칩스,6500,Big Size 점보팩 치즈솔솔(트러플) 시즈닝으로 더욱 맛있게 즐기는 듀얼(포테이토&카사바) 스낵
+    샐러드,5000,다양한 채소와 샐러드 소스로 신선함을 그대로 즐길 수 있는 프리미엄 샐러드
+    소이파채샐러드,4000,새콤달콤한 소이소스와 신선한 채소를 곁들인 샐러드
+    한입쏙직화닭발,17000,불향 가득 맛있게 매운 맛 먹기 편한 튤립 닭발과 아삭한 파채를 곁들여 먹는 술 안주로 제격인 매콤한 직화 닭발
+    츠쿠네어묵탕,18000,교촌치킨X삼진어묵 콜라보 어육함량이 높은 품질 좋은 삼진어묵과 탱글한 식감이 일품인 츠쿠네(닭완자꼬치)를 넣어 깔끔한 국물맛이 일품인 교촌 어묵탕
+    `;
 
     it('상품 등록', () => {
         /* 메뉴관리 */
         cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         cy.wait(1 * 1000);
         cy.get('#product').click(); // 상품관리 탭
-
-        const menuPrices = `
-        파채소이살살,19000
-        살살후라이드,20000
-        살살후라이드미니,7000
-        리얼후라이드,20000
-        시그니처순살세트,33000
-        레허반반순살,23000
-        반반스틱,23000
-        반반윙,23000
-        반반순살,23000
-        반반콤보,23000
-        반반오리지날,20000
-        교촌옥수수오리지날,20000
-        교촌옥수수순살,23000
-        교촌옥수수통안심,23000
-        테라,5000
-        카스,5000
-        진로,5000
-        새로,5000
-        스프라이트-제로,2500
-        스프라이트,2500
-        펩시-제로,2500
-        펩시,2500
-        코카콜라-제로,2500
-        코카콜라,2500
-        허니순살,19000
-        허니콤보,23000
-        허니오리지날,19000
-        레드스틱,23000
-        레드윙,23000
-        레드순살,23000
-        레드콤보,23000
-        레드오리지날,20000
-        교촌스틱,22000
-        교촌윙,22000
-        교촌순살,22000
-        교촌콤보,22000
-        교촌오리지날,19000
-        허니점보윙,19000
-        레드점보윙,19000
-        교촌점보윙,19000
-        반반점보윙(허니-교촌),19000
-        반반점보윙(교촌-레드),19000
-        반반점보윙(레드-허니),19000
-        `;
 
         menuPrices
             .trim()
@@ -82,24 +57,14 @@ describe('Test', () => {
             });
     });
 
-    it('Ceo Page Test', () => {
+    it('메뉴 그룹 생성', () => {
         /* 메뉴관리 */
         cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn').click();
         cy.wait(1 * 1000);
         cy.get('[href="/menu/menu-group"] > .btn').click();
 
         /* 메뉴그룹 생성 */
-        const categories = [
-            'NEW',
-            '점보윙시리즈',
-            '허니시리즈',
-            '레드시리즈',
-            '교촌시리즈',
-            '믹스시리즈',
-            '후라이드시리즈',
-            '음료',
-            '주류',
-        ];
+        const categories = ['사이드메뉴'];
 
         categories.forEach(category => {
             cy.get('#btnAddMenuGroup').click();
@@ -124,37 +89,18 @@ describe('Test', () => {
         }
     });
 
-    it('Ceo Page Test', () => {
+    it('테이블오더 메뉴 그룹 관리', () => {
         /* 메뉴관리 */
         cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn').click();
         cy.wait(1 * 1000);
         cy.get('[href="/menu/menu-group"] > .btn').click();
 
+        // menuPrices를 사용하여 메뉴 그룹을 관리
         const menuGroups = {
-            NEW: ['교촌옥수수통안심', '교촌옥수수순살', '교촌옥수수오리지날'],
-            믹스시리즈: [
-                '반반오리지날',
-                '반반콤보',
-                '반반순살',
-                '반반윙',
-                '반반스틱',
-                '레허반반순살',
-                '시그니처순살세트',
-            ],
-            후라이드시리즈: ['리얼후라이드', '살살후라이드미니', '살살후라이드', '파채소이살살'],
-            점보윙시리즈: [
-                '허니점보윙',
-                '레드점보윙',
-                '교촌점보윙',
-                '반반점보윙(허니-교촌)',
-                '반반점보윙(교촌-레드)',
-                '반반점보윙(레드-허니)',
-            ],
-            허니시리즈: ['허니순살', '허니콤보', '허니오리지날'],
-            레드시리즈: ['레드스틱', '레드윙', '레드순살', '레드콤보', '레드오리지날'],
-            교촌시리즈: ['교촌스틱', '교촌윙', '교촌순살', '교촌콤보', '교촌오리지날'],
-            음료: ['코카콜라', '코카콜라-제로', '펩시', '펩시-제로', '스프라이트', '스프라이트-제로'],
-            주류: ['새로', '진로', '카스', '테라'],
+            사이드메뉴: menuPrices
+                .trim() // 공백 제거
+                .split('\n') // 줄별로 분리
+                .map(item => item.split(',')[0].trim()), // 메뉴 이름만 추출
         };
         Object.entries(menuGroups).forEach(([group, items]) => {
             menuModule.menuGroup(group, items, '테이블오더');
@@ -162,95 +108,43 @@ describe('Test', () => {
         });
     });
 
-    it('Ceo Page Test', () => {
+    it('테이블오더 메뉴 관리', () => {
         /* 메뉴관리 */
         cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn').click();
         cy.wait(1 * 1000);
         cy.get('[href="/menu/table-order/main"] > .btn').click();
 
-        const menu = `
-        파채소이살살, 새콤달콤한 소이소스와 담백한 살살치킨에 신선한 채소를 곁들인 촉촉하며 바삭한 맛
-        살살후라이드, 가슴살이 쌀가루와 만나 고소하고 바삭한 맛이 일품
-        살살후라이드미니, [미니] 가슴살이 쌀가루와 만나 고소하고 바삭한 맛이 일품 (소스 3종 중 택1)
-        리얼후라이드, 오트밀, 퀴노아, 아마란스 등 슈퍼푸드로 바삭함을 살린 후라이드
-        시그니처순살세트, 부드럽고 바삭한 순살과 함께 다양한 맛을 즐길 수 있는 시그니처 세트 메뉴
-        레허반반순살, 레드로 매콤하게, 허니로 달콤하게! 맵단맵단으로 즐길 수 있는 100% 국내산 정육, 안심 순살 메뉴
-        반반스틱, 마늘 간장 맛과 매콤함 맛에 담백한 다리의 맛이 어우러진 치킨
-        반반윙, 마늘 간장 맛과 매콤한 맛이 밴 날개와 봉의 멋진 조화
-        반반순살, 부드럽고 바삭한 정육 순살에 감칠 맛나는 마늘 간장 소스와 청양 홍고추의 매콤함을 동시에 느낄 수 있는 순살치킨
-        반반콤보, 마늘 간장 맛과 매콤한 맛이 밴 날개와 다리의 행복한 만남
-        반반오리지날, 마늘 간장 맛과 매콤한 맛이 어우러진 한 마리 치킨
-        교촌옥수수오리지날, 리얼옥수수의 진한 풍미와 달콤함이 특징인 한 마리 치킨
-        교촌옥수수순살, 리얼옥수수의 진한 풍미와 달콤함이 특징인 바삭하고 부드러운 100% 정육 순살메뉴
-        교촌옥수수통안심, 리얼옥수수의 진한 풍미와 달콤함이 특징인 촉촉하고 부드러운 100% 통안심 순살메뉴
-        테라, 테라와 동일
-        카스, 카스와 동일
-        진로, 진로와 동일
-        새로, 새로와 동일
-        스프라이트-제로, 스프라이트-제로와 동일
-        스프라이트, 스프라이트와 동일
-        펩시-제로, 펩시-제로와 동일
-        펩시, 펩시와 동일
-        코카콜라-제로, 코카콜라-제로와 동일
-        코카콜라, 코카콜라와 동일
-        허니순살, 살맛나는 꿀조합! 부드럽고 담백한 안심과 정육을 사용한 순살치킨과 달콤한 허니소스의 조화!
-        허니콤보, 달콤한 허니소스에 쫄깃한 날개와 담백한 다리가 만난 메뉴
-        허니오리지날, 달콤 바삭한 맛이 일품인 한 마리 치킨
-        레드스틱, 국내산 청양 홍고추의 매콤함에 담백한 다리의 맛이 어우러진 치킨
-        레드윙, 국내산 청양 홍고추의 매콤함이 골고루 밴 쫄깃한 날개와 봉의 만남!
-        레드순살, 부드럽고 바삭한 정육 순살에 청양 홍고추의 매콤함이 맛있게 어우러진 순살치킨
-        레드콤보, 국내산 청양 홍고추의 매콤한 맛에 날개와 다리를 함께 즐길 수 있는 메뉴
-        레드오리지날, 국내산 청양 홍고추의 매콤함이 일품인 한 마리 치킨
-        교촌스틱, 마늘과 간장 소스의 풍부한 맛과 다리부위의 담백한 맛이 어우러진 치킨
-        교촌윙, 마늘과 간장소스의 풍부한 맛이 묻어나는 날개와 봉의 멋진 조화 교촌윙
-        교촌순살, 부드럽고 바삭한 정육 순살에 감칠 맛나는 마늘 간장 소스가 어우러진 순살치킨
-        교촌콤보, 마늘과 간장소스의 풍부한 맛에 가장 인기있는 부위인 날개와 다리를 함께 즐길 수 있는 메뉴
-        교촌오리지날, 교촌만의 차별화된 마늘과 간장 소스의 풍부한 맛이 어우러진 한 마리 치킨
-        허니점보윙, 허니에 갈릭을 더한 풍미 깊은 허니갈릭점보윙
-        레드점보윙, 청양홍고추의 매콤함이 일품인 레드윙을 점보사이즈로 즐길 수 있는 메뉴
-        교촌점보윙, 마늘간장소스의 교촌윙을 점보사이즈로 즐길 수 있는 메뉴
-        반반점보윙(허니-교촌), 허니에 갈릭을 더한 풍미 깊은 허니갈릭점보윙과 마늘간장소스의 교촌점보윙을 한번에 맛볼 수 있는 메뉴
-        반반점보윙(교촌-레드), 마늘간장소스의 교촌점보윙과 청양홍고추의 매콤함이 일품인 레드점보윙을 한번에 맛볼 수 있는 메뉴
-        반반점보윙(레드-허니), 청양홍고추의 매콤함이 일품인 레드점보윙과 허니에 갈릭을 더한 풍미 깊은 허니갈릭점보윙을 한번에 맛볼 수 있는 메뉴
-        `;
-
-        // 메뉴 가격 목록을 배열로 변환하고, 메뉴 항목만 추출
+        // menuPrices를 사용하여 메뉴와 설명을 처리
         const menuArray = menuPrices
-            .trim() // 문자열의 시작과 끝의 공백을 제거합니다.
-            .split('\n') // 각 줄을 배열의 요소로 분리합니다.
-            .map(line => line.split(',')[0].trim()); // 각 줄을 쉼표로 분리하고 첫 번째 요소(메뉴 항목)만 가져옵니다.
-
-        // 메뉴 설명을 배열로 변환
-        const menuDescriptions = menu
             .trim()
             .split('\n')
-            .map(description => description.trim());
+            .map(line => {
+                const [menu, , description] = line.split(',').map(item => item.trim()); // 메뉴 이름과 설명 추출
+                return { menu, description };
+            });
 
         // 역순으로 정렬
         const reversedMenuArray = menuArray.reverse();
-        const reversedMenuDescriptions = menuDescriptions.reverse();
-
-        reversedMenuArray.forEach(text => {
+        reversedMenuArray.forEach(({ menu, description }) => {
             const checkMenuVisibility = (currentPage = 1) => {
+                cy.wait(1 * 1000);
                 cy.get('#vueTableOrderContainer').then($container => {
                     const isMenuVisible =
-                        $container.find('span').filter((i, el) => el.textContent.trim() === text).length > 0;
+                        $container.find('span').filter((i, el) => el.textContent.trim() === menu).length > 0;
 
                     if (!isMenuVisible) {
-                        // 현재 페이지에서 메뉴 항목이 보이지 않으면 다음 페이지 클릭
                         cy.get('.pagination')
                             .contains(currentPage + 1)
                             .click();
-                        cy.wait(1 * 1000); // 페이지 로딩 대기 후 다시 확인
-                        checkMenuVisibility(currentPage + 1); // 다음 페이지에서 다시 확인
+                        cy.wait(1 * 1000);
+                        checkMenuVisibility(currentPage + 1);
                     } else {
-                        // 상품관리
                         cy.get('span')
-                            .filter((i, el) => el.textContent.trim() === text) // 정확히 일치하는 텍스트 필터링
+                            .filter((i, el) => el.textContent.trim() === menu)
                             .parents('tr')
                             .within(() => {
-                                cy.get('span') // 클릭할 요소도 정확히 일치하는 텍스트 찾기
-                                    .filter((i, el) => el.textContent.trim() === text)
+                                cy.get('span')
+                                    .filter((i, el) => el.textContent.trim() === menu)
                                     .click();
                             });
 
@@ -260,9 +154,7 @@ describe('Test', () => {
                         const randomIndex = Math.floor(Math.random() * selectors.length);
                         cy.get(selectors[randomIndex]).click();
                         cy.wait(1 * 1000);
-                        // 메뉴 설명 입력
-                        const description = reversedMenuDescriptions[reversedMenuArray.indexOf(text)];
-                        cy.get('.multisteps-form__textarea').type(description);
+                        cy.get('.multisteps-form__textarea').type(description); // 메뉴 설명 입력
                         cy.wait(1 * 1000);
                         cy.get('#MN_001').click(); // 앱 노출 여부
                         cy.wait(1 * 1000);
@@ -279,71 +171,78 @@ describe('Test', () => {
         });
     });
 
-    it('Ceo Page Test', () => {
+    it('테이블오더 메뉴 옵션 관리', () => {
         /* 메뉴관리 */
         cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn').click();
         cy.wait(1 * 1000);
         cy.get('[href="/menu/table-order/main"] > .btn').click();
 
-        // 메뉴 가격 목록을 배열로 변환하고, 메뉴 항목만 추출
+        // 메뉴를 배열로 변환
         const menuArray = menuPrices
-            .trim() // 문자열의 시작과 끝의 공백을 제거합니다.
-            .split('\n') // 각 줄을 배열의 요소로 분리합니다.
-            .map(line => line.split(',')[0].trim()); // 각 줄을 쉼표로 분리하고 첫 번째 요소(메뉴 항목)만 가져옵니다.
+            .trim()
+            .split('\n')
+            .map(line => {
+                const [menu] = line.split(',').map(item => item.trim()); // 메뉴 이름만 추출
+                return { menu };
+            });
 
-        // 역순으로 정렬
+        // 배열 역순으로 처리
         const reversedMenuArray = menuArray.reverse();
-
-        reversedMenuArray.forEach(text => {
+        reversedMenuArray.forEach(({ menu }) => {
+            // 'text.menu'로 접근
             const checkMenuVisibility = (currentPage = 1) => {
                 cy.wait(1 * 1000);
                 cy.get('#container').then($container => {
                     const isMenuVisible =
-                        $container.find('span').filter((i, el) => el.textContent.trim() === text).length > 0;
+                        $container.find('span').filter((i, el) => el.textContent.trim() === menu).length > 0;
 
                     if (!isMenuVisible) {
                         cy.get('.pagination')
                             .contains(currentPage + 1)
                             .click()
                             .then(() => {
-                                // 다음 페이지로 이동 후 페이지가 로드될 때까지 대기
-                                cy.get('#container').should('be.visible'); // 컨테이너가 보일 때까지 대기
-                                checkMenuVisibility(currentPage + 1); // 다음 페이지에서 다시 확인
+                                cy.get('#container').should('be.visible');
+                                checkMenuVisibility(currentPage + 1); // 다음 페이지로 확인
                             });
                     } else {
-                        /* 옵션관리 */
+                        // 옵션 관리 버튼 클릭
                         cy.get('span')
-                            .filter((i, el) => el.textContent.trim() === text)
+                            .filter((i, el) => el.textContent.trim() === menu)
                             .parents('tr')
                             .within(() => {
-                                cy.get('button').click();
+                                cy.get('button').click(); // 옵션 관리 버튼
                             });
                         cy.wait(1 * 1000);
-                        cy.contains('span', '사이드메뉴') // 옵션명
+                        // cy.contains('span', '사이드메뉴') // 옵션명
+                        cy.get('#vueOptionContainer > .modal-content > .modal-body')
+                            .contains('span', '사이드메뉴') // 옵션명
                             .parents('tr')
                             .within(() => {
-                                cy.get('button').contains('추가').click();
+                                cy.get('button').contains('추가').click(); // 추가 버튼
                             });
                         cy.wait(1 * 1000);
-                        cy.get('#vueOptionContainer > .modal-content > .modal-footer > .bg-gradient-primary').click(); // 추가/변경
+                        cy.get('#vueOptionContainer > .modal-content > .modal-footer > .bg-gradient-primary').click(); // 추가/변경 버튼
                         cy.wait(1 * 1000);
-                        cy.get('#global_modal_confirm').click(); // 확인
+                        cy.get('#global_modal_confirm').click(); // 확인 버튼
                         cy.wait(1 * 1000);
                     }
                 });
             };
-            checkMenuVisibility(); // 메뉴 항목의 가시성을 확인
+            checkMenuVisibility(); // 메뉴 가시성 확인 호출
         });
     });
+
     afterEach('Status Check', function () {
         emailModule.screenshot(Failure, Screenshots, this.currentTest);
     });
+
     after('Send Email', () => {
         emailModule.email({
             TestFails,
             EmailTitle: `[${Cypress.env('EmailTitle')}]`,
-            TestRange: '1. 테스트',
+            TestRange: '1. 테이블오더 메뉴 세팅',
             Screenshots,
+            currentTest: FailedTests,
         });
     });
 });
