@@ -16,7 +16,6 @@ describe('Test', () => {
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
-
     it('Pass1', () => {
         cy.contains('단골맛집', { timeout: 1 * 1000 });
     });

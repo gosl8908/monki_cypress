@@ -1,23 +1,14 @@
 const { loginModule, emailModule, menuModule } = require('../../module/manager.module.js');
 
 describe('Test', () => {
-    let TestFails = []; // 실패 원인을 저장할 변수
     let Screenshots = []; // 스크린샷을 저장할 배열
-    let Failure = false;
+    let TestFails = []; // 실패 원인을 저장할 변수
+    let FailureObj = { Failure: false };
     let FailedTests = []; // 실패한 테스트 정보를 저장할 배열
-
-    Cypress.on('fail', (err, runnable) => {
-        const ErrMessage = err.message || '알 수 없는 이유로 실패함';
-        if (!TestFails.includes(ErrMessage)) {
-            TestFails.push(ErrMessage);
-            FailedTests.push(runnable.title); // 실패한 테스트의 타이틀을 저장
-        }
-        Failure = true;
-        throw err;
-    });
     beforeEach(() => {
         cy.setDateToEnv();
         cy.getAll();
+        cy.err(TestFails, FailedTests, FailureObj);
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
@@ -42,7 +33,7 @@ describe('Test', () => {
     츠쿠네어묵탕,18000,교촌치킨X삼진어묵 콜라보 어육함량이 높은 품질 좋은 삼진어묵과 탱글한 식감이 일품인 츠쿠네(닭완자꼬치)를 넣어 깔끔한 국물맛이 일품인 교촌 어묵탕
     `;
 
-    it('상품 등록', () => {
+    it('Product Create', () => {
         /* 메뉴관리 */
         cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         cy.wait(1 * 1000);
@@ -57,7 +48,7 @@ describe('Test', () => {
             });
     });
 
-    it('메뉴 그룹 생성', () => {
+    it('Menu Group Create', () => {
         /* 메뉴관리 */
         cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn').click();
         cy.wait(1 * 1000);
@@ -89,7 +80,7 @@ describe('Test', () => {
         }
     });
 
-    it('테이블오더 메뉴 그룹 관리', () => {
+    it('테이블오더 Menu Group Setup', () => {
         /* 메뉴관리 */
         cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn').click();
         cy.wait(1 * 1000);
@@ -109,8 +100,8 @@ describe('Test', () => {
     });
 
     it('테이블오더 메뉴 관리', () => {
-        /* 메뉴관리 */
-        cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn').click();
+        /* 테이블오더 메뉴관리 */
+        cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         cy.wait(1 * 1000);
         cy.get('[href="/menu/table-order/main"] > .btn').click();
 
@@ -213,7 +204,6 @@ describe('Test', () => {
                                 cy.get('button').click(); // 옵션 관리 버튼
                             });
                         cy.wait(1 * 1000);
-                        // cy.contains('span', '사이드메뉴') // 옵션명
                         cy.get('#vueOptionContainer > .modal-content > .modal-body')
                             .contains('span', '사이드메뉴') // 옵션명
                             .parents('tr')
@@ -233,7 +223,7 @@ describe('Test', () => {
     });
 
     afterEach('Status Check', function () {
-        emailModule.screenshot(Failure, Screenshots, this.currentTest);
+        emailModule.screenshot2(FailureObj, Screenshots, this.currentTest);
     });
 
     after('Send Email', () => {

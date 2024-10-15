@@ -1,24 +1,14 @@
 const { loginModule, emailModule, menuModule, tableModule } = require('../../module/manager.module.js');
 
-describe('Automation Testing', () => {
+describe('Scheduled ceo page basic Testing', () => {
     let TestFails = []; // 실패 원인을 저장할 변수
     let Screenshots = []; // 스크린샷을 저장할 배열
-    let Failure = false;
+    let FailureObj = { Failure: false };
     let FailedTests = []; // 실패한 테스트 정보를 저장할 배열
-
-    Cypress.on('fail', (err, runnable) => {
-        const ErrMessage = err.message || '알 수 없는 이유로 실패함';
-        if (!TestFails.includes(ErrMessage)) {
-            TestFails.push(ErrMessage);
-            FailedTests.push(runnable.title); // 실패한 테스트의 타이틀을 저장
-        }
-        Failure = true;
-        throw err;
-    });
     beforeEach(() => {
-        Failure = false;
         cy.setDateToEnv();
         cy.getAll();
+        cy.err(TestFails, FailedTests, FailureObj);
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
@@ -138,7 +128,12 @@ describe('Automation Testing', () => {
         cy.wait(1 * 1000);
 
         /* 삭제 */
-        cy.get(':nth-child(2) > :nth-child(5) > .btn').click();
+        cy.get('#container')
+            .contains('span', '2')
+            .parents('tr')
+            .within(() => {
+                cy.get('button').contains('삭제').click({ force: true });
+            });
         cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').contains('확인').click({ force: true });
         cy.wait(1 * 1000);
@@ -147,8 +142,7 @@ describe('Automation Testing', () => {
         cy.get('#global_modal_confirm').contains('확인').click({ force: true });
         cy.wait(1 * 1000);
     });
-
-    const menuPrices = `치킨,1000`;
+    const menuPrices = `치킨,1000,치킨`;
 
     it('Product Create', () => {
         cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
@@ -161,22 +155,24 @@ describe('Automation Testing', () => {
             .forEach(item => {
                 const [menu, price] = item.trim().split(',');
                 menuModule.menu(menu, price, 'png');
-
-                /* 메뉴그룹 생성 */
-                const categories = ['테스트'];
-
-                cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn').click();
-                cy.wait(1 * 1000);
-                cy.get('[href="/menu/menu-group"] > .btn').click();
-
-                categories.forEach(category => {
-                    cy.get('#btnAddMenuGroup').click();
-                    cy.wait(1000);
-                    cy.get('#category_nm').type(category);
-                    cy.get('.modal-footer > .btn-primary').click();
-                    cy.get('#vueMenuGroupMain').contains(category);
-                });
             });
+    });
+
+    it('Menu Group Create', () => {
+        /* 메뉴그룹 생성 */
+        const categories = ['테스트'];
+
+        cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn').click();
+        cy.wait(1 * 1000);
+        cy.get('[href="/menu/menu-group"] > .btn').click();
+
+        categories.forEach(category => {
+            cy.get('#btnAddMenuGroup').click();
+            cy.wait(1000);
+            cy.get('#category_nm').type(category);
+            cy.get('.modal-footer > .btn-primary').click();
+            cy.get('#vueMenuGroupMain').contains(category);
+        });
     });
 
     it('Option Create', () => {
@@ -205,10 +201,10 @@ describe('Automation Testing', () => {
             cy.get('#global_modal_confirm').click();
         }
 
-        const menuPrices = `
+        const optionPrices = `
         테스트,1000
         `;
-        const optionsArray = menuPrices
+        const optionsArray = optionPrices
             .trim()
             .split('\n')
             .map(line => {
@@ -229,8 +225,8 @@ describe('Automation Testing', () => {
     });
 
     it('Menu Group Setup', () => {
-        cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         /* 메뉴 그룹 */
+        cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         cy.get('[href="/menu/menu-group"] > .btn').click();
         const menuGroups = {
             테스트: ['치킨'],
@@ -246,8 +242,8 @@ describe('Automation Testing', () => {
     });
 
     it('App Menu Create', () => {
+        /* 먼키앱 메뉴 관리*/
         cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
-        /* 먼키앱 */
         cy.get('[href="/menu/app"] > .btn').click();
 
         const menuArray = menuPrices
@@ -304,58 +300,64 @@ describe('Automation Testing', () => {
     });
 
     it('TableOrder Menu Create', () => {
+        /* 테이블오더 메뉴관리 */
         cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
-        /* 테이블오더 */
+        cy.wait(1 * 1000);
         cy.get('[href="/menu/table-order/main"] > .btn').click();
+
+        // menuPrices를 사용하여 메뉴와 설명을 처리
         const menuArray = menuPrices
             .trim()
             .split('\n')
-            .map(line => line.split(',')[0].trim());
+            .map(line => {
+                const [menu, , description] = line.split(',').map(item => item.trim()); // 메뉴 이름과 설명 추출
+                return { menu, description };
+            });
 
         // 역순으로 정렬
         const reversedMenuArray = menuArray.reverse();
+        reversedMenuArray.forEach(({ menu, description }) => {
+            const checkMenuVisibility = (currentPage = 1) => {
+                cy.wait(1 * 1000);
+                cy.get('#vueTableOrderContainer').then($container => {
+                    const isMenuVisible =
+                        $container.find('span').filter((i, el) => el.textContent.trim() === menu).length > 0;
 
-        reversedMenuArray.forEach(text => {
-            /* 옵션관리 */
-            cy.get('span')
-                .filter((i, el) => el.textContent.trim() === text)
-                .parents('tr')
-                .within(() => {
-                    cy.get('button').click();
-                });
-            cy.get('#vueOptionContainer > .modal-content > .modal-body')
-                .contains('span', '사이드메뉴') // 옵션명
-                .parents('tr')
-                .within(() => {
-                    cy.get('button').contains('추가').click();
-                });
-            cy.get('#vueOptionContainer > .modal-content > .modal-footer > .bg-gradient-primary').click(); // 추가/변경
-            cy.wait(2 * 1000);
-            cy.get('#global_modal_confirm').click(); // 확인
-            cy.wait(2 * 1000);
+                    if (!isMenuVisible) {
+                        cy.get('.pagination')
+                            .contains(currentPage + 1)
+                            .click();
+                        cy.wait(1 * 1000);
+                        checkMenuVisibility(currentPage + 1);
+                    } else {
+                        cy.get('span')
+                            .filter((i, el) => el.textContent.trim() === menu)
+                            .parents('tr')
+                            .within(() => {
+                                cy.get('span')
+                                    .filter((i, el) => el.textContent.trim() === menu)
+                                    .click();
+                            });
 
-            /* 메뉴 관리 */
-            cy.contains('span', text)
-                .parents('tr')
-                .within(() => {
-                    cy.contains(text).click();
+                        cy.wait(1 * 1000);
+                        /* 미사용 / HOT / NEW / SALE / BEST */
+                        const selectors = ['#MNBG_000', '#MNBG_101', '#MNBG_102', '#MNBG_103', '#MNBG_104'];
+                        const randomIndex = Math.floor(Math.random() * selectors.length);
+                        cy.get(selectors[randomIndex]).click();
+                        cy.wait(1 * 1000);
+                        cy.get('.multisteps-form__textarea').type(description); // 메뉴 설명 입력
+                        cy.wait(1 * 1000);
+                        cy.get('#MN_001').click(); // 앱 노출 여부
+                        cy.wait(1 * 1000);
+                        cy.get('.ms-auto').click(); // 변경하기
+                        cy.wait(1 * 1000);
+                        cy.get('#global_modal_confirm').click(); // 확인
+                        cy.wait(1 * 1000);
+                        cy.go('back');
+                    }
                 });
-
-            cy.wait(1 * 1000);
-            /* 미사용 / HOT / NEW / SALE / BEST */
-            const selectors = ['#MNBG_000', '#MNBG_101', '#MNBG_102', '#MNBG_103', '#MNBG_104'];
-            const randomIndex = Math.floor(Math.random() * selectors.length);
-            cy.get(selectors[randomIndex]).click();
-            cy.wait(1 * 1000);
-            cy.get('.multisteps-form__textarea').type(text); // 메뉴 설명
-            cy.wait(1 * 1000);
-            cy.get('#MN_001').click(); // 앱 노출 여부
-            cy.wait(1 * 1000);
-            cy.get('.ms-auto').click(); // 변경하기
-            cy.wait(1 * 1000);
-            cy.get('#global_modal_confirm').click(); // 확인
-            cy.wait(1 * 1000);
-            cy.go('back');
+            };
+            checkMenuVisibility(); // 메뉴 항목의 가시성을 확인
         });
     });
 
@@ -533,7 +535,7 @@ describe('Automation Testing', () => {
     // });
 
     afterEach('Status Check', function () {
-        emailModule.screenshot(Failure, Screenshots, this.currentTest);
+        emailModule.screenshot2(FailureObj, Screenshots, this.currentTest);
     });
 
     after('Send Email', () => {
