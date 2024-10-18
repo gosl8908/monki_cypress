@@ -40,13 +40,13 @@ describe('Scheduled ceo page basic Testing', () => {
 
         cy.get('.card-body > :nth-child(1) > .form-control')
             .clear()
-            .type(`자동화 테스트 ${Cypress.env('DateLabel')}`);
+            .type(`자동화 테스트 ${Cypress.env('DateLabelWeek')}`);
         cy.get('.card-body > :nth-child(2) > .form-control')
             .clear()
-            .type(`자동화 테스트 ${Cypress.env('DateLabel')}`);
+            .type(`자동화 테스트 ${Cypress.env('DateLabelWeek')}`);
         cy.get('.card-body > :nth-child(3) > .form-control')
             .clear()
-            .type(`자동화 테스트 ${Cypress.env('DateLabel')}`);
+            .type(`자동화 테스트 ${Cypress.env('DateLabelWeek')}`);
         cy.get('.card-header > .btn').click();
         cy.get('#global_modal_body').contains('적용하시겠습니까?').should('be.visible');
         cy.wait(1 * 1000);
@@ -538,11 +538,14 @@ describe('Scheduled ceo page basic Testing', () => {
         emailModule.screenshot2(FailureObj, Screenshots, this.currentTest);
     });
 
-    after('Send Email', () => {
+    after('Send Email', function () {
+        const { title: describeTitle, tests: allTests } = this.test.parent; // describe의 제목과 모든 테스트를 한 번에 가져오기
+
         emailModule.email({
             TestFails,
-            EmailTitle: `[${Cypress.env('EmailTitle')}]`,
-            TestRange: '사장님 사이트 기본기능',
+            describeTitle,
+            EmailTitle: `[${Cypress.env('EmailTitle')} - ${describeTitle}]`,
+            TestRange: '사장님 사이트 기본기능' + `\n${allTests.map(test => `${test.title}`).join('\n')}`,
             Screenshots,
             currentTest: FailedTests,
         });

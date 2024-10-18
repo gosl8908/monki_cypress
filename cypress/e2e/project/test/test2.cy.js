@@ -1,6 +1,6 @@
 const { loginModule, emailModule } = require('../../module/manager.module.js');
 
-describe('Test', () => {
+describe('Test2', () => {
     let TestFails = []; // 실패 원인을 저장할 변수
     let Screenshots = []; // 스크린샷을 저장할 배열
     let FailureObj = { Failure: false };
@@ -32,11 +32,13 @@ describe('Test', () => {
     afterEach('Status Check', function () {
         emailModule.screenshot2(FailureObj, Screenshots, this.currentTest);
     });
-    after('Send Email', () => {
+    after('Send Email', function () {
+        const { title: describeTitle, tests: allTests } = this.test.parent; // describe의 제목과 모든 테스트를 한 번에 가져오기
         emailModule.email({
             TestFails,
-            EmailTitle: `[${Cypress.env('EmailTitle')}]`,
-            TestRange: '1. 테스트',
+            describeTitle,
+            EmailTitle: `[${Cypress.env('EmailTitle')} - ${describeTitle}]`,
+            TestRange: '1. 테스트' + `\n${allTests.map(test => `${test.title}`).join('\n')}`,
             Screenshots,
             currentTest: FailedTests,
         });

@@ -37,9 +37,9 @@ function screenshot(Failure, Screenshots, currentTest) {
     }
     return Screenshots;
 }
-function email({ TestFails, EmailTitle, TestRange, Screenshots, currentTest }) {
+function email({ TestFails, describeTitle, EmailTitle, TestRange, Screenshots, currentTest }) {
     const IsTestFailed = TestFails.length > 0;
-    const EmailBody = `Cypress 자동화 테스트 스위트가 ${IsTestFailed ? '실패' : '성공'}하였습니다.\n
+    const EmailBody = `${describeTitle} 자동화 테스트 스위트가 ${IsTestFailed ? '실패' : '성공'}하였습니다.\n
     테스트 실행 시간 : ${Cypress.env('DateLabelWeek')}\n
     테스트 범위 : ${TestRange}\n
     ${

@@ -60,11 +60,14 @@ describe('프렌차이즈 관리자 생성', () => {
     afterEach('Status Check', function () {
         emailModule.screenshot2(FailureObj, Screenshots, this.currentTest);
     });
-    after('Send Email', () => {
+    after('Send Email', function () {
+        const { title: describeTitle, tests: allTests } = this.test.parent; // describe의 제목과 모든 테스트를 한 번에 가져오기
+
         emailModule.email({
             TestFails,
-            EmailTitle: `[${Cypress.env('EmailTitle')}]`,
-            TestRange: '프렌차이즈 관리자 생성',
+            describeTitle,
+            EmailTitle: `[${Cypress.env('EmailTitle')} - ${describeTitle}]`,
+            TestRange: '프렌차이즈 관리자 생성' + `\n${allTests.map(test => `${test.title}`).join('\n')}`,
             Screenshots,
             currentTest: FailedTests,
         });
