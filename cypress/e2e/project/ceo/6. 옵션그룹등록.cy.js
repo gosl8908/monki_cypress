@@ -89,7 +89,8 @@ describe('옵션그룹 등록', () => {
             TestFails,
             describeTitle,
             EmailTitle: `[${Cypress.env('EmailTitle')} ${describeTitle}]`,
-            TestRange: '옵션 그룹 등록' + `\n${allTests.map(test => `${test.title}`).join('\n')}`,
+            TestRange:
+                '옵션 그룹 등록' + `\n${allTests.map((test, index) => `${index + 1}. ${test.title}`).join('\n')}`,
             Screenshots,
             currentTest: FailedTests,
         });

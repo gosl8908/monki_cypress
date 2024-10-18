@@ -69,7 +69,8 @@ describe('지점괸리자 생성', () => {
             TestFails,
             describeTitle,
             EmailTitle: `[${Cypress.env('EmailTitle')} - ${describeTitle}]`,
-            TestRange: '지점 관리자 생성' + `\n${allTests.map(test => `${test.title}`).join('\n')}`,
+            TestRange:
+                '지점 관리자 생성' + `\n${allTests.map((test, index) => `${index + 1}. ${test.title}`).join('\n')}`,
             Screenshots,
             currentTest: FailedTests,
         });

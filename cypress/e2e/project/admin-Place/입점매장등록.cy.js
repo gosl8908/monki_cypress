@@ -131,7 +131,8 @@ describe('입점 매장 등록', () => {
             TestFails,
             describeTitle,
             EmailTitle: `[${Cypress.env('EmailTitle')} - ${describeTitle}]`,
-            TestRange: '입점 매장 등록' + `\n${allTests.map(test => `${test.title}`).join('\n')}`,
+            TestRange:
+                '입점 매장 등록' + `\n${allTests.map((test, index) => `${index + 1}. ${test.title}`).join('\n')}`,
             Screenshots,
             currentTest: FailedTests,
         });

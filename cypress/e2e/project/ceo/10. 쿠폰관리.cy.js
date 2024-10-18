@@ -42,7 +42,7 @@ describe('쿠폰관리', () => {
             TestFails,
             describeTitle,
             EmailTitle: `[${Cypress.env('EmailTitle')} - ${describeTitle}]`,
-            TestRange: '쿠폰 관리' + `\n${allTests.map(test => `${test.title}`).join('\n')}`,
+            TestRange: '쿠폰 관리' + `\n${allTests.map((test, index) => `${index + 1}. ${test.title}`).join('\n')}`,
             Screenshots,
             currentTest: FailedTests,
         });

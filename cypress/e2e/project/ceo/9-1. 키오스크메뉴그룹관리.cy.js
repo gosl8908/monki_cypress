@@ -66,7 +66,9 @@ describe('키오스크 메뉴 그룹 관리', () => {
             TestFails,
             describeTitle,
             EmailTitle: `[${Cypress.env('EmailTitle')} - ${describeTitle}]`,
-            TestRange: '테이블오더 메뉴 그룹 관리' + `\n${allTests.map(test => `${test.title}`).join('\n')}`,
+            TestRange:
+                '테이블오더 메뉴 그룹 관리' +
+                `\n${allTests.map((test, index) => `${index + 1}. ${test.title}`).join('\n')}`,
             Screenshots,
             currentTest: FailedTests,
         });

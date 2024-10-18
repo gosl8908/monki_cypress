@@ -38,7 +38,7 @@ describe('테이블관리', () => {
             TestFails,
             describeTitle,
             EmailTitle: `[${Cypress.env('EmailTitle')} - ${describeTitle}]`,
-            TestRange: '테이블 관리' + `\n${allTests.map(test => `${test.title}`).join('\n')}`,
+            TestRange: '테이블 관리' + `\n${allTests.map((test, index) => `${index + 1}. ${test.title}`).join('\n')}`,
             Screenshots,
             currentTest: FailedTests,
         });

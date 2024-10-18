@@ -64,7 +64,8 @@ describe('결제수단 등록', () => {
             TestFails,
             describeTitle,
             EmailTitle: `[${Cypress.env('EmailTitle')} - ${describeTitle}]`,
-            TestRange: '결제 수단 등록' + `\n${allTests.map(test => `${test.title}`).join('\n')}`,
+            TestRange:
+                '결제 수단 등록' + `\n${allTests.map((test, index) => `${index + 1}. ${test.title}`).join('\n')}`,
             Screenshots,
             currentTest: FailedTests,
         });

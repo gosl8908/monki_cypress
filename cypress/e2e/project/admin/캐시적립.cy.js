@@ -50,7 +50,7 @@ describe('캐시 적립', () => {
             TestFails,
             describeTitle,
             EmailTitle: `[${Cypress.env('EmailTitle')} - ${describeTitle}]`,
-            TestRange: '캐시 적립' + `\n${allTests.map(test => `${test.title}`).join('\n')}`,
+            TestRange: '캐시 적립' + `\n${allTests.map((test, index) => `${index + 1}. ${test.title}`).join('\n')}`,
             Screenshots,
             currentTest: FailedTests,
         });

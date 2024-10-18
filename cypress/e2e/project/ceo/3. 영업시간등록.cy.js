@@ -80,7 +80,8 @@ describe('영업시간 등록', () => {
             TestFails,
             describeTitle,
             EmailTitle: `[${Cypress.env('EmailTitle')} - ${describeTitle}]`,
-            TestRange: '영업 시간 등록' + `\n${allTests.map(test => `${test.title}`).join('\n')}`,
+            TestRange:
+                '영업 시간 등록' + `\n${allTests.map((test, index) => `${index + 1}. ${test.title}`).join('\n')}`,
             Screenshots,
             currentTest: FailedTests,
         });

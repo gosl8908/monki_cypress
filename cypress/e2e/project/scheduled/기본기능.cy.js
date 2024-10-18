@@ -545,7 +545,9 @@ describe('Scheduled ceo page basic Testing', () => {
             TestFails,
             describeTitle,
             EmailTitle: `[${Cypress.env('EmailTitle')} - ${describeTitle}]`,
-            TestRange: '사장님 사이트 기본기능' + `\n${allTests.map(test => `${test.title}`).join('\n')}`,
+            TestRange:
+                '사장님 사이트 기본기능' +
+                `\n${allTests.map((test, index) => `${index + 1}. ${test.title}`).join('\n')}`,
             Screenshots,
             currentTest: FailedTests,
         });

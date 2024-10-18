@@ -104,7 +104,9 @@ describe('키오스크 메뉴 옵션 관리', () => {
             TestFails,
             describeTitle,
             EmailTitle: `[${Cypress.env('EmailTitle')} - ${describeTitle}]`,
-            TestRange: '키오스크 메뉴 옵션 관리' + `\n${allTests.map(test => `${test.title}`).join('\n')}`,
+            TestRange:
+                '키오스크 메뉴 옵션 관리' +
+                `\n${allTests.map((test, index) => `${index + 1}. ${test.title}`).join('\n')}`,
             Screenshots,
             currentTest: FailedTests,
         });
