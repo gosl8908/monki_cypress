@@ -39,7 +39,7 @@ describe('Test2', () => {
             describeTitle,
             EmailTitle: `[${Cypress.env('EmailTitle')} - ${describeTitle}]`,
             TestRange:
-                '테스트 스크립트' + `\n${allTests.map((test, index) => `${index + 1}. ${test.title}`).join('\n')}`,
+                '테스트 스크립트2' + `\n${allTests.map((test, index) => `${index + 1}. ${test.title}`).join('\n')}`,
             Screenshots,
             currentTest: FailedTests,
         });

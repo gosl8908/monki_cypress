@@ -17,7 +17,7 @@ describe('메뉴 등록', () => {
         });
     });
 
-    it('상품 등록', () => {
+    it('menu create', () => {
         /* 메뉴관리 */
         cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         cy.wait(1 * 1000);

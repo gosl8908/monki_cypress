@@ -17,7 +17,7 @@ describe('영업시간 등록', () => {
         });
     });
 
-    it('Ceo Page Test', () => {
+    it('Set Store Hours', () => {
         /* 영업시간 */
         cy.get('#operation').click();
         /* 평일 */

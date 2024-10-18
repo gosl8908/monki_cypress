@@ -16,7 +16,7 @@ describe('지점 카테고리 생성', () => {
         });
     });
 
-    it('Ceo Page Test', () => {
+    it('Place category create', () => {
         cy.get('[data-mnu="/operation/*"] > [href="#"]').click();
         cy.get('.sidebar').contains('지점 카테고리').click();
         cy.get('#select_kitchen_no').select('번개지점');

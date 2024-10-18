@@ -17,7 +17,7 @@ describe('쿠폰관리', () => {
         });
     });
 
-    it('Ceo Page Test', () => {
+    it('cupon create', () => {
         cy.get(':nth-child(3) > .container-fluid > .d-flex').contains('운영관리').click();
         cy.get('[style="display: block;"] > .container-fluid > .d-flex').contains('쿠폰관리').click();
         cy.get('.col-12 > .btn').contains('쿠폰 등록').click();

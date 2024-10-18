@@ -17,7 +17,7 @@ describe('결제수단 등록', () => {
         });
     });
 
-    it('Ceo Page Test', () => {
+    it('Set Up Payment Options', () => {
         cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/account/partners"] > .btn').click(); // 계정관리
         cy.get('[href="/account/store"] > .btn').click(); // 매장관리
         cy.get('#keyword').type(Cypress.env('FavTestId2')); // 검색어

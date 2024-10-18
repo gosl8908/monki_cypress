@@ -17,7 +17,7 @@ describe('먼키앱 메뉴 옵션 관리', () => {
         });
     });
 
-    it('Ceo Page Test', () => {
+    it('APP menu option setting', () => {
         /* 메뉴관리 */
         cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn').click();
         cy.wait(1 * 1000);

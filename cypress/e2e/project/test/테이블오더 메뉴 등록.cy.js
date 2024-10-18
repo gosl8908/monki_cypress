@@ -80,7 +80,7 @@ describe('Test', () => {
         }
     });
 
-    it('테이블오더 Menu Group Setup', () => {
+    it('TABLEORDER Menu Group Setup', () => {
         /* 메뉴관리 */
         cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn').click();
         cy.wait(1 * 1000);
@@ -99,7 +99,7 @@ describe('Test', () => {
         });
     });
 
-    it('테이블오더 메뉴 관리', () => {
+    it('TABLEORDER menu setting', () => {
         /* 테이블오더 메뉴관리 */
         cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         cy.wait(1 * 1000);
@@ -162,7 +162,7 @@ describe('Test', () => {
         });
     });
 
-    it('테이블오더 메뉴 옵션 관리', () => {
+    it('TABLEORDER menu option setting', () => {
         /* 메뉴관리 */
         cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn').click();
         cy.wait(1 * 1000);

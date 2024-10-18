@@ -16,7 +16,7 @@ describe('브랜드 지점 생성', () => {
         });
     });
 
-    it('지점 등록 Test', () => {
+    it('Brand create', () => {
         cy.get('[data-mnu="/operation/*"] > [href="#"]').click();
         cy.get('.sidebar').contains('지점 관리').click();
         cy.get('#btnAddKitchen').click();

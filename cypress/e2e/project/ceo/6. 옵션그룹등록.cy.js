@@ -17,7 +17,7 @@ describe('옵션그룹 등록', () => {
         });
     });
 
-    it('Ceo Page Test', () => {
+    it('option group create', () => {
         /* 메뉴관리 */
         cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn').click();
         cy.wait(1 * 1000);

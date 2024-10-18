@@ -17,7 +17,7 @@ describe('매장등록', () => {
         });
     });
 
-    it('Ceo Page Test', () => {
+    it('Store create', () => {
         cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/account/partners"] > .btn')
             .contains('계정관리')
             .click(); // 계정관리

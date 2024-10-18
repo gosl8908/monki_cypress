@@ -16,7 +16,7 @@ describe('대리점 등록', () => {
         });
     });
 
-    it('Ceo Page Test', () => {
+    it('Agency create', () => {
         cy.get('.sidebar').contains('협력사 관리').click();
         cy.get('.sidebar').contains('대리점 관리').click();
         cy.get('#btnAddAgency').contains('대리점 등록').click();

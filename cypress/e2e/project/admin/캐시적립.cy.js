@@ -16,7 +16,7 @@ describe('캐시 적립', () => {
         });
     });
 
-    it('Ceo Page Test', () => {
+    it('Cash Rewards', () => {
         cy.get('.sidebar').contains('먼키캐시 관리').click();
         cy.get('.sidebar').contains('먼키캐시 지급/차감').click();
         cy.contains('등록').click();

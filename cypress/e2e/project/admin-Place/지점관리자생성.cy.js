@@ -16,7 +16,7 @@ describe('지점괸리자 생성', () => {
         });
     });
 
-    it('Ceo Page Test', () => {
+    it('Place administrators create', () => {
         cy.get('[data-mnu="/administrators/*"] > [href="#"]').click();
         cy.get('[data-mnu="/administrators/*"] > .nav > :nth-child(1) > .nav-link > p').click();
         cy.get('#btnRegAdmin').click();

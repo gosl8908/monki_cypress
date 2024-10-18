@@ -16,7 +16,7 @@ describe('업종 카테고리 생성', () => {
         });
     });
 
-    it('Ceo Page Test', () => {
+    it('Biz category create', () => {
         cy.get('.sidebar').contains('연동 정보 관리').click();
         cy.get('.sidebar').contains('업종 카테고리').click();
         cy.contains('카테고리 추가').click();

@@ -16,7 +16,7 @@ describe('먼키 지점 생성', () => {
         });
     });
 
-    it('지점 등록 Test', () => {
+    it('Place create', () => {
         cy.get('[data-mnu="/operation/*"] > [href="#"]').click();
         cy.get('.sidebar').contains('지점 관리').click();
         cy.get('#btnAddKitchen').click();

@@ -17,7 +17,7 @@ describe('테이블관리', () => {
         });
     });
 
-    it('Ceo Page Test', () => {
+    it('table create', () => {
         /* 테이블관리 */
         cy.get('#operation').click();
         cy.get('[href="/store/table-order/basic"] > .btn').click();

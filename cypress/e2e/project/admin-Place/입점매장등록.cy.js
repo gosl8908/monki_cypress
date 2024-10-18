@@ -16,7 +16,7 @@ describe('입점 매장 등록', () => {
         });
     });
 
-    it('Ceo Page Test', () => {
+    it('Place Store create', () => {
         cy.get('[data-mnu="/kitchen/*"] > [href="#"] > p').click();
         cy.get('.menu-open > .nav > :nth-child(2) > .nav-link > p').click();
         cy.get('#btnAddStore').click();

@@ -16,7 +16,7 @@ describe('프렌차이즈 관리자 생성', () => {
         });
     });
 
-    it('Ceo Page Test', () => {
+    it('Brand administrators create', () => {
         cy.get('[data-mnu="/administrators/*"] > [href="#"]').click();
         cy.get('[data-mnu="/administrators/*"] > .nav > :nth-child(2) > .nav-link > p').click();
         cy.get('#btnRegAdmin').click();
