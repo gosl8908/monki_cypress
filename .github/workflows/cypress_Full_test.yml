@@ -150,4 +150,4 @@ jobs:
             - name: Execute shell script with 1920x1080 resolution
               run: |
                   export CYPRESS_RECORD_KEY="${{ secrets.CYPRESS_RECORD_KEY }}"
-                  xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" ./shell/ceo page basic Testing.sh
+                  xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" ./shell/ceo_page_basic_Testing.sh
