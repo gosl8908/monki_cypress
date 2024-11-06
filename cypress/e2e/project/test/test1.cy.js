@@ -12,22 +12,22 @@ describe('Test', () => {
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('FavTestId')[0]}`,
-            Password: `${Cypress.env('TestPwd')}`,
+            Id: `${Cypress.env('TestId')[1]}`,
+            Password: `${Cypress.env('TestPwd2')}`,
         });
     });
     it('Pass1', () => {
         cy.contains('단골맛집', { timeout: 1 * 1000 });
     });
-    it('Fail1', () => {
-        cy.contains('345', { timeout: 1 * 1000 });
-    });
-    it('Pass2', () => {
-        cy.contains('단골맛집', { timeout: 1 * 1000 });
-    });
-    it('Fail2', () => {
-        cy.contains('678', { timeout: 1 * 1000 });
-    });
+    // it('Fail1', () => {
+    //     cy.contains('345', { timeout: 1 * 1000 });
+    // });
+    // it('Pass2', () => {
+    //     cy.contains('단골맛집', { timeout: 1 * 1000 });
+    // });
+    // it('Fail2', () => {
+    //     cy.contains('678', { timeout: 1 * 1000 });
+    // });
 
     afterEach('Status Check', function () {
         emailModule.screenshot2(FailureObj, Screenshots, this.currentTest);

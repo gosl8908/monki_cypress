@@ -11,8 +11,8 @@ describe('영업시간 등록', () => {
         cy.err(TestFails, FailedTests, FailureObj);
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
-            Type: '사장님',
-            Id: `${Cypress.env('CeoTestId')[1]}`,
+            Type: '대리점',
+            Id: `${Cypress.env('StoreTestId')[0]}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
@@ -20,6 +20,9 @@ describe('영업시간 등록', () => {
     it('Set Store Hours', () => {
         /* 영업시간 */
         cy.get('#operation').click();
+
+        cy.get('#operation-store-no').select('교촌치킨(선불/KOVAN)');
+        cy.get('.col-2 > .btn').click();
         /* 평일 */
         cy.get(':nth-child(1) > .p-0 > :nth-child(1) > .card-header > .btn').click();
         cy.get(':nth-child(2) > :nth-child(1) > .form-select').select('오전 0시');

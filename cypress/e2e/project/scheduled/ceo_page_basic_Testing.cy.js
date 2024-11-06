@@ -34,6 +34,21 @@ describe('Scheduled ceo page basic Testing', () => {
         });
     });
 
+    it('Hours changed', () => {
+        cy.contains('단골맛집', { timeout: 1 * 1000 });
+        cy.get('#operation', { timeout: 1 * 1000 }).click();
+        cy.wait(1 * 1000);
+        cy.get(':nth-child(1) > .p-0 > :nth-child(1) > .card-header > .btn').click();
+        cy.get(':nth-child(2) > :nth-child(1) > .form-select').select('오전 1시');
+        cy.get(':nth-child(2) > :nth-child(4) > .form-select').select('오후 11시');
+        cy.get('#vueTimeContainer > .modal-dialog > .modal-content > .modal-footer > .d-flex > :nth-child(1)').click();
+        cy.contains('먼키 솔루션의 모든 영업시간을 변경하시겠습니까?')
+            .should('be.visible', { timeout: 3 * 1000 })
+            .get('#global_modal_confirm')
+            .wait(1 * 1000)
+            .click();
+    });
+
     it('Edit App Information', () => {
         /* 앱정보 */
         cy.get('[href="/store/monki"] > .btn').click();
@@ -141,6 +156,41 @@ describe('Scheduled ceo page basic Testing', () => {
         cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').contains('확인').click({ force: true });
         cy.wait(1 * 1000);
+
+        /* 테이블 구역 추가  */
+        cy.get('[href="/store/table-order/basic"] > .btn').click();
+        cy.get('#tableinfo').click();
+        cy.get('#btnSerialAdd').click();
+        cy.wait(1 * 1000);
+        cy.get('#add_ground_name').type('테스트');
+        cy.get('#add_ground_sort_order').type('3');
+        cy.get(
+            '#modalGroupRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
+        ).click();
+
+        cy.get('.main-content').contains('테스트');
+
+        /* 테이블 추가 */
+        cy.get('#divGroundResourceTableView_0 > .border > .tableorder-center-text > a').click();
+        cy.wait(1 * 1000);
+        cy.get('#add_resource_name').type('테스트');
+        cy.get('#btnTableNameOverCheck').click();
+
+        cy.get(
+            '#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
+        ).click();
+
+        /* 테이블 삭제 */
+        cy.get(
+            '#divGroundResourceTableView_0 > .mb-1 > .height-200 > .text-center > :nth-child(2) > #btnTableDelete_0',
+        ).click();
+        cy.wait(1 * 1000);
+
+        /* 구역 삭제 */
+        cy.get('#btnGroupDelete_0').contains('구역 삭제하기').click();
+        cy.get('#global_modal_body').contains('삭제하시겠습니까?');
+        cy.wait(1 * 1000);
+        cy.get('#global_modal_confirm').click();
     });
     const menuPrices = `치킨,1000,치킨`;
 
