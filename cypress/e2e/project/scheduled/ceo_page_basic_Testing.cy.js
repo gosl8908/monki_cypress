@@ -12,8 +12,8 @@ describe('Scheduled ceo page basic Testing', () => {
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('FavTestId')[0]}`,
-            Password: `${Cypress.env('TestPwd')}`,
+            Id: `${Cypress.env('TestId')[1]}`,
+            Password: `${Cypress.env('TestPwd2')}`,
         });
     });
 
@@ -164,6 +164,7 @@ describe('Scheduled ceo page basic Testing', () => {
         cy.wait(1 * 1000);
         cy.get('#add_ground_name').type('테스트');
         cy.get('#add_ground_sort_order').type('3');
+        cy.wait(1 * 1000);
         cy.get(
             '#modalGroupRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
         ).click();
@@ -175,6 +176,7 @@ describe('Scheduled ceo page basic Testing', () => {
         cy.wait(1 * 1000);
         cy.get('#add_resource_name').type('테스트');
         cy.get('#btnTableNameOverCheck').click();
+        cy.wait(1 * 1000);
 
         cy.get(
             '#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
@@ -427,6 +429,8 @@ describe('Scheduled ceo page basic Testing', () => {
         cy.wait(1 * 1000);
         cy.get('#btnItemFormCheck').click();
         cy.wait(1 * 1000);
+        cy.get('#global_modal_confirm').click();
+        cy.wait(1 * 1000);
         cy.get('#container')
             .contains('물', { timeout: 3 * 1000 })
             .should('be.visible');
@@ -549,6 +553,28 @@ describe('Scheduled ceo page basic Testing', () => {
         });
     });
 
+    it('Staff Call Delete', () => {
+        cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
+        /* 직원 호출 삭제 */
+        cy.get('[href="/menu/table-order/main"] > .btn').click();
+        cy.wait(1 * 1000);
+        cy.get('#employee').click();
+        cy.wait(1 * 1000);
+
+        cy.get('.main-content').then($container => {
+            if ($container.text().includes('물')) {
+                cy.contains('td', '물')
+                    .parents('tr')
+                    .within(() => {
+                        cy.get('button').contains('삭제').click();
+                        cy.wait(1 * 1000);
+                    });
+                cy.get('#global_modal_confirm').click();
+                cy.wait(1 * 1000);
+            }
+        });
+    });
+
     it('Sales Status', () => {
         cy.get('[href="/sales/monki/main"] > .btn').click();
 
@@ -560,29 +586,6 @@ describe('Scheduled ceo page basic Testing', () => {
         cy.get('[href="/sales/renew/tableorder"] > .btn').click();
         cy.get('#container').contains('후불결제 사용 매장은 POS에서 매출 확인이 가능합니다.').should('be.visible');
     });
-
-    // it('테이블 관리', () => {
-    //     /* 테이블관리 */
-    //     cy.get('[href="/store/table-order/basic"] > .btn').click();
-    //     cy.wait(1 * 1000);
-    //     cy.get('#tableinfo').click();
-    //     cy.wait(1 * 1000);
-
-    //     cy.get('#container').then($container => {
-    //         if ($container.text().includes('1층')) {
-    //             cy.wait(1 * 1000);
-    //             tableModule.table('1층', '1');
-    //             cy.wait(1 * 1000);
-    //         }
-    //     });
-    //     tableModule.ground('1층', '1');
-    //     cy.wait(1 * 1000);
-    //     tableModule.table('1층', '1');
-    //     cy.wait(1 * 1000);
-
-    //     cy.get('#btnTableDelete_0').click();
-    //     cy.wait(1 * 1000);
-    // });
 
     afterEach('Status Check', function () {
         emailModule.screenshot2(FailureObj, Screenshots, this.currentTest);

@@ -25,7 +25,7 @@ describe('매장등록', () => {
         cy.get('.m-3 > .col-3 > .btn').contains('매장등록').click(); // 매장등록
 
         /* 매장 등록 */
-        cy.get('#user-id').type(Cypress.env('FavTestId')[3]); // 아이디
+        cy.get('#user-id').type(Cypress.env('FavTestId')[2]); // 아이디
         cy.get('#btn-check-user-id').click();
         cy.get('#user-pass').type(Cypress.env('TestPwd')); // 비밀번호
         cy.get('#chk-user-pass').type(Cypress.env('TestPwd')); // 비밀번호 확인
