@@ -429,7 +429,7 @@ describe('Scheduled ceo page basic Testing', () => {
         cy.wait(1 * 1000);
         cy.get('#btnItemFormCheck').click();
         cy.wait(1 * 1000);
-        cy.get('#global_modal_confirm').click();
+        cy.get('#global_modal_confirm').click({ force: true });
         cy.wait(1 * 1000);
         cy.get('#container')
             .contains('물', { timeout: 3 * 1000 })
@@ -569,7 +569,7 @@ describe('Scheduled ceo page basic Testing', () => {
                         cy.get('button').contains('삭제').click();
                         cy.wait(1 * 1000);
                     });
-                cy.get('#global_modal_confirm').click();
+                cy.get('#global_modal_confirm').click({ force: true });
                 cy.wait(1 * 1000);
             }
         });
