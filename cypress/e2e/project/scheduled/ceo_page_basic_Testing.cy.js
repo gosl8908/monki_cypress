@@ -12,7 +12,7 @@ describe('Scheduled ceo page basic Testing', () => {
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('TestId')[1]}`,
+            Id: `${Cypress.env('FavTestId')[2]}`,
             Password: `${Cypress.env('TestPwd2')}`,
         });
     });
