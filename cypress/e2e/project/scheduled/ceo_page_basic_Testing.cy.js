@@ -23,7 +23,7 @@ describe('Scheduled ceo page basic Testing', () => {
             Site: `${Cypress.env('StgCeo')}`,
             Type: '대리점',
             Id: `${Cypress.env('StoreTestId')[0]}`,
-            Password: `${Cypress.env('TestPwd')}`,
+            Password: `${Cypress.env('TestPwd2')}`,
         });
         cy.get('[href="/users/logout"]').click();
         loginModule.login({
@@ -194,7 +194,7 @@ describe('Scheduled ceo page basic Testing', () => {
         cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
     });
-    const menuPrices = `치킨,1000,치킨`;
+    const menuPrices = `테스트,1000,테스트`;
 
     it('Product Create', () => {
         cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
@@ -275,13 +275,19 @@ describe('Scheduled ceo page basic Testing', () => {
             registerOptionGroup(group);
         });
     });
-
+    const parseMenuNames = menuString => {
+        return menuString
+            .trim()
+            .split('\n')
+            .map(line => line.split(',')[0].trim());
+    };
+    const menuNames = parseMenuNames(menuPrices);
     it('Menu Group Setup', () => {
         /* 메뉴 그룹 */
         cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         cy.get('[href="/menu/menu-group"] > .btn').click();
         const menuGroups = {
-            테스트: ['치킨'],
+            테스트: menuNames,
         };
         Object.entries(menuGroups).forEach(([group, items]) => {
             menuModule.menuGroup(group, items, 'App');
@@ -507,8 +513,13 @@ describe('Scheduled ceo page basic Testing', () => {
         cy.get('#product').click(); // 상품관리 탭
         cy.wait(1 * 1000);
         cy.get('.main-content').then($container => {
-            if (!$container.text().includes('조회결과가 없습니다.')) {
-                cy.get('#chk_all').check();
+            if ($container.text().includes('테스트')) {
+                cy.get('.main-content')
+                    .contains('span', '테스트')
+                    .parents('tr')
+                    .within(() => {
+                        cy.get('[id="chk_product_yn_0"]').click({ force: true });
+                    });
                 cy.wait(1 * 1000);
                 cy.get('#btnDelProduct').click();
                 cy.wait(1 * 1000);
