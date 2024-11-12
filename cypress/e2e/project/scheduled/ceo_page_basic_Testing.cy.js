@@ -17,183 +17,183 @@ describe('Scheduled ceo page basic Testing', () => {
         });
     });
 
-    // it('Login', () => {
-    //     cy.get('[href="/users/logout"]').click();
-    //     loginModule.login({
-    //         Site: `${Cypress.env('StgCeo')}`,
-    //         Type: '대리점',
-    //         Id: `${Cypress.env('StoreTestId')[0]}`,
-    //         Password: `${Cypress.env('TestPwd2')}`,
-    //     });
-    //     cy.get('[href="/users/logout"]').click();
-    //     loginModule.login({
-    //         Site: `${Cypress.env('StgCeo')}`,
-    //         Type: '사장님',
-    //         Id: `${Cypress.env('CeoTestId')[0]}`,
-    //         Password: `${Cypress.env('TestPwd2')}`,
-    //     });
-    // });
+    it('Login', () => {
+        cy.get('[href="/users/logout"]').click();
+        loginModule.login({
+            Site: `${Cypress.env('StgCeo')}`,
+            Type: '대리점',
+            Id: `${Cypress.env('StoreTestId')[0]}`,
+            Password: `${Cypress.env('TestPwd2')}`,
+        });
+        cy.get('[href="/users/logout"]').click();
+        loginModule.login({
+            Site: `${Cypress.env('StgCeo')}`,
+            Type: '사장님',
+            Id: `${Cypress.env('CeoTestId')[0]}`,
+            Password: `${Cypress.env('TestPwd2')}`,
+        });
+    });
 
-    // it('Hours changed', () => {
-    //     cy.contains('단골맛집', { timeout: 1 * 1000 });
-    //     cy.get('#operation', { timeout: 1 * 1000 }).click();
-    //     cy.wait(1 * 1000);
-    //     cy.get(':nth-child(1) > .p-0 > :nth-child(1) > .card-header > .btn').click();
-    //     cy.get(':nth-child(2) > :nth-child(1) > .form-select').select('오전 1시');
-    //     cy.get(':nth-child(2) > :nth-child(4) > .form-select').select('오후 11시');
-    //     cy.get('#vueTimeContainer > .modal-dialog > .modal-content > .modal-footer > .d-flex > :nth-child(1)').click();
-    //     cy.contains('먼키 솔루션의 모든 영업시간을 변경하시겠습니까?')
-    //         .should('be.visible', { timeout: 3 * 1000 })
-    //         .get('#global_modal_confirm')
-    //         .wait(1 * 1000)
-    //         .click();
-    // });
+    it('Hours changed', () => {
+        cy.contains('단골맛집', { timeout: 1 * 1000 });
+        cy.get('#operation', { timeout: 1 * 1000 }).click();
+        cy.wait(1 * 1000);
+        cy.get(':nth-child(1) > .p-0 > :nth-child(1) > .card-header > .btn').click();
+        cy.get(':nth-child(2) > :nth-child(1) > .form-select').select('오전 1시');
+        cy.get(':nth-child(2) > :nth-child(4) > .form-select').select('오후 11시');
+        cy.get('#vueTimeContainer > .modal-dialog > .modal-content > .modal-footer > .d-flex > :nth-child(1)').click();
+        cy.contains('먼키 솔루션의 모든 영업시간을 변경하시겠습니까?')
+            .should('be.visible', { timeout: 3 * 1000 })
+            .get('#global_modal_confirm')
+            .wait(1 * 1000)
+            .click();
+    });
 
-    // it('Edit App Information', () => {
-    //     /* 앱정보 */
-    //     cy.get('[href="/store/monki"] > .btn').click();
+    it('Edit App Information', () => {
+        /* 앱정보 */
+        cy.get('[href="/store/monki"] > .btn').click();
 
-    //     cy.get('.card-body > :nth-child(1) > .form-control')
-    //         .clear()
-    //         .type(`자동화 테스트 ${Cypress.env('DateLabelWeek')}`);
-    //     cy.get('.card-body > :nth-child(2) > .form-control')
-    //         .clear()
-    //         .type(`자동화 테스트 ${Cypress.env('DateLabelWeek')}`);
-    //     cy.get('.card-body > :nth-child(3) > .form-control')
-    //         .clear()
-    //         .type(`자동화 테스트 ${Cypress.env('DateLabelWeek')}`);
-    //     cy.get('.card-header > .btn').click();
-    //     cy.get('#global_modal_body').contains('적용하시겠습니까?').should('be.visible');
-    //     cy.wait(1 * 1000);
-    //     cy.get('#global_modal_confirm').click();
+        cy.get('.card-body > :nth-child(1) > .form-control')
+            .clear()
+            .type(`자동화 테스트 ${Cypress.env('DateLabelWeek')}`);
+        cy.get('.card-body > :nth-child(2) > .form-control')
+            .clear()
+            .type(`자동화 테스트 ${Cypress.env('DateLabelWeek')}`);
+        cy.get('.card-body > :nth-child(3) > .form-control')
+            .clear()
+            .type(`자동화 테스트 ${Cypress.env('DateLabelWeek')}`);
+        cy.get('.card-header > .btn').click();
+        cy.get('#global_modal_body').contains('적용하시겠습니까?').should('be.visible');
+        cy.wait(1 * 1000);
+        cy.get('#global_modal_confirm').click();
 
-    //     /* 주문설정 */
-    //     cy.get('#set-order-tab').click();
+        /* 주문설정 */
+        cy.get('#set-order-tab').click();
 
-    //     cy.get('.col-9 > :nth-child(1) > .form-control').clear().type('0');
-    //     cy.get('.col-9 > :nth-child(3) > .form-control').clear().type('30');
-    //     cy.get(':nth-child(2) > .col-auto > .form-check-input').click();
-    //     cy.get(':nth-child(3) > :nth-child(2) > .form-check-input').click();
-    //     cy.get(':nth-child(4) > .col-auto > .form-check-input').click();
-    //     cy.get(':nth-child(4) > .form-check-input').click();
-    //     cy.get('#global_info_modal_container > .modal-dialog > .modal-content > .modal-header')
-    //         .contains('시간 예약 주문 상태 변경')
-    //         .should('be.visible');
-    //     cy.wait(1 * 1000);
-    //     cy.get('#global_info_modal_cancel_confirm').click();
-    //     cy.get('#basic-detail-section > .p-3 > .card > .card-footer > .btn').click();
-    //     cy.get('#global_modal_body').contains('변경하시겠습니까?').should('be.visible');
-    //     cy.wait(1 * 1000);
-    //     cy.get('#global_modal_confirm').click();
+        cy.get('.col-9 > :nth-child(1) > .form-control').clear().type('0');
+        cy.get('.col-9 > :nth-child(3) > .form-control').clear().type('30');
+        cy.get(':nth-child(2) > .col-auto > .form-check-input').click();
+        cy.get(':nth-child(3) > :nth-child(2) > .form-check-input').click();
+        cy.get(':nth-child(4) > .col-auto > .form-check-input').click();
+        cy.get(':nth-child(4) > .form-check-input').click();
+        cy.get('#global_info_modal_container > .modal-dialog > .modal-content > .modal-header')
+            .contains('시간 예약 주문 상태 변경')
+            .should('be.visible');
+        cy.wait(1 * 1000);
+        cy.get('#global_info_modal_cancel_confirm').click();
+        cy.get('#basic-detail-section > .p-3 > .card > .card-footer > .btn').click();
+        cy.get('#global_modal_body').contains('변경하시겠습니까?').should('be.visible');
+        cy.wait(1 * 1000);
+        cy.get('#global_modal_confirm').click();
 
-    //     /* 영업 일시중지 */
-    //     cy.get('#pause-tab').click();
+        /* 영업 일시중지 */
+        cy.get('#pause-tab').click();
 
-    //     cy.get('#pause-detail-section > .p-3 > .card > .card-footer > :nth-child(1)').click();
-    //     cy.wait(1 * 1000);
-    //     cy.get('#global_modal_confirm').click();
+        cy.get('#pause-detail-section > .p-3 > .card > .card-footer > :nth-child(1)').click();
+        cy.wait(1 * 1000);
+        cy.get('#global_modal_confirm').click();
 
-    //     cy.wait(1 * 1000);
-    //     cy.get('#pause-detail-section > .p-3 > .card > .card-body').contains('일시중지').should('be.visible');
-    //     cy.get('#pause-detail-section > .p-3 > .card > .card-footer > :nth-child(1)').click();
-    //     cy.wait(1 * 1000);
-    //     cy.get('#global_modal_confirm').click();
-    //     cy.wait(1 * 1000);
-    // });
+        cy.wait(1 * 1000);
+        cy.get('#pause-detail-section > .p-3 > .card > .card-body').contains('일시중지').should('be.visible');
+        cy.get('#pause-detail-section > .p-3 > .card > .card-footer > :nth-child(1)').click();
+        cy.wait(1 * 1000);
+        cy.get('#global_modal_confirm').click();
+        cy.wait(1 * 1000);
+    });
 
-    // it('Menu Management', () => {
-    //     /* 메뉴관리 */
-    //     cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
-    //     cy.wait(1 * 1000);
+    it('Menu Management', () => {
+        /* 메뉴관리 */
+        cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
+        cy.wait(1 * 1000);
 
-    //     /* 상품분류관리 */
-    //     cy.get('#vueProductDivContainer').then($container => {
-    //         // '기본'이라는 텍스트가 포함된 요소가 있는지 확인
-    //         if ($container.text().includes('기본')) {
-    //             // 기본이 이미 존재하는 경우
-    //             return;
-    //         } else {
-    //             // 기본이 없는 경우
-    //             cy.get('#btnAddProductDiv').click().wait(1000);
-    //             cy.get('.form-control').type('기본');
-    //             cy.get('.modal-footer > .btn-primary').click();
+        /* 상품분류관리 */
+        cy.get('#vueProductDivContainer').then($container => {
+            // '기본'이라는 텍스트가 포함된 요소가 있는지 확인
+            if ($container.text().includes('기본')) {
+                // 기본이 이미 존재하는 경우
+                return;
+            } else {
+                // 기본이 없는 경우
+                cy.get('#btnAddProductDiv').click().wait(1000);
+                cy.get('.form-control').type('기본');
+                cy.get('.modal-footer > .btn-primary').click();
 
-    //             // 다시 '기본'이 추가되었는지 확인
-    //             cy.get('#vueProductDivContainer').contains('기본');
-    //         }
-    //     });
-    // });
+                // 다시 '기본'이 추가되었는지 확인
+                cy.get('#vueProductDivContainer').contains('기본');
+            }
+        });
+    });
 
-    // it('Management TableOrder', () => {
-    //     cy.get('[data-mnu="/store/table-order,/store/table-order/*"]').click();
+    it('Management TableOrder', () => {
+        cy.get('[data-mnu="/store/table-order,/store/table-order/*"]').click();
 
-    //     /* 대기이미지 */
-    //     cy.fixture('image/로고이미지/default.jpg', 'base64').then(fileContent => {
-    //         cy.get('input[type="file"][id="ready_img_file"]').attachFile({
-    //             fileContent,
-    //             filePath: 'image/로고이미지/default.jpg',
-    //             fileName: 'default.jpg',
-    //             mimeType: 'image/jpeg',
-    //         });
-    //     });
-    //     cy.wait(1 * 1000);
-    //     cy.get('.col-4 > #btnReadyImgSave').click();
-    //     cy.wait(1 * 1000);
-    //     cy.get('#global_modal_confirm').contains('확인').click({ force: true });
-    //     cy.wait(1 * 1000);
+        /* 대기이미지 */
+        cy.fixture('image/로고이미지/default.jpg', 'base64').then(fileContent => {
+            cy.get('input[type="file"][id="ready_img_file"]').attachFile({
+                fileContent,
+                filePath: 'image/로고이미지/default.jpg',
+                fileName: 'default.jpg',
+                mimeType: 'image/jpeg',
+            });
+        });
+        cy.wait(1 * 1000);
+        cy.get('.col-4 > #btnReadyImgSave').click();
+        cy.wait(1 * 1000);
+        cy.get('#global_modal_confirm').contains('확인').click({ force: true });
+        cy.wait(1 * 1000);
 
-    //     /* 삭제 */
-    //     cy.get('#container')
-    //         .contains('span', '2')
-    //         .parents('tr')
-    //         .within(() => {
-    //             cy.get('button').contains('삭제').click({ force: true });
-    //         });
-    //     cy.wait(1 * 1000);
-    //     cy.get('#global_modal_confirm').contains('확인').click({ force: true });
-    //     cy.wait(1 * 1000);
-    //     cy.get('.col-4 > #btnReadyImgSave').click();
-    //     cy.wait(1 * 1000);
-    //     cy.get('#global_modal_confirm').contains('확인').click({ force: true });
-    //     cy.wait(1 * 1000);
+        /* 삭제 */
+        cy.get('#container')
+            .contains('span', '2')
+            .parents('tr')
+            .within(() => {
+                cy.get('button').contains('삭제').click({ force: true });
+            });
+        cy.wait(1 * 1000);
+        cy.get('#global_modal_confirm').contains('확인').click({ force: true });
+        cy.wait(1 * 1000);
+        cy.get('.col-4 > #btnReadyImgSave').click();
+        cy.wait(1 * 1000);
+        cy.get('#global_modal_confirm').contains('확인').click({ force: true });
+        cy.wait(1 * 1000);
 
-    //     /* 테이블 구역 추가  */
-    //     cy.get('[href="/store/table-order/basic"] > .btn').click();
-    //     cy.get('#tableinfo').click();
-    //     cy.get('#btnSerialAdd').click();
-    //     cy.wait(1 * 1000);
-    //     cy.get('#add_ground_name').type('테스트');
-    //     cy.get('#add_ground_sort_order').type('3');
-    //     cy.wait(1 * 1000);
-    //     cy.get(
-    //         '#modalGroupRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
-    //     ).click();
+        /* 테이블 구역 추가  */
+        cy.get('[href="/store/table-order/basic"] > .btn').click();
+        cy.get('#tableinfo').click();
+        cy.get('#btnSerialAdd').click();
+        cy.wait(1 * 1000);
+        cy.get('#add_ground_name').type('테스트');
+        cy.get('#add_ground_sort_order').type('3');
+        cy.wait(1 * 1000);
+        cy.get(
+            '#modalGroupRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
+        ).click();
 
-    //     cy.get('.main-content').contains('테스트');
+        cy.get('.main-content').contains('테스트');
 
-    //     /* 테이블 추가 */
-    //     cy.get('#divGroundResourceTableView_0 > .border > .tableorder-center-text > a').click();
-    //     cy.wait(1 * 1000);
-    //     cy.get('#add_resource_name').type('테스트');
-    //     cy.get('#btnTableNameOverCheck').click();
-    //     cy.wait(1 * 1000);
+        /* 테이블 추가 */
+        cy.get('#divGroundResourceTableView_0 > .border > .tableorder-center-text > a').click();
+        cy.wait(1 * 1000);
+        cy.get('#add_resource_name').type('테스트');
+        cy.get('#btnTableNameOverCheck').click();
+        cy.wait(1 * 1000);
 
-    //     cy.get(
-    //         '#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
-    //     ).click();
+        cy.get(
+            '#modalTableRegForm > .modal-dialog > #formRegGroup > .modal-content > .modal-footer > #btnGroupRegFormCheck',
+        ).click();
 
-    //     /* 테이블 삭제 */
-    //     cy.get(
-    //         '#divGroundResourceTableView_0 > .mb-1 > .height-200 > .text-center > :nth-child(2) > #btnTableDelete_0',
-    //     ).click();
-    //     cy.wait(1 * 1000);
+        /* 테이블 삭제 */
+        cy.get(
+            '#divGroundResourceTableView_0 > .mb-1 > .height-200 > .text-center > :nth-child(2) > #btnTableDelete_0',
+        ).click();
+        cy.wait(1 * 1000);
 
-    //     /* 구역 삭제 */
-    //     cy.get('#btnGroupDelete_0').contains('구역 삭제하기').click();
-    //     cy.get('#global_modal_body').contains('삭제하시겠습니까?');
-    //     cy.wait(1 * 1000);
-    //     cy.get('#global_modal_confirm').click();
-    // });
+        /* 구역 삭제 */
+        cy.get('#btnGroupDelete_0').contains('구역 삭제하기').click();
+        cy.get('#global_modal_body').contains('삭제하시겠습니까?');
+        cy.wait(1 * 1000);
+        cy.get('#global_modal_confirm').click();
+    });
     const menuPrices = `테스트,1000,테스트`;
 
     it('Product Create', () => {
