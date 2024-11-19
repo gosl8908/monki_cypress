@@ -11,6 +11,7 @@ const gmailEamilId = 'gosl8908@gmail.com';
 const gmailEamilPwd = 'boft yzek iitd uuxa';
 /* Email Account */
 const doorayEamilId = 'hskang@monki.net';
+const doorayEmailId2 = 'knbang@monki.net';
 const doorayEamilPwd = 'gotjd0215!';
 
 module.exports = defineConfig({
@@ -83,7 +84,7 @@ module.exports = defineConfig({
                     });
                     const dooraymailOptions = {
                         from: doorayEamilId,
-                        to: doorayEamilId,
+                        to: `${doorayEamilId}, ${doorayEmailId2}`,
                         subject: subject,
                         text: body,
                         attachments: attachments,
