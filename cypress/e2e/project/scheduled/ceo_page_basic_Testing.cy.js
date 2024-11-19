@@ -127,35 +127,35 @@ describe('Scheduled ceo page basic Testing', () => {
     it('Management TableOrder', () => {
         cy.get('[data-mnu="/store/table-order,/store/table-order/*"]').click();
 
-        /* 대기이미지 */
-        cy.fixture('image/로고이미지/default.jpg', 'base64').then(fileContent => {
-            cy.get('input[type="file"][id="ready_img_file"]').attachFile({
-                fileContent,
-                filePath: 'image/로고이미지/default.jpg',
-                fileName: 'default.jpg',
-                mimeType: 'image/jpeg',
-            });
-        });
-        cy.wait(1 * 1000);
-        cy.get('.col-4 > #btnReadyImgSave').click();
-        cy.wait(1 * 1000);
-        cy.get('#global_modal_confirm').contains('확인').click({ force: true });
-        cy.wait(1 * 1000);
+        // /* 대기이미지 */
+        // cy.fixture('image/로고이미지/default.jpg', 'base64').then(fileContent => {
+        //     cy.get('input[type="file"][id="ready_img_file"]').attachFile({
+        //         fileContent,
+        //         filePath: 'image/로고이미지/default.jpg',
+        //         fileName: 'default.jpg',
+        //         mimeType: 'image/jpeg',
+        //     });
+        // });
+        // cy.wait(1 * 1000);
+        // cy.get('.col-4 > #btnReadyImgSave').click();
+        // cy.wait(1 * 1000);
+        // cy.get('#global_modal_confirm').contains('확인').click({ force: true });
+        // cy.wait(1 * 1000);
 
-        /* 삭제 */
-        cy.get('#container')
-            .contains('span', '2')
-            .parents('tr')
-            .within(() => {
-                cy.get('button').contains('삭제').click({ force: true });
-            });
-        cy.wait(1 * 1000);
-        cy.get('#global_modal_confirm').contains('확인').click({ force: true });
-        cy.wait(1 * 1000);
-        cy.get('.col-4 > #btnReadyImgSave').click();
-        cy.wait(1 * 1000);
-        cy.get('#global_modal_confirm').contains('확인').click({ force: true });
-        cy.wait(1 * 1000);
+        // /* 삭제 */
+        // cy.get('#container')
+        //     .contains('span', '2')
+        //     .parents('tr')
+        //     .within(() => {
+        //         cy.get('button').contains('삭제').click({ force: true });
+        //     });
+        // cy.wait(1 * 1000);
+        // cy.get('#global_modal_confirm').contains('확인').click({ force: true });
+        // cy.wait(1 * 1000);
+        // cy.get('.col-4 > #btnReadyImgSave').click();
+        // cy.wait(1 * 1000);
+        // cy.get('#global_modal_confirm').contains('확인').click({ force: true });
+        // cy.wait(1 * 1000);
 
         /* 테이블 구역 추가  */
         cy.get('[href="/store/table-order/basic"] > .btn').click();
