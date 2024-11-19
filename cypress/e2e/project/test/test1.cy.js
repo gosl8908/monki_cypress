@@ -16,9 +16,7 @@ describe('Test', () => {
             Password: `${Cypress.env('TestPwd2')}`,
         });
     });
-    // it('Fail1', () => {
-    //     cy.contains('345', { timeout: 1 * 1000 });
-    // });
+    it('Management TableOrder', () => {});
     // it('Pass2', () => {
     //     cy.contains('단골맛집', { timeout: 1 * 1000 });
     // });
