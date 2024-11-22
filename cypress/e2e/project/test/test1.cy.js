@@ -16,8 +16,21 @@ describe('Test', () => {
             Password: `${Cypress.env('TestPwd2')}`,
         });
     });
-    it('Pass1', () => {
-        cy.contains('단골맛집', { timeout: 1 * 1000 });
+    it('Product Create', () => {
+        /* 메뉴관리 */
+        cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
+        cy.wait(1 * 1000);
+        cy.get('#product').click(); // 상품관리 탭
+        const menuPrices = `
+    테스트,500,테스트
+    `;
+        menuPrices
+            .trim()
+            .split('\n')
+            .forEach(item => {
+                const [menu, price] = item.trim().split(',');
+                menuModule.menu(menu, price, 'png');
+            });
     });
     // it('Pass2', () => {
     // cy.contains('단골맛집', { timeout: 1 * 1000 });

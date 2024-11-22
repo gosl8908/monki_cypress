@@ -1,11 +1,12 @@
-function menu(Name, Pay, Extension, Type = undefined) {
+function menu(Name, Pay, Extension, path = '', Type = undefined) {
     // 상품 등록
     cy.get('#btnAddProduct').click();
     cy.get('#productDivNo').select(1); // 상품분류
 
     /* 상품 이미지 */
     const fileName = `${Name}.${Extension}`;
-    const filePath = `image/메뉴이미지/${fileName}`;
+    const dynamicPath = path ? `${path}/` : ''; // 경로가 제공되면 추가
+    const filePath = `image/메뉴이미지/${dynamicPath}${fileName}`;
     const extension = fileName.split('.').pop(); // 파일 확장자 추출
 
     // 확장자에 따른 MIME 타입 설정

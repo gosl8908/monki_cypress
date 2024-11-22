@@ -12,6 +12,7 @@ const gmailEmailPwd = process.env.GMAIL_EMAIL_PWD;
 const doorayEmailId = process.env.DOORAY_EMAIL_ID;
 const doorayEmailId2 = process.env.DOORAY_EMAIL_ID2;
 const doorayEmailPwd = process.env.DOORAY_EMAIL_PWD;
+const Phone = process.env.PHONE;
 
 module.exports = defineConfig({
     // viewportWidth: 1920,
@@ -162,41 +163,8 @@ module.exports = defineConfig({
             /* 사장님 ID */
             CeoTestId: Array.from({ length: 5 }, (_, i) => `monkiceo${i + 1}`),
 
-            // /* 통합관리자 Id */
-            // TestId: 'monkitest1',
-            // TestId2: 'monkitest2',
-            // TestId3: 'monkitest3',
-            // TestId4: 'monkitest4',
-            // TestId5: 'monkitest5',
-            // TestId6: 'monkitest6',
-            // TestId7: 'monkitest7',
-            // TestId8: 'monkitest8',
-            // TestId9: 'monkitest9',
-            // TestId10: 'monkitest10',
-            // /* 사장님사이트 Id */
-            // /* 대리점 ID */
-            // StoreTestId1: 'monkistore1', // 통합관리자에서 만든 총판대리점
-            // StoreTestId2: 'monkistore2',
-            // StoreTestId3: 'monkistore3',
-            // StoreTestId4: 'monkistore4',
-            // StoreTestId5: 'monkistore5',
-
-            // /* 단골맛집 ID */
-            // FavTestId1: 'monkifav1', // 총판대리점에서 만든 매장
-            // FavTestId2: 'monkifav2', // 프렌차이즈에서 만든 매장
-            // FavTestId3: 'monkifav3',
-            // FavTestId4: 'monkifav4',
-            // FavTestId5: 'monkifav5',
-
-            // /* 사장님 ID */
-            // CeoTestId1: 'monkiceo1', // 지점에서 만든 매장
-            // CeoTestId2: 'monkiceo2',
-            // CeoTestId3: 'monkiceo3',
-            // CeoTestId4: 'monkiceo4',
-            // CeoTestId5: 'monkiceo5',
-
             /* Password */
-            AdminPwd: 'gotjd0215!',
+            AdminPwd: gmailEmailPwd,
             TestPwd: 'test123!',
             TestPwd2: 'test1234',
             /* KIS OFF-PG */
@@ -235,7 +203,7 @@ module.exports = defineConfig({
             StgKOVANMid: 'M20230922117157',
             StgKOVANKey: 'a3e1672d2fe364e424cce94706007f9c',
             /* Number */
-            Phone: '01020431653',
+            Phone: Phone,
             TestPhone: '01012341234',
             /* content */
             EmailBody: `Cypress 자동화 테스트 스위트가 성공적으로 완료되었습니다`,

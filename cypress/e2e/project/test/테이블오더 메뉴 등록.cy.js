@@ -97,7 +97,7 @@ describe('Test', () => {
             .split('\n')
             .forEach(item => {
                 const [menu, price] = item.trim().split(',');
-                menuModule.menu(menu, price, 'png');
+                menuModule.menu(menu, price, 'png', '교촌');
             });
     });
 
