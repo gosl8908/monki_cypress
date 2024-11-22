@@ -24,7 +24,7 @@ describe('메뉴 등록', () => {
         cy.get('#product').click(); // 상품관리 탭
 
         const menuPrices = `
-        반반점보윙(레드-허니),19000
+        반반점보윙(레드-허니),19000,메뉴설명
         `;
 
         menuPrices

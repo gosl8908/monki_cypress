@@ -10,10 +10,10 @@ describe('매장등록', () => {
         cy.getAll();
         cy.err(TestFails, FailedTests, FailureObj);
         loginModule.login({
-            Site: `${Cypress.env('StgCeo')}`,
+            Site: `${Cypress.env('Ceo')}`,
             Type: '대리점',
             Id: `${Cypress.env('StoreTestId')[0]}`,
-            Password: `${Cypress.env('TestPwd')}`,
+            Password: `${Cypress.env('TestPwd2')}`,
         });
     });
 
@@ -25,7 +25,7 @@ describe('매장등록', () => {
         cy.get('.m-3 > .col-3 > .btn').contains('매장등록').click(); // 매장등록
 
         /* 매장 등록 */
-        cy.get('#user-id').type(Cypress.env('FavTestId')[2]); // 아이디
+        cy.get('#user-id').type(Cypress.env('TestId')[0]); // 아이디
         cy.get('#btn-check-user-id').click();
         cy.get('#user-pass').type(Cypress.env('TestPwd')); // 비밀번호
         cy.get('#chk-user-pass').type(Cypress.env('TestPwd')); // 비밀번호 확인
@@ -34,7 +34,7 @@ describe('매장등록', () => {
         cy.get('#global_modal_body').contains('등록하시겠습니까?');
         cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
-        cy.get('#store-name').type('교촌치킨(선불/KOVAN)'); // 매장명
+        cy.get('#store-name').type('OKPOS매장(Prod)'); // 매장명
 
         /* 매장로고 */
         cy.fixture('image/로고이미지/번개로고.jpg', 'base64').then(fileContent => {

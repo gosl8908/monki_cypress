@@ -3,16 +3,15 @@ const nodemailer = require('nodemailer');
 const { defineConfig } = require('cypress');
 const glob = require('glob');
 const fs = require('fs');
+require('dotenv').config();
 /* 리포트 추가 */
 const { beforeRunHook, afterRunHook } = require('cypress-mochawesome-reporter/lib');
 
-/* Email Account */
-const gmailEamilId = 'gosl8908@gmail.com';
-const gmailEamilPwd = 'boft yzek iitd uuxa';
-/* Email Account */
-const doorayEamilId = 'hskang@monki.net';
-const doorayEmailId2 = 'knbang@monki.net';
-const doorayEamilPwd = 'gotjd0215!';
+const gmailEmailId = process.env.GMAIL_EMAIL_ID;
+const gmailEmailPwd = process.env.GMAIL_EMAIL_PWD;
+const doorayEmailId = process.env.DOORAY_EMAIL_ID;
+const doorayEmailId2 = process.env.DOORAY_EMAIL_ID2;
+const doorayEmailPwd = process.env.DOORAY_EMAIL_PWD;
 
 module.exports = defineConfig({
     // viewportWidth: 1920,
@@ -78,13 +77,13 @@ module.exports = defineConfig({
                         port: 465,
                         secure: true, // STARTTLS
                         auth: {
-                            user: doorayEamilId,
-                            pass: doorayEamilPwd,
+                            user: doorayEmailId,
+                            pass: doorayEmailPwd,
                         },
                     });
                     const dooraymailOptions = {
-                        from: doorayEamilId,
-                        to: `${doorayEamilId}, ${doorayEmailId2}`,
+                        from: doorayEmailId,
+                        to: `${doorayEmailId}, ${doorayEmailId2}`,
                         subject: subject,
                         text: body,
                         attachments: attachments,
@@ -105,14 +104,14 @@ module.exports = defineConfig({
                     //     port: 587,
                     //     secure: false,
                     //     auth: {
-                    //         user: gmailEamilId,
-                    //         pass: gmailEamilPwd,
+                    //         user: gmailEmailId,
+                    //         pass: gmailEmailPwd,
                     //     },
                     // });
 
                     // const gmailmailOptions = {
-                    //     from: gmailEamilId,
-                    //     to: gmailEamilId,
+                    //     from: gmailEmailId,
+                    //     to: gmailEmailId,
                     //     subject: subject,
                     //     text: body,
                     //     attachments: attachments,
