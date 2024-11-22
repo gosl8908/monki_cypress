@@ -17,6 +17,10 @@ describe('Scheduled ceo page basic Testing', () => {
         });
     });
 
+    // it('Pass1', () => {
+    //     cy.contains('단골맛집', { timeout: 1 * 1000 });
+    // });
+
     it('Login', () => {
         cy.get('[href="/users/logout"]').click();
         loginModule.login({
