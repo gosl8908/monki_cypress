@@ -12,31 +12,34 @@ describe('Test', () => {
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('FavTestId')[2]}`,
+            Id: `${Cypress.env('TestId')[1]}`,
             Password: `${Cypress.env('TestPwd2')}`,
         });
     });
-    it('Management TableOrder', () => {});
+    it('Management TableOrder', () => {
+        cy.contains('단골맛집', { timeout: 1 * 1000 });
+    });
     // it('Pass2', () => {
-    //     cy.contains('단골맛집', { timeout: 1 * 1000 });
+    // cy.contains('단골맛집', { timeout: 1 * 1000 });
     // });
     // it('Fail2', () => {
     //     cy.contains('678', { timeout: 1 * 1000 });
     // });
 
-    // afterEach('Status Check', function () {
-    //     emailModule.screenshot2(FailureObj, Screenshots, this.currentTest);
-    // });
-    // after('Send Email', function () {
-    //     const { title: describeTitle, tests: allTests } = this.test.parent; // describe의 제목과 모든 테스트를 한 번에 가져오기
-    //     emailModule.email({
-    //         TestFails,
-    //         describeTitle,
-    //         EmailTitle: `[${Cypress.env('EmailTitle')} - ${describeTitle}]`,
-    //         TestRange:
-    //             '테스트 스크립트1' + `\n${allTests.map((test, index) => `${index + 1}. ${test.title}`).join('\n')}`,
-    //         Screenshots,
-    //         currentTest: FailedTests,
-    //     });
-    // });
+    afterEach('Status Check', function () {
+        emailModule.screenshot2(FailureObj, Screenshots, this.currentTest);
+    });
+
+    after('Send Email', function () {
+        const { title: describeTitle, tests: allTests } = this.test.parent; // describe의 제목과 모든 테스트를 한 번에 가져오기
+        emailModule.email({
+            TestFails,
+            describeTitle,
+            EmailTitle: `[${Cypress.env('EmailTitle')} - ${describeTitle}]`,
+            TestRange:
+                '테이블오더 메뉴 세팅' + `\n${allTests.map((test, index) => `${index + 1}. ${test.title}`).join('\n')}`,
+            Screenshots,
+            currentTest: FailedTests,
+        });
+    });
 });
