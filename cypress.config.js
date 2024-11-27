@@ -145,7 +145,7 @@ module.exports = defineConfig({
             DevCeo: 'http://develop-ceo.monthlykitchen.kr/users/login', //DEV 사장님
 
             /* email */
-            AdminEmail: 'hskang@monki.net',
+            AdminEmail: doorayEmailId,
             TestEmail: 'monkitest@ruu.kr',
 
             /* Admon Id */
