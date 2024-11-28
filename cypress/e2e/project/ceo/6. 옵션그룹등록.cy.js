@@ -44,22 +44,8 @@ describe('옵션그룹 등록', () => {
             cy.wait(1000); // 1 second wait
             cy.get('#global_modal_confirm').click();
         }
-        // const menuPrices = `
-        // 옥수수볼,5000
-        // 달걀듬뿍볶음밥,4000
-        // 의성마늘볶음밥,4000
-        // 샐러드 추가,5000
-        // 고르곤치즈볼,6000
-        // 와일드블랙소스,1000
-        // 허니케찹소스,1000
-        // 치즈트러플시즈닝,2000
-        // 무 추가,1000
-        // 레드디핑소스,1000
-        // `;
-        const menuPrices = `
-        테스트,1000
-        `;
-        const optionsArray = menuPrices
+
+        const optionsArray = Cypress.env('menuPrices')
             .trim()
             .split('\n')
             .map(line => {

@@ -1,6 +1,6 @@
-const { loginModule, emailModule, menuModule } = require('../../module/manager.module.js');
+const { loginModule, emailModule, menuModule } = require('../../../module/manager.module.js');
 
-describe('키오스크 메뉴 옵션 관리', () => {
+describe('테이블오더 메뉴 옵션 관리', () => {
     let Screenshots = []; // 스크린샷을 저장할 배열
     let TestFails = []; // 실패 원인을 저장할 변수
     let FailureObj = { Failure: false };
@@ -10,18 +10,18 @@ describe('키오스크 메뉴 옵션 관리', () => {
         cy.getAll();
         cy.err(TestFails, FailedTests, FailureObj);
         loginModule.login({
-            Site: `http://43.202.11.133:3002/users/login`,
+            Site: `${Cypress.env('Ceo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('TestId')[1]}`,
-            Password: `${Cypress.env('TestPwd2')}`,
+            Id: `${Cypress.env('FavTestId')[0]}`,
+            Password: `${Cypress.env('TestPwd')}`,
         });
     });
 
-    it('KIOSK menu option setting', () => {
+    it('TABLEORDER menu option setting', () => {
         /* 메뉴관리 */
         cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn').click();
         cy.wait(1 * 1000);
-        cy.get('[href="/menu/kiosk"] > .btn').click();
+        cy.get('[href="/menu/table-order/main"] > .btn').click();
 
         // 메뉴를 배열로 변환
         const menuArray = `${Cypress.env('menuPrices')}`
@@ -88,7 +88,7 @@ describe('키오스크 메뉴 옵션 관리', () => {
             describeTitle,
             EmailTitle: `[${Cypress.env('EmailTitle')} - ${describeTitle}]`,
             TestRange:
-                '키오스크 메뉴 옵션 관리' +
+                '테이블오더 메뉴 옵션 관리' +
                 `\n${allTests.map((test, index) => `${index + 1}. ${test.title}`).join('\n')}`,
             Screenshots,
             currentTest: FailedTests,

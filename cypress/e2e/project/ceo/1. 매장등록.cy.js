@@ -85,7 +85,7 @@ describe('매장등록', () => {
         cy.get('#global_modal_confirm').click();
 
         // /* 버추얼 로그인 */
-        // cy.get(':nth-child(9) > .text-sm').click();ㅁㅁㅁㄷㄵㄷㄴㄴㄷ퓨ㅠㅠ
+        // cy.get(':nth-child(9) > .text-sm').click();
         // cy.wait(1 * 1000);
         // cy.get('#global_modal_confirm').click();
     });

@@ -162,3 +162,5 @@ package-lock.json
 ######################
 screenshots/
 /.env
+e2e/test
+cypress/e2e/test/

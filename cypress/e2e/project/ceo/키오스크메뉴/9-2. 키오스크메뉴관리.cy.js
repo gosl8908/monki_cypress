@@ -1,6 +1,6 @@
-const { loginModule, emailModule, menuModule } = require('../../module/manager.module.js');
+const { loginModule, emailModule, menuModule } = require('../../../module/manager.module.js');
 
-describe('먼키앱 메뉴 관리', () => {
+describe('키오스크 메뉴 관리', () => {
     let Screenshots = []; // 스크린샷을 저장할 배열
     let TestFails = []; // 실패 원인을 저장할 변수
     let FailureObj = { Failure: false };
@@ -10,18 +10,18 @@ describe('먼키앱 메뉴 관리', () => {
         cy.getAll();
         cy.err(TestFails, FailedTests, FailureObj);
         loginModule.login({
-            Site: `${Cypress.env('StgCeo')}`,
-            Type: '사장님',
-            Id: `${Cypress.env('CeoTestId')[1]}`,
-            Password: `${Cypress.env('TestPwd')}`,
+            Site: `http://43.202.11.133:3002/users/login`,
+            Type: '단골맛집 가맹점주',
+            Id: `${Cypress.env('TestId')[1]}`,
+            Password: `${Cypress.env('TestPwd2')}`,
         });
     });
 
-    it('APP menu setting', () => {
+    it('KIOSK menu setting', () => {
         /* 메뉴관리 */
         cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn').click();
         cy.wait(1 * 1000);
-        cy.get('[href="/menu/app"] > .btn').click(); // 먼키앱메뉴
+        cy.get('[href="/menu/kiosk"] > .btn').click();
 
         // 메뉴 가격 목록을 배열로 변환하고, 메뉴 항목만 추출
         const menuArray = `${Cypress.env('menuPrices')}`
@@ -30,7 +30,7 @@ describe('먼키앱 메뉴 관리', () => {
             .map(line => line.split(',')[0].trim()); // 각 줄을 쉼표로 분리하고 첫 번째 요소(메뉴 항목)만 가져옵니다.
 
         // 메뉴 설명을 배열로 변환
-        const menuDescriptions = `${Cypress.env('menuPrices')}`
+        const menuDescriptions = menu
             .trim()
             .split('\n')
             .map(description => description.trim());
@@ -42,7 +42,7 @@ describe('먼키앱 메뉴 관리', () => {
         reversedMenuArray.forEach(text => {
             const checkMenuVisibility = (currentPage = 1) => {
                 cy.wait(1 * 1000);
-                cy.get('#vueAppContainer').then($container => {
+                cy.get('#vueTableOrderContainer').then($container => {
                     const isMenuVisible =
                         $container.find('span').filter((i, el) => el.textContent.trim() === text).length > 0;
 
@@ -63,7 +63,8 @@ describe('먼키앱 메뉴 관리', () => {
                                     .filter((i, el) => el.textContent.trim() === text)
                                     .click();
                             });
-                        cy.wait(2 * 1000);
+
+                        cy.wait(1 * 1000);
                         /* 미사용 / HOT / NEW / SALE / BEST */
                         const selectors = ['#MNBG_000', '#MNBG_101', '#MNBG_102', '#MNBG_103', '#MNBG_104'];
                         const randomIndex = Math.floor(Math.random() * selectors.length);
@@ -97,7 +98,7 @@ describe('먼키앱 메뉴 관리', () => {
             describeTitle,
             EmailTitle: `[${Cypress.env('EmailTitle')} - ${describeTitle}]`,
             TestRange:
-                '먼키앱 메뉴 관리' + `\n${allTests.map((test, index) => `${index + 1}. ${test.title}`).join('\n')}`,
+                '키오스크 메뉴 관리' + `\n${allTests.map((test, index) => `${index + 1}. ${test.title}`).join('\n')}`,
             Screenshots,
             currentTest: FailedTests,
         });

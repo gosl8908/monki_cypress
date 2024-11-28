@@ -1,6 +1,6 @@
-const { loginModule, emailModule, menuModule } = require('../../module/manager.module.js');
+const { loginModule, emailModule, menuModule } = require('../../../module/manager.module.js');
 
-describe('테이블오더 메뉴 그룹 관리', () => {
+describe('먼키앱 메뉴 그룹 관리', () => {
     let Screenshots = []; // 스크린샷을 저장할 배열
     let TestFails = []; // 실패 원인을 저장할 변수
     let FailureObj = { Failure: false };
@@ -10,14 +10,14 @@ describe('테이블오더 메뉴 그룹 관리', () => {
         cy.getAll();
         cy.err(TestFails, FailedTests, FailureObj);
         loginModule.login({
-            Site: `${Cypress.env('Ceo')}`,
+            Site: `${Cypress.env('StgCeo')}`,
             Type: '단골맛집 가맹점주',
-            Id: `${Cypress.env('FavTestId')[0]}`,
+            Id: `${Cypress.env('FavTestId')[1]}`,
             Password: `${Cypress.env('TestPwd')}`,
         });
     });
 
-    it('TABLEORDER menu group setting', () => {
+    it('APP menu group setting', () => {
         /* 메뉴관리 */
         cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn').click();
         cy.wait(1 * 1000);
@@ -47,10 +47,9 @@ describe('테이블오더 메뉴 그룹 관리', () => {
             레드시리즈: ['레드스틱', '레드윙', '레드순살', '레드콤보', '레드오리지날'],
             교촌시리즈: ['교촌스틱', '교촌윙', '교촌순살', '교촌콤보', '교촌오리지날'],
             음료: ['코카콜라', '코카콜라-제로', '펩시', '펩시-제로', '스프라이트', '스프라이트-제로'],
-            주류: ['새로', '진로', '카스', '테라'],
         };
         Object.entries(menuGroups).forEach(([group, items]) => {
-            menuModule.menuGroup(group, items, '테이블오더');
+            menuModule.menuGroup(group, items, 'App');
             cy.wait(1000);
         });
     });
@@ -66,7 +65,7 @@ describe('테이블오더 메뉴 그룹 관리', () => {
             describeTitle,
             EmailTitle: `[${Cypress.env('EmailTitle')} - ${describeTitle}]`,
             TestRange:
-                '테이블오더 메뉴 그룹 관리' +
+                '먼키앱 메뉴 그룹 관리' +
                 `\n${allTests.map((test, index) => `${index + 1}. ${test.title}`).join('\n')}`,
             Screenshots,
             currentTest: FailedTests,
