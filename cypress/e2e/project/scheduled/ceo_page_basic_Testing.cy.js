@@ -300,60 +300,68 @@ describe('Scheduled ceo page basic Testing', () => {
     });
 
     it('App Menu Create', () => {
-        /* 먼키앱 메뉴 관리*/
-        cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
-        cy.get('[href="/menu/app"] > .btn').click();
+        /* 먼키앱 메뉴관리 */
+        cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn').click();
+        cy.wait(1 * 1000);
+        cy.get('[href="/menu/app"] > .btn').click(); // 먼키앱메뉴
 
-        const menuArray = `${Cypress.env('menuPrices2')}`
+        const menuArray = `${Cypress.env('menuPrices')}`
             .trim()
             .split('\n')
             .map(line => line.split(',')[0].trim());
 
-        // 역순으로 정렬
+        const menuDescriptions = `${Cypress.env('menuPrices')}`
+            .trim()
+            .split('\n')
+            .map(description => description.trim());
+
         const reversedMenuArray = menuArray.reverse();
+        const reversedMenuDescriptions = menuDescriptions.reverse();
 
         reversedMenuArray.forEach(text => {
-            /* 옵션관리 */
-            cy.get('span')
-                .filter((i, el) => el.textContent.trim() === text)
-                .parents('tr')
-                .within(() => {
-                    cy.get('button').eq(0).click();
-                });
-            cy.wait(1 * 1000);
-            cy.get('#vueOptionContainer > .modal-content > .modal-body')
-                .contains('span', '사이드메뉴')
-                .parents('tr')
-                .within(() => {
-                    cy.get('button').contains('추가').click();
-                });
-            cy.wait(1 * 1000);
-            cy.get('#vueOptionContainer > .modal-content > .modal-footer > .bg-gradient-primary').click();
-            cy.wait(1 * 1000);
-            cy.get('#global_modal_confirm').click();
-            cy.wait(1 * 1000);
+            const checkMenuVisibility = (currentPage = 1) => {
+                cy.wait(1 * 1000);
+                cy.get('#vueAppContainer').then($container => {
+                    const isMenuVisible =
+                        $container.find('span').filter((i, el) => el.textContent.trim() === text).length > 0;
 
-            /* 메뉴 관리 */
-            cy.contains('span', text)
-                .parents('tr')
-                .within(() => {
-                    cy.get('.align-middle.text-center').eq(3).contains(text).click();
+                    if (!isMenuVisible) {
+                        cy.get('.pagination')
+                            .contains(currentPage + 1)
+                            .click();
+                        cy.wait(1 * 1000);
+                        checkMenuVisibility(currentPage + 1);
+                    } else {
+                        /* 상품관리 */
+                        cy.get('span')
+                            .filter((i, el) => el.textContent.trim() === text)
+                            .parents('tr')
+                            .within(() => {
+                                cy.get('span') // 클릭할 요소도 정확히 일치하는 텍스트 찾기
+                                    .filter((i, el) => el.textContent.trim() === text)
+                                    .click();
+                            });
+                        cy.wait(2 * 1000);
+                        /* 미사용 / HOT / NEW / SALE / BEST */
+                        const selectors = ['#MNBG_000', '#MNBG_101', '#MNBG_102', '#MNBG_103', '#MNBG_104'];
+                        const randomIndex = Math.floor(Math.random() * selectors.length);
+                        cy.get(selectors[randomIndex]).click();
+                        cy.wait(1 * 1000);
+                        const description = reversedMenuDescriptions[reversedMenuArray.indexOf(text)];
+                        cy.get('.multisteps-form__textarea').type(description);
+                        cy.wait(1 * 1000);
+                        cy.get('#MN_001').click(); // 앱 노출 여부
+                        cy.wait(1 * 1000);
+                        cy.get('.ms-auto').click(); // 변경하기
+                        cy.wait(1 * 1000);
+                        cy.get('#global_modal_confirm').click(); // 확인
+                        cy.wait(1 * 1000);
+                        cy.go('back');
+                    }
                 });
-            cy.wait(2 * 1000);
-            /* 미사용 / HOT / NEW / SALE / BEST */
-            const selectors = ['#MNBG_000', '#MNBG_101', '#MNBG_102', '#MNBG_103', '#MNBG_104'];
-            const randomIndex = Math.floor(Math.random() * selectors.length);
-            cy.get(selectors[randomIndex]).click();
-            cy.wait(1 * 1000);
-            cy.get('.multisteps-form__textarea').type(text); // 메뉴 설명
-            cy.wait(1 * 1000);
-            cy.get('#MN_001').click(); // 앱 노출 여부
-            cy.wait(1 * 1000);
-            cy.get('.ms-auto').click(); // 변경하기
-            cy.wait(1 * 1000);
-            cy.get('#global_modal_confirm').click(); // 확인
-            cy.wait(1 * 1000);
-            cy.go('back');
+            };
+
+            checkMenuVisibility(); // 메뉴 항목의 가시성을 확인
         });
     });
 

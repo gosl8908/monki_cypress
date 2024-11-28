@@ -167,41 +167,7 @@ module.exports = defineConfig({
             AdminPwd: gmailEmailPwd,
             TestPwd: 'test123!',
             TestPwd2: 'test1234',
-            /* KIS OFF-PG */
-            KISMid: 'monthly01m',
-            KISMid2: 'monthly02m',
-            KISKey: 'FhvzXeFPMaNt/AF6D9Xppqy+56NfjodzQpcVWHTC1cKr0C4QQLaZTsQNPBYD4fOPiH2Sea1N50yKFGhZ9U33qQ==',
-            KISKey2: 'wvaPslUxzvfjo0s0nomtu1CWepfGr5ILJHV/QzbXVaxqcEf9DR6IOIJ7CuHVzn9dJm0hCMYjnnr1oSozP/ehAQ==',
-            KISTid: 'ZZ000982',
-            KISTid2: 'ZZ001412',
-            /* Smatro PG */
-            SmatroMid: 'mk0000001m',
-            SmatroMid2: 'mk1000002m',
-            SmatroKey: '6i2584C/myaAkpvrPUmh2CrsPuZC+DN6dOg0hfGcKJcO/q1mH87e5oFaJcy34+2cf1mxpcA4TO5SaCk888Autw==',
-            SmatroKey2: 'wN4qQoJXOY4XIcsUbR3bKVFgqN7t697rF7Emp4mB6tZcBvg5AR7hVnOlOiJsw6YVtjjRAud+6TbZ5HWklOV4sA==',
-            /* Smatro Easy PG */
-            SmatroEasyid: 'mk0000008p',
-            SmatroEasyMid: 'mk1000006m',
-            SmatroEasyKey: 'eGCyrHNIOW5X1P73pZ9QmT9mjSjZ0qWV0Tmwkax8t4XBTIXV/Tq37AtN7wb6lVcjrz+edvkFHBv7GVUh0A9VJg==',
-            /* STG KIS PG */
-            StgKISMid: 'kistest00m',
-            StgKISKey: '2d6ECGhR1pg/1QGE1lcRI4awsWEgshjEyI8UgYslLPJSuNeyPTkdrT8XWARezvDTUJClWQWhjxzBbu7AsuLZqg==',
-            /* STG Smatro PG */
-            StgSmatroMid: 'mk0000015m',
-            StgSmatroMid2: 'mk0000017m',
-            StgSmatroKey: 'HVsPLswUE8L8pns5YrSNmDRNBSgcyUE/N1mGX2xeH0Hv3uCPMxdqZwn1XNnZUCgUXt1vx8WDSgjl0logstDE1g==',
-            StgSmatroKey2: 'gFM2c3Nzow8lOaBbyIszcirfLVToqPIYlkjz9LUOuTft1e146Yb0qCndHwCe4tv9VyZhy87UJZ/csQKRLxGKnQ==',
-            /* stg Smatro Easy PG */
-            StgSmatroEasyMid: 'mk0000014m',
-            StgSmatroEasyMid2: 'mk0000016m',
-            StgSmatroEasyId: 'mk0000008p',
-            StgSmatroEasyKey:
-                'NhaSDa1HF8SW6Y/guzfLEJ6IDGx2OpfDo04joedmFTAbpWhaCldKXT4IN2/hZ5QFlUix/IXZ9yis3H/003USPg==',
-            StgSmatroEasyKey2:
-                'Xn2AIuJYLyb0PqRBRypnbESDzHqaThVNO9xRziC62wSZyWd1S5SLNEczvdGuxY1JMcrLQ/soGHe7eBK1GP+T4A==',
-            /* STG KOVAN PG */
-            StgKOVANMid: 'M20230922117157',
-            StgKOVANKey: 'a3e1672d2fe364e424cce94706007f9c',
+
             /* Number */
             Phone: Phone,
             TestPhone: '01012341234',
@@ -263,19 +229,74 @@ module.exports = defineConfig({
             테라,500,테라
         `,
             optionPrices: `
-        옥수수볼,5000
-        달걀듬뿍볶음밥,4000
-        의성마늘볶음밥,4000
-        샐러드 추가,5000
-        고르곤치즈볼,6000
-        와일드블랙소스,1000
-        허니케찹소스,1000
-        치즈트러플시즈닝,2000
-        무 추가,1000
-        레드디핑소스,1000
-        `,
+                옥수수볼,5000
+                달걀듬뿍볶음밥,4000
+                의성마늘볶음밥,4000
+                샐러드 추가,5000
+                고르곤치즈볼,6000
+                와일드블랙소스,1000
+                허니케찹소스,1000
+                치즈트러플시즈닝,2000
+                무 추가,1000
+                레드디핑소스,1000
+            `,
             menuPrices2: `테스트,1000,테스트`,
             optionPrices2: `테스트,1000`,
+
+            menuGroups: {
+                NEW: ['교촌옥수수통안심', '교촌옥수수순살', '교촌옥수수오리지날'],
+                믹스시리즈: [
+                    '반반오리지날',
+                    '반반콤보',
+                    '반반순살',
+                    '반반윙',
+                    '반반스틱',
+                    '레허반반순살',
+                    '시그니처순살세트',
+                ],
+                후라이드시리즈: ['리얼후라이드', '살살후라이드미니', '살살후라이드', '파채소이살살'],
+                점보윙시리즈: [
+                    '허니점보윙',
+                    '레드점보윙',
+                    '교촌점보윙',
+                    '반반점보윙(허니-교촌)',
+                    '반반점보윙(교촌-레드)',
+                    '반반점보윙(레드-허니)',
+                    '시그니처점보윙',
+                ],
+                허니시리즈: ['허니순살', '허니콤보', '허니오리지날'],
+                레드시리즈: ['레드스틱', '레드윙', '레드순살', '레드콤보', '레드오리지날'],
+                교촌시리즈: ['교촌스틱', '교촌윙', '교촌순살', '교촌콤보', '교촌오리지날'],
+                반반시리즈: [
+                    '허니순살[S]',
+                    '교촌콤보[S]',
+                    '교촌윙[S]',
+                    '교촌순살[S]',
+                    '교촌스틱[S]',
+                    '레드콤보[S]',
+                    '레드순살[S]',
+                    '레드윙[S]',
+                    '레드스틱[S]',
+                ],
+                사이드메뉴: [
+                    '츠쿠네어묵탕',
+                    '한입쏙직화닭발',
+                    '소이파채샐러드',
+                    '샐러드',
+                    '포테이토앤칩스',
+                    '칩카사바',
+                    '웨지감자',
+                    '고르곤치즈볼(6개)',
+                    '고르곤치즈볼(3개)',
+                    '퐁듀치즈볼(6개)',
+                    '퐁듀치즈볼(3개)',
+                    '국물맵떡',
+                    '달걀듬뿍볶음밥',
+                    '꽈배기',
+                ],
+                음료: ['코카콜라', '코카콜라-제로', '펩시', '펩시-제로', '스프라이트', '스프라이트-제로'],
+                주류: ['새로', '진로', '카스', '테라', '참이슬'],
+            },
         },
     },
 });

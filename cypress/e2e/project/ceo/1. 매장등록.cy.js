@@ -69,8 +69,8 @@ describe('매장등록', () => {
         cy.get('#account-user').type('예금주'); // 예금주명
         cy.get('#btn-reg-store').click();
         cy.get('#global_modal_body').contains('입력한 정보로 생성하시겠습니까?');
+        cy.get('#global_modal_confirm').click();
         cy.wait(1 * 1000);
-        // cy.get('#global_modal_confirm').click();
 
         // /* 연동 정보 */
         // cy.contains('span', Cypress.env('FavTestId3'))
