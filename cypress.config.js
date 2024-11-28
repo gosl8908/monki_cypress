@@ -274,6 +274,8 @@ module.exports = defineConfig({
         무 추가,1000
         레드디핑소스,1000
         `,
+            menuPrices2: `테스트,1000,테스트`,
+            optionPrices2: `테스트,1000`,
         },
     },
 });

@@ -198,14 +198,13 @@ describe('Scheduled ceo page basic Testing', () => {
         cy.wait(1 * 1000);
         cy.get('#global_modal_confirm').click();
     });
-    const menuPrices = `테스트,1000,테스트`;
 
     it('Product Create', () => {
         cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         cy.get('#product').click(); // 상품관리 탭
 
         /* 메뉴 등록 */
-        menuPrices
+        `${Cypress.env('menuPrices2')}`
             .trim()
             .split('\n')
             .forEach(item => {
@@ -257,10 +256,7 @@ describe('Scheduled ceo page basic Testing', () => {
             cy.get('#global_modal_confirm').click();
         }
 
-        const optionPrices = `
-        테스트,1000
-        `;
-        const optionsArray = optionPrices
+        const optionsArray = `${Cypress.env('optionPrices2')}`
             .trim()
             .split('\n')
             .map(line => {
@@ -285,7 +281,7 @@ describe('Scheduled ceo page basic Testing', () => {
             .split('\n')
             .map(line => line.split(',')[0].trim());
     };
-    const menuNames = parseMenuNames(menuPrices);
+    const menuNames = parseMenuNames(`${Cypress.env('menuPrices2')}`);
     it('Menu Group Setup', () => {
         /* 메뉴 그룹 */
         cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
@@ -308,7 +304,7 @@ describe('Scheduled ceo page basic Testing', () => {
         cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         cy.get('[href="/menu/app"] > .btn').click();
 
-        const menuArray = menuPrices
+        const menuArray = `${Cypress.env('menuPrices2')}`
             .trim()
             .split('\n')
             .map(line => line.split(',')[0].trim());
@@ -368,7 +364,7 @@ describe('Scheduled ceo page basic Testing', () => {
         cy.get('[href="/menu/table-order/main"] > .btn').click();
 
         // menuPrices를 사용하여 메뉴와 설명을 처리
-        const menuArray = menuPrices
+        const menuArray = `${Cypress.env('menuPrices2')}`
             .trim()
             .split('\n')
             .map(line => {

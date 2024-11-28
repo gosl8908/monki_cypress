@@ -23,25 +23,8 @@ describe('키오스크 메뉴 옵션 관리', () => {
         cy.wait(1 * 1000);
         cy.get('[href="/menu/kiosk"] > .btn').click();
 
-        const menuPrices = `
-        교촌옥수수통안심,23000
-        교촌옥수수순살,23000
-        교촌옥수수오리지날,20000
-        반반오리지날,20000
-        반반콤보,23000
-        반반순살,23000
-        반반윙,23000
-        반반스틱,23000
-        레허반반순살,23000
-        시그니처순살세트,33000
-        리얼후라이드,20000
-        살살후라이드미니,7000
-        살살후라이드,20000
-        파채소이살살,19000
-        `;
-
         // 메뉴를 배열로 변환
-        const menuArray = menuPrices
+        const menuArray = `${Cypress.env('menuPrices')}`
             .trim()
             .split('\n')
             .map(line => {

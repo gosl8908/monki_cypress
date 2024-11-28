@@ -30,7 +30,7 @@ describe('테이블오더 메뉴 관리', () => {
             .map(line => line.split(',')[0].trim()); // 각 줄을 쉼표로 분리하고 첫 번째 요소(메뉴 항목)만 가져옵니다.
 
         // 메뉴 설명을 배열로 변환
-        const menuDescriptions = menu
+        const menuDescriptions = `${Cypress.env('menuPrices')}`
             .trim()
             .split('\n')
             .map(description => description.trim());
