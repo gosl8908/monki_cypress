@@ -282,6 +282,7 @@ describe('Scheduled ceo page basic Testing', () => {
             .map(line => line.split(',')[0].trim());
     };
     const menuNames = parseMenuNames(`${Cypress.env('menuPrices2')}`);
+
     it('Menu Group Setup', () => {
         /* 메뉴 그룹 */
         cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
@@ -305,25 +306,23 @@ describe('Scheduled ceo page basic Testing', () => {
         cy.wait(1 * 1000);
         cy.get('[href="/menu/app"] > .btn').click(); // 먼키앱메뉴
 
-        const menuArray = `${Cypress.env('menuPrices')}`
+        // menuPrices를 사용하여 메뉴와 설명을 처리
+        const menuArray = `${Cypress.env('menuPrices2')}`
             .trim()
             .split('\n')
-            .map(line => line.split(',')[0].trim());
+            .map(line => {
+                const [menu, , description] = line.split(',').map(item => item.trim()); // 메뉴 이름과 설명 추출
+                return { menu, description };
+            });
 
-        const menuDescriptions = `${Cypress.env('menuPrices')}`
-            .trim()
-            .split('\n')
-            .map(description => description.trim());
-
+        // 역순으로 정렬
         const reversedMenuArray = menuArray.reverse();
-        const reversedMenuDescriptions = menuDescriptions.reverse();
-
-        reversedMenuArray.forEach(text => {
+        reversedMenuArray.forEach(({ menu, description }) => {
             const checkMenuVisibility = (currentPage = 1) => {
                 cy.wait(1 * 1000);
                 cy.get('#vueAppContainer').then($container => {
                     const isMenuVisible =
-                        $container.find('span').filter((i, el) => el.textContent.trim() === text).length > 0;
+                        $container.find('span').filter((i, el) => el.textContent.trim() === menu).length > 0;
 
                     if (!isMenuVisible) {
                         cy.get('.pagination')
@@ -332,23 +331,23 @@ describe('Scheduled ceo page basic Testing', () => {
                         cy.wait(1 * 1000);
                         checkMenuVisibility(currentPage + 1);
                     } else {
-                        /* 상품관리 */
                         cy.get('span')
-                            .filter((i, el) => el.textContent.trim() === text)
+                            .filter((i, el) => el.textContent.trim() === menu)
                             .parents('tr')
                             .within(() => {
-                                cy.get('span') // 클릭할 요소도 정확히 일치하는 텍스트 찾기
-                                    .filter((i, el) => el.textContent.trim() === text)
+                                cy.get('span')
+                                    .filter(
+                                        (i, el) => el.textContent.trim() === menu && el.classList.contains('clickable'),
+                                    )
                                     .click();
                             });
-                        cy.wait(2 * 1000);
+                        cy.wait(1 * 1000);
                         /* 미사용 / HOT / NEW / SALE / BEST */
                         const selectors = ['#MNBG_000', '#MNBG_101', '#MNBG_102', '#MNBG_103', '#MNBG_104'];
                         const randomIndex = Math.floor(Math.random() * selectors.length);
                         cy.get(selectors[randomIndex]).click();
                         cy.wait(1 * 1000);
-                        const description = reversedMenuDescriptions[reversedMenuArray.indexOf(text)];
-                        cy.get('.multisteps-form__textarea').type(description);
+                        cy.get('.multisteps-form__textarea').type(description); // 메뉴 설명 입력
                         cy.wait(1 * 1000);
                         cy.get('#MN_001').click(); // 앱 노출 여부
                         cy.wait(1 * 1000);
@@ -513,8 +512,8 @@ describe('Scheduled ceo page basic Testing', () => {
     // });
 
     it('Product Delete', () => {
-        cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         /* 상품 삭제 */
+        cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         cy.get(
             '[data-scroll="false"][data-mnu="/menu/*"] > .container-fluid > .d-flex > [href="/menu/product-div"] > .btn', // 상품관리
         ).click();
@@ -538,8 +537,8 @@ describe('Scheduled ceo page basic Testing', () => {
         });
     });
     it('Option Delete', () => {
-        cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         /* 옵션 삭제 */
+        cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         cy.get('[href="/menu/option"] > .btn').click();
         cy.wait(1 * 1000);
 
@@ -553,8 +552,8 @@ describe('Scheduled ceo page basic Testing', () => {
         });
     });
     it('Menu Group Delete', () => {
-        cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         /* 메뉴 그룹 삭제 */
+        cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         cy.get('[href="/menu/menu-group"] > .btn').click();
         cy.wait(1 * 1000);
 

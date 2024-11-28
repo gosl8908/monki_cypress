@@ -60,9 +60,9 @@ describe('매장등록', () => {
             cy.get('#road-address').invoke('val', road_address_name);
             cy.get('#longitude').invoke('val', x);
             cy.get('#latitude').invoke('val', y);
+            cy.get('#address-detail').invoke('val', '1-1'); // 상세 주소
         });
 
-        cy.get('#address-detail').invoke('val', '1-1'); // 상세 주소
         cy.get('#biz-email').type(Cypress.env('TestEmail')); // 이메일
         cy.get('#bank-code').select(1); // 계좌정보
         cy.get('#account-number').type(Cypress.env('DateLabel')); // 계좌번호
@@ -72,20 +72,20 @@ describe('매장등록', () => {
         cy.get('#global_modal_confirm').click();
         cy.wait(1 * 1000);
 
-        // /* 연동 정보 */
-        // cy.contains('span', Cypress.env('FavTestId3'))
-        //     .parents('tr')
-        //     .within(() => {
-        //         cy.contains('관리').click();
-        //     });
-        // /* 테이블오더 사용 */
-        // cy.get('#table_order_true').click();
-        // cy.get('#vueSolutionContainer > .modal-dialog > .modal-content > .modal-footer > .bg-gradient-primary').click();
-        // cy.wait(1 * 1000);
-        // cy.get('#global_modal_confirm').click();
+        /* 연동 정보 */
+        cy.contains('span', Cypress.env('TestId')[0])
+            .parents('tr')
+            .within(() => {
+                cy.contains('관리').click();
+            });
+        /* 테이블오더 사용 */
+        cy.get('#table_order_true').click();
+        cy.get('#vueSolutionContainer > .modal-dialog > .modal-content > .modal-footer > .bg-gradient-primary').click();
+        cy.wait(1 * 1000);
+        cy.get('#global_modal_confirm').click();
 
         // /* 버추얼 로그인 */
-        // cy.get(':nth-child(9) > .text-sm').click();
+        // cy.get(':nth-child(9) > .text-sm').click();ㅁㅁㅁㄷㄵㄷㄴㄴㄷ퓨ㅠㅠ
         // cy.wait(1 * 1000);
         // cy.get('#global_modal_confirm').click();
     });
