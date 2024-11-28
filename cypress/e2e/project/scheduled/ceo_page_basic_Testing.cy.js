@@ -232,8 +232,8 @@ describe('Scheduled ceo page basic Testing', () => {
     });
 
     it('Option Create', () => {
-        cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         /* 옵션 등록 */
+        cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
         cy.get('[href="/menu/option"] > .btn').click();
 
         function registerOptionGroup(optionGroup) {
@@ -425,8 +425,8 @@ describe('Scheduled ceo page basic Testing', () => {
     });
 
     it('TableOrder Staff Call Setup', () => {
+        /* 테이블오더 직원 호출 등록 */
         cy.get('[name="gnb-menu"]').contains('메뉴관리').click();
-        /* 테이블오더 */
         cy.get('[href="/menu/table-order/main"] > .btn').click();
         cy.wait(1 * 1000);
 
