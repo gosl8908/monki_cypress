@@ -11,9 +11,6 @@
 
 #!/bin/bash
 
-# .env 파일 로드
-export $(grep -v '^#' .env | xargs)
-
 # 현재 날짜와 제목 설정
 DATE=$(date +"%Y-%m-%d")
 SUBJECT="Cypress 자동화 테스트 결과 - Scheduled CEO Page Basic Testing"

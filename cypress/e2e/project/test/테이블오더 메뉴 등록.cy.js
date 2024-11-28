@@ -16,18 +16,6 @@ describe('Test', () => {
             Password: `${Cypress.env('TestPwd2')}`,
         });
     });
-    const optionPrices = `
-        옥수수볼,5000
-        달걀듬뿍볶음밥,4000
-        의성마늘볶음밥,4000
-        샐러드 추가,5000
-        고르곤치즈볼,6000
-        와일드블랙소스,1000
-        허니케찹소스,1000
-        치즈트러플시즈닝,2000
-        무 추가,1000
-        레드디핑소스,1000
-        `;
 
     it('Product Create', () => {
         /* 메뉴관리 */
@@ -71,7 +59,7 @@ describe('Test', () => {
             cy.wait(1000); // 1 second wait
             cy.get('#global_modal_confirm').click();
         }
-        const optionsArray = `${Cypress.env('optionPrices')}`
+        const optionsArray = Cypress.env('optionPrices')
             .trim()
             .split('\n')
             .map(line => {
@@ -141,13 +129,13 @@ describe('Test', () => {
         cy.wait(1 * 1000);
         cy.get('[href="/menu/menu-group"] > .btn').click();
 
-        const menuGroups2 = {
-            //menuPrices를 사용하여 메뉴 그룹을 관리
-            사이드메뉴: menuPrices
-                .trim() // 공백 제거
-                .split('\n') // 줄별로 분리
-                .map(item => item.split(',')[0].trim()), // 메뉴 이름만 추출
-        };
+        // const menuGroups2 = {
+        //     //menuPrices를 사용하여 메뉴 그룹을 관리
+        //     사이드메뉴: menuPrices
+        //         .trim() // 공백 제거
+        //         .split('\n') // 줄별로 분리
+        //         .map(item => item.split(',')[0].trim()), // 메뉴 이름만 추출
+        // };
         const menuGroups = {
             NEW: ['교촌옥수수통안심', '교촌옥수수순살', '교촌옥수수오리지날'],
             믹스시리즈: [
@@ -215,7 +203,7 @@ describe('Test', () => {
         cy.get('[href="/menu/table-order/main"] > .btn').click();
 
         // menuPrices를 사용하여 메뉴와 설명을 처리
-        const menuArray = menuPrices
+        const menuArray = `${Cypress.env('menuPrices')}`
             .trim()
             .split('\n')
             .map(line => {
@@ -278,7 +266,7 @@ describe('Test', () => {
         cy.get('[href="/menu/table-order/main"] > .btn').click();
 
         // 메뉴를 배열로 변환
-        const menuArray = menuPrices
+        const menuArray = `${Cypress.env('menuPrices')}`
             .trim()
             .split('\n')
             .map(line => {
