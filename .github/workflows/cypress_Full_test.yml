@@ -83,6 +83,7 @@ on:
 env:
     TZ: 'Asia/Seoul'
     DOORAY_EMAIL_ID: ${{ secrets.DOORAY_EMAIL_ID }}
+    DOORAY_EMAIL_ID2: ${{ secrets.DOORAY_EMAIL_ID2 }}
     DOORAY_EMAIL_PWD: ${{ secrets.DOORAY_EMAIL_PWD }}
 
 jobs:
