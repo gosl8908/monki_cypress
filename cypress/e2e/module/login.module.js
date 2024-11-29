@@ -8,7 +8,7 @@ function login({ Site, Type = undefined, Id, Password }) {
         Site === Cypress.env('Ceo') ||
         Site === Cypress.env('StgCeo') ||
         Site === Cypress.env('DevCeo') ||
-        Site === 'http://43.202.11.133:3002/users/login'
+        Site === 'https://staging-ceo-kiosk.monthlykitchen.kr/users/login'
     ) {
         cy.get('#user_type').select(Type);
     }

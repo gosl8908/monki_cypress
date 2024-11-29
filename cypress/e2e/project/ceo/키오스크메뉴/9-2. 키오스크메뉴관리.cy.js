@@ -10,7 +10,7 @@ describe('키오스크 메뉴 관리', () => {
         cy.getAll();
         cy.err(TestFails, FailedTests, FailureObj);
         loginModule.login({
-            Site: `http://43.202.11.133:3002/users/login`,
+            Site: `https://staging-ceo-kiosk.monthlykitchen.kr/users/login`,
             Type: '단골맛집 가맹점주',
             Id: `${Cypress.env('TestId')[1]}`,
             Password: `${Cypress.env('TestPwd2')}`,
@@ -23,55 +23,48 @@ describe('키오스크 메뉴 관리', () => {
         cy.wait(1 * 1000);
         cy.get('[href="/menu/kiosk"] > .btn').click();
 
-        // 메뉴 가격 목록을 배열로 변환하고, 메뉴 항목만 추출
+        // menuPrices를 사용하여 메뉴와 설명을 처리
         const menuArray = `${Cypress.env('menuPrices')}`
-            .trim() // 문자열의 시작과 끝의 공백을 제거합니다.
-            .split('\n') // 각 줄을 배열의 요소로 분리합니다.
-            .map(line => line.split(',')[0].trim()); // 각 줄을 쉼표로 분리하고 첫 번째 요소(메뉴 항목)만 가져옵니다.
-
-        // 메뉴 설명을 배열로 변환
-        const menuDescriptions = menu
             .trim()
             .split('\n')
-            .map(description => description.trim());
+            .map(line => {
+                const [menu, , description] = line.split(',').map(item => item.trim()); // 메뉴 이름과 설명 추출
+                return { menu, description };
+            });
 
         // 역순으로 정렬
         const reversedMenuArray = menuArray.reverse();
-        const reversedMenuDescriptions = menuDescriptions.reverse();
-
-        reversedMenuArray.forEach(text => {
+        reversedMenuArray.forEach(({ menu, description }) => {
             const checkMenuVisibility = (currentPage = 1) => {
                 cy.wait(1 * 1000);
-                cy.get('#vueTableOrderContainer').then($container => {
+                cy.get('#vueKioskMain').then($container => {
                     const isMenuVisible =
-                        $container.find('span').filter((i, el) => el.textContent.trim() === text).length > 0;
+                        $container.find('span').filter((i, el) => el.textContent.trim() === menu).length > 0;
 
                     if (!isMenuVisible) {
-                        // 현재 페이지에서 메뉴 항목이 보이지 않으면 다음 페이지 클릭
                         cy.get('.pagination')
                             .contains(currentPage + 1)
                             .click();
-                        cy.wait(1 * 1000); // 페이지 로딩 대기 후 다시 확인
-                        checkMenuVisibility(currentPage + 1); // 다음 페이지에서 다시 확인
+                        cy.wait(1 * 1000);
+                        checkMenuVisibility(currentPage + 1);
                     } else {
-                        /* 상품관리 */
                         cy.get('span')
-                            .filter((i, el) => el.textContent.trim() === text) // 정확히 일치하는 텍스트 필터링
+                            .filter((i, el) => el.textContent.trim() === menu)
                             .parents('tr')
                             .within(() => {
-                                cy.get('span') // 클릭할 요소도 정확히 일치하는 텍스트 찾기
-                                    .filter((i, el) => el.textContent.trim() === text)
+                                cy.get('span')
+                                    .filter(
+                                        (i, el) => el.textContent.trim() === menu && el.classList.contains('clickable'),
+                                    )
                                     .click();
                             });
-
                         cy.wait(1 * 1000);
                         /* 미사용 / HOT / NEW / SALE / BEST */
                         const selectors = ['#MNBG_000', '#MNBG_101', '#MNBG_102', '#MNBG_103', '#MNBG_104'];
                         const randomIndex = Math.floor(Math.random() * selectors.length);
                         cy.get(selectors[randomIndex]).click();
                         cy.wait(1 * 1000);
-                        const description = reversedMenuDescriptions[reversedMenuArray.indexOf(text)];
-                        cy.get('.multisteps-form__textarea').type(description);
+                        cy.get('.multisteps-form__textarea').type(description); // 메뉴 설명 입력
                         cy.wait(1 * 1000);
                         cy.get('#MN_001').click(); // 앱 노출 여부
                         cy.wait(1 * 1000);

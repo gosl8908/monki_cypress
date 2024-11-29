@@ -10,7 +10,7 @@ describe('키오스크 메뉴 그룹 관리', () => {
         cy.getAll();
         cy.err(TestFails, FailedTests, FailureObj);
         loginModule.login({
-            Site: `http://43.202.11.133:3002/users/login`,
+            Site: `https://staging-ceo-kiosk.monthlykitchen.kr/users/login`,
             Type: '단골맛집 가맹점주',
             Id: `${Cypress.env('TestId')[1]}`,
             Password: `${Cypress.env('TestPwd2')}`,
