@@ -1,4 +1,6 @@
-function store(ID, PWD, StoreName) {
+const { apiModule } = require('../module/manager.module.js');
+
+function store(ID, PWD, StoreName, TableOrder) {
     cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/account/partners"] > .btn')
         .contains('계정관리')
         .click(); // 계정관리
@@ -53,17 +55,21 @@ function store(ID, PWD, StoreName) {
     cy.get('#global_modal_confirm').click();
     cy.wait(1 * 1000);
 
-    /* 연동 정보 */
-    cy.contains('span', StoreName)
-        .parents('tr')
-        .within(() => {
-            cy.contains('관리').click();
-        });
-    /* 테이블오더 사용 */
-    cy.get('#table_order_true').click();
-    cy.get('#vueSolutionContainer > .modal-dialog > .modal-content > .modal-footer > .bg-gradient-primary').click();
-    cy.wait(1 * 1000);
-    cy.get('#global_modal_confirm').click();
+    cy.contains(StoreName).should('be.visible', { timeout: 5 * 1000 });
+
+    if (TableOrder === 'Y') {
+        /* 연동 정보 */
+        cy.contains('span', StoreName)
+            .parents('tr')
+            .within(() => {
+                cy.contains('관리').click();
+            });
+        /* 테이블오더 사용 */
+        cy.get('#table_order_true').click();
+        cy.get('#vueSolutionContainer > .modal-dialog > .modal-content > .modal-footer > .bg-gradient-primary').click();
+        cy.wait(1 * 1000);
+        cy.get('#global_modal_confirm').click();
+    }
 }
 
 module.exports = {
