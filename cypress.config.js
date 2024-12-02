@@ -152,16 +152,16 @@ module.exports = defineConfig({
             AdminId: 'hskang', // 통합관리자
 
             /* 통합관리자 Id */
-            TestId: Array.from({ length: 10 }, (_, i) => `monkitest${i + 1}`),
+            monkitest: Array.from({ length: 10 }, (_, i) => `monkitest${i + 1}`),
 
             /* 대리점 ID */
-            StoreTestId: Array.from({ length: 5 }, (_, i) => `monkistore${i + 1}`),
+            monkistore: Array.from({ length: 5 }, (_, i) => `monkistore${i + 1}`),
 
             /* 단골맛집 ID */
-            FavTestId: Array.from({ length: 5 }, (_, i) => `monkifav${i + 1}`),
+            monkifav: Array.from({ length: 5 }, (_, i) => `monkifav${i + 1}`),
 
             /* 사장님 ID */
-            CeoTestId: Array.from({ length: 5 }, (_, i) => `monkiceo${i + 1}`),
+            monkiceo: Array.from({ length: 5 }, (_, i) => `monkiceo${i + 1}`),
 
             /* Password */
             AdminPwd: gmailEmailPwd,
