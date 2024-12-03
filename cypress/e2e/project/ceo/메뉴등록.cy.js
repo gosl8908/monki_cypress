@@ -1,4 +1,4 @@
-const { loginModule, emailModule, menuModule } = require('../../module/manager.module.js');
+const { loginModule, emailModule, createModule } = require('../../module/manager.module.js');
 
 describe('메뉴 등록', () => {
     let Screenshots = []; // 스크린샷을 저장할 배열
@@ -28,7 +28,7 @@ describe('메뉴 등록', () => {
             .split('\n')
             .forEach(item => {
                 const [menu, price] = item.trim().split(',');
-                menuModule.menu(menu, price, 'png');
+                createModule.menu(menu, price, 'png');
             });
     });
 

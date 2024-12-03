@@ -1,4 +1,4 @@
-const { loginModule, emailModule, menuModule } = require('../../../module/manager.module.js');
+const { loginModule, emailModule } = require('../../../module/manager.module.js');
 
 describe('키오스크 메뉴 그룹 관리', () => {
     let Screenshots = []; // 스크린샷을 저장할 배열
@@ -78,7 +78,7 @@ describe('키오스크 메뉴 그룹 관리', () => {
         };
 
         Object.entries(menuGroups).forEach(([group, items]) => {
-            menuModule.menuGroup(group, items, '키오스크');
+            createModule.menuGroup(group, items, '키오스크');
             cy.wait(1000);
         });
     });

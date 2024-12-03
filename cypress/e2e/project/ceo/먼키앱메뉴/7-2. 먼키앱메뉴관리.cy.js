@@ -1,4 +1,4 @@
-const { loginModule, emailModule, menuModule } = require('../../../module/manager.module.js');
+const { loginModule, emailModule } = require('../../../module/manager.module.js');
 
 describe('먼키앱 메뉴 관리', () => {
     let Screenshots = []; // 스크린샷을 저장할 배열

@@ -1,4 +1,4 @@
-const { loginModule, emailModule, menuModule } = require('../../../module/manager.module.js');
+const { loginModule, emailModule, createModule } = require('../../../module/manager.module.js');
 
 describe('테이블오더 메뉴 그룹 관리', () => {
     let Screenshots = []; // 스크린샷을 저장할 배열
@@ -24,7 +24,7 @@ describe('테이블오더 메뉴 그룹 관리', () => {
         cy.get('[href="/menu/menu-group"] > .btn').click();
 
         Object.entries(Cypress.env('menuGroups2')).forEach(([group, items]) => {
-            menuModule.menuGroup(group, items, '테이블오더');
+            createModule.menuGroup(group, items, '테이블오더');
             cy.wait(1000);
         });
     });

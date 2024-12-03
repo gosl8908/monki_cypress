@@ -1,4 +1,4 @@
-const { loginModule, emailModule, menuModule, tableModule } = require('../../module/manager.module.js');
+const { loginModule, emailModule, createModule, tableModule } = require('../../module/manager.module.js');
 
 describe('Scheduled ceo page basic Testing', () => {
     let TestFails = []; // 실패 원인을 저장할 변수
@@ -206,7 +206,7 @@ describe('Scheduled ceo page basic Testing', () => {
             .split('\n')
             .forEach(item => {
                 const [menu, price] = item.trim().split(',');
-                menuModule.menu(menu, price, 'png');
+                createModule.menu(menu, price, 'png');
             });
     });
 
@@ -288,11 +288,11 @@ describe('Scheduled ceo page basic Testing', () => {
             테스트: menuNames,
         };
         Object.entries(menuGroups).forEach(([group, items]) => {
-            menuModule.menuGroup(group, items, 'App');
+            createModule.menuGroup(group, items, 'App');
             cy.wait(1000);
-            menuModule.menuGroup(group, items, '테이블오더');
+            createModule.menuGroup(group, items, '테이블오더');
             cy.wait(1000);
-            // menuModule.menuGroup(group, items, '키오스크');
+            // createModule.menuGroup(group, items, '키오스크');
             // cy.wait(1000);
         });
     });

@@ -1,4 +1,4 @@
-const { loginModule, emailModule, menuModule } = require('../../module/manager.module.js');
+const { loginModule, emailModule, creatModule } = require('../../module/manager.module.js');
 
 describe('메뉴그룹 등록', () => {
     let Screenshots = []; // 스크린샷을 저장할 배열
