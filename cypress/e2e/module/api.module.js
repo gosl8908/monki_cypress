@@ -27,13 +27,13 @@ function api(address) {
             expect(response.body).to.have.property('meta');
 
             const document = response.body.documents[0]; // 첫 번째 결과만 사용
-            return {
+            return cy.wrap({
                 address_name: document.address.address_name,
-                road_address_name: document.address_name,
+                road_address_name: document.road_address ? document.road_address.address_name : '',
                 x: document.address.x,
                 y: document.address.y,
-                zipcode: document.road_address.zone_no,
-            };
+                zipcode: document.road_address ? document.road_address.zone_no : '',
+            });
         });
 }
 

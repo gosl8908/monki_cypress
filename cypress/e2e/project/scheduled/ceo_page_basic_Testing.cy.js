@@ -24,15 +24,13 @@ describe('Scheduled ceo page basic Testing', () => {
         cy.get('[href="/users/logout"]').click();
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
-            Type: '대리점',
-            Id: `${Cypress.env('StoreTestId')[0]}`,
+            Id: `${Cypress.env('monkistore')[0]}`,
             Password: `${Cypress.env('TestPwd2')}`,
         });
         cy.get('[href="/users/logout"]').click();
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
-            Type: '사장님',
-            Id: `${Cypress.env('CeoTestId')[0]}`,
+            Id: `${Cypress.env('monkiceo')[0]}`,
             Password: `${Cypress.env('TestPwd2')}`,
         });
     });

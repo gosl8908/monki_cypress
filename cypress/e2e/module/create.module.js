@@ -1,4 +1,4 @@
-const { apiModule } = require('../module/manager.module.js');
+const { api } = require('../module/api.module.js');
 
 function store(ID, PWD, StoreName, TableOrder) {
     cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/account/partners"] > .btn')
@@ -37,7 +37,7 @@ function store(ID, PWD, StoreName, TableOrder) {
     cy.get('#tel').type(Cypress.env('Phone')); // 전화번호
 
     // 모듈화된 API 호출
-    apiModule.api('경기 안양시 동안구 평촌대로 60-55').then(({ address_name, road_address_name, x, y }) => {
+    api('경기 안양시 동안구 평촌대로 60-55').then(({ address_name, road_address_name, x, y }) => {
         // 주소 데이터를 각 입력 필드에 삽입
         cy.get('#address').invoke('val', address_name);
         cy.get('#road-address').invoke('val', road_address_name);
@@ -53,7 +53,7 @@ function store(ID, PWD, StoreName, TableOrder) {
     cy.get('#account-user').type('예금주'); // 예금주명
     cy.get('#btn-reg-store').click();
     cy.get('#global_modal_body').contains('입력한 정보로 생성하시겠습니까?');
-    cy.get('#global_modal_confirm').click();
+    // cy.get('#global_modal_confirm').click();
     cy.wait(1 * 1000);
 
     cy.contains(StoreName).should('be.visible', { timeout: 5 * 1000 });
