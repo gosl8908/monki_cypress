@@ -17,7 +17,7 @@ describe('매장등록', () => {
         });
     });
 
-    const storeName = '자동화매장(Prod)';
+    const storeName = 'OKPOS매장(STG)';
 
     it('Store create', () => {
         cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/account/partners"] > .btn')
@@ -27,7 +27,7 @@ describe('매장등록', () => {
         cy.get('.m-3 > .col-3 > .btn').contains('매장등록').click(); // 매장등록
 
         /* 매장 등록 */
-        cy.get('#user-id').type(Cypress.env('monkitest')[9]); // 아이디
+        cy.get('#user-id').type(Cypress.env('monkitest')[0]); // 아이디
         cy.get('#btn-check-user-id').click();
         cy.get('#user-pass').type(Cypress.env('TestPwd2')); // 비밀번호
         cy.get('#chk-user-pass').type(Cypress.env('TestPwd2')); // 비밀번호 확인

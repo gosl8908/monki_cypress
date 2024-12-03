@@ -1,3 +1,76 @@
+# name: Cypress E2E Tests
+
+# on:
+#     schedule:
+#         - cron: '0 23 * * 0-4' # UTC 기준 매주 일요일 ~ 수요일 23:00 (11:00 PM)에 실행
+#     push:
+#         branches:
+#             - main
+
+# env:
+#     TZ: 'Asia/Seoul'
+
+# jobs:
+#     cypress-run-test1:
+#         runs-on: ubuntu-latest
+
+#         steps:
+#             - uses: actions/checkout@v2
+#             - name: Setup Node.js
+#               uses: actions/setup-node@v3
+#               with:
+#                   node-version: '21.7.1'
+#             - run: yarn add cypress@latest
+
+#             - name: Install dependencies
+#               run: yarn install
+
+#             - name: Run Cypress tests
+#               run: yarn cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }} --spec "cypress/e2e/project/test/test.cy.js" --browser chrome
+
+#     cypress-run-test2:
+#         runs-on: ubuntu-latest
+#         steps:
+#             - uses: actions/checkout@v2
+#             - name: Setup Node.js
+#               uses: actions/setup-node@v3
+#               with:
+#                   node-version: '21.7.1'
+#             - run: yarn add cypress@latest
+
+#             - name: Install dependencies
+#               run: yarn install
+
+#             - name: Run Cypress test2
+#               run: yarn cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }} --spec "cypress/e2e/project/test/test2.cy.js" --browser chrome
+
+#     basic_test:
+#         runs-on: ubuntu-latest
+#         steps:
+#             - uses: actions/checkout@v2
+#             - name: Setup Node.js
+#               uses: actions/setup-node@v3
+#               with:
+#                   node-version: '21.7.1'
+#             - run: yarn add cypress@latest
+
+#             - name: Install cURL
+#               run: |
+#                   sudo apt-get update && sudo apt-get install -y curl
+
+#             - name: Grant execute permission to shell scripts
+#               run: |
+#                   chmod +x -R ./shell
+
+#             - name: List shell script files
+#               run: |
+#                   ls -la ./shell
+
+#             - name: Execute shell script
+#               run: |
+#                   export CYPRESS_RECORD_KEY="${{ secrets.CYPRESS_RECORD_KEY }}"
+#                   ./shell/기본기능.sh
+
 name: Cypress E2E Tests
 
 on:
@@ -14,72 +87,70 @@ env:
     DOORAY_EMAIL_PWD: ${{ secrets.DOORAY_EMAIL_PWD }}
 
 jobs:
+    # cypress-run-test1:
+    #     runs-on: ubuntu-latest
+
+    #     steps:
+    #         - uses: actions/checkout@v2
+    #         - name: Setup Node.js
+    #           uses: actions/setup-node@v3
+    #           with:
+    #               node-version: '21.7.1'
+    #         - run: yarn add cypress@latest
+
+    #         - name: Install dependencies
+    #           run: yarn install
+
+    #         - name: Install Korean fonts and xvfb
+    #           run: |
+    #               sudo apt-get install -y fonts-nanum xvfb
+
+    #         - name: Run Cypress tests with 1000x660 resolution
+    #           run: xvfb-run --auto-servernum --server-args="-screen 0 1000x660x24" yarn cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }} --spec "cypress/e2e/project/test/test.cy.js" --browser chrome
+
+    # cypress-run-test2:
+    #     runs-on: ubuntu-latest
+
+    #     steps:
+    #         - uses: actions/checkout@v2
+    #         - name: Setup Node.js
+    #           uses: actions/setup-node@v3
+    #           with:
+    #               node-version: '21.7.1'
+    #         - run: yarn add cypress@latest
+
+    #         - name: Install dependencies
+    #           run: yarn install
+
+    #         - name: Install Korean fonts and xvfb
+    #           run: |
+    #               sudo apt-get install -y fonts-nanum xvfb
+
+    #         - name: Run Cypress test2 with 1000x660 resolution
+    #           run: xvfb-run --auto-servernum --server-args="-screen 0 1000x660x24" yarn cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }} --spec "cypress/e2e/project/test/test2.cy.js" --browser chrome
+
     basic_test:
-    runs-on: ubuntu-latest
+        runs-on: ubuntu-latest
 
-    steps:
-        - uses: actions/checkout@v2
-        - name: Setup Node.js
-          uses: actions/setup-node@v3
-          with:
-              node-version: '21.7.1'
-        - run: yarn add cypress@latest
+        steps:
+            - uses: actions/checkout@v2
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '21.7.1'
+            - run: yarn add cypress@latest
 
-        - name: Install cURL, Korean fonts, and xvfb
-          run: |
-              sudo apt-get update && sudo apt-get install -y curl fonts-nanum xvfb
+            - name: Install cURL, Korean fonts, and xvfb
+              run: |
+                  sudo apt-get update && sudo apt-get install -y curl fonts-nanum xvfb
 
-        - name: Grant execute permission to shell scripts
-          run: chmod +x -R ./shell
+            - name: Grant execute permission to shell scripts
+              run: chmod +x -R ./shell
 
-        - name: List shell script files
-          run: ls -la ./shell
+            - name: List shell script files
+              run: ls -la ./shell
 
-        - name: Execute shell script with 1920x1080 resolution
-          run: |
-              export CYPRESS_RECORD_KEY="${{ secrets.CYPRESS_RECORD_KEY }}"
-              xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" ./shell/ceo_page_basic_Testing.sh
-
-# jobs:
-# cypress-run-test1:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#         - uses: actions/checkout@v2
-#         - name: Setup Node.js
-#           uses: actions/setup-node@v3
-#           with:
-#               node-version: '21.7.1'
-#         - run: yarn add cypress@latest
-
-#         - name: Install dependencies
-#           run: yarn install
-
-#         - name: Install Korean fonts and xvfb
-#           run: |
-#               sudo apt-get install -y fonts-nanum xvfb
-
-#         - name: Run Cypress tests with 1000x660 resolution
-#           run: xvfb-run --auto-servernum --server-args="-screen 0 1000x660x24" yarn cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }} --spec "cypress/e2e/project/test/test.cy.js" --browser chrome
-
-# cypress-run-test2:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#         - uses: actions/checkout@v2
-#         - name: Setup Node.js
-#           uses: actions/setup-node@v3
-#           with:
-#               node-version: '21.7.1'
-#         - run: yarn add cypress@latest
-
-#         - name: Install dependencies
-#           run: yarn install
-
-#         - name: Install Korean fonts and xvfb
-#           run: |
-#               sudo apt-get install -y fonts-nanum xvfb
-
-#         - name: Run Cypress test2 with 1000x660 resolution
-#           run: xvfb-run --auto-servernum --server-args="-screen 0 1000x660x24" yarn cypress run --record --key ${{ secrets.CYPRESS_RECORD_KEY }} --spec "cypress/e2e/project/test/test2.cy.js" --browser chrome
-
+            - name: Execute shell script with 1920x1080 resolution
+              run: |
+                  export CYPRESS_RECORD_KEY="${{ secrets.CYPRESS_RECORD_KEY }}"
+                  xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" ./shell/ceo_page_basic_Testing.sh

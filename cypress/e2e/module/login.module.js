@@ -1,4 +1,14 @@
 function login({ Site, Type = undefined, Id, Password }) {
+    // Type 설정: Id 값에 따라 자동 선택
+    if (!Type) {
+        if (Id.startsWith('monkistore')) {
+            Type = '대리점';
+        } else if (Id.startsWith('monkifav') || Id.startsWith('monkitest')) {
+            Type = '단골맛집 가맹점주';
+        } else if (Id.startsWith('monkiceo')) {
+            Type = '사장님';
+        }
+    }
     cy.visit(Site, {
         timeout: 60 * 1000,
         passOnStatusCode: false,

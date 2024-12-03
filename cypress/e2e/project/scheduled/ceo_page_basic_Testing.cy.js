@@ -11,7 +11,6 @@ describe('Scheduled ceo page basic Testing', () => {
         cy.err(TestFails, FailedTests, FailureObj);
         loginModule.login({
             Site: `${Cypress.env('StgCeo')}`,
-            Type: '단골맛집 가맹점주',
             Id: `${Cypress.env('monkitest')[9]}`,
             Password: `${Cypress.env('TestPwd2')}`,
         });

@@ -164,7 +164,7 @@ module.exports = defineConfig({
             monkiceo: Array.from({ length: 5 }, (_, i) => `monkiceo${i + 1}`),
 
             /* Password */
-            AdminPwd: gmailEmailPwd,
+            AdminPwd: doorayEmailPwd,
             TestPwd: 'test123!',
             TestPwd2: 'test1234',
 

@@ -1,6 +1,6 @@
-// const { apiModule } = require('../module/manager.module.js');
+const { apiModule } = require('../module/manager.module.js');
 
-function store(ID, PWD, StoreName, TableOrder, address_name, road_address_name, x, y) {
+function store(ID, PWD, StoreName, TableOrder) {
     cy.get(':nth-child(3) > .container-fluid > .d-flex > [href="/account/partners"] > .btn')
         .contains('계정관리')
         .click(); // 계정관리
@@ -36,12 +36,15 @@ function store(ID, PWD, StoreName, TableOrder, address_name, road_address_name, 
     cy.get('#owner-name').type('강해성'); // 대표자명
     cy.get('#tel').type(Cypress.env('Phone')); // 전화번호
 
-    // 주소 데이터를 각 입력 필드에 삽입
-    cy.get('#address').invoke('val', address_name);
-    cy.get('#road-address').invoke('val', road_address_name);
-    cy.get('#longitude').invoke('val', x);
-    cy.get('#latitude').invoke('val', y);
-    // });
+    // 모듈화된 API 호출
+    apiModule.api('경기 안양시 동안구 평촌대로 60-55').then(({ address_name, road_address_name, x, y }) => {
+        // 주소 데이터를 각 입력 필드에 삽입
+        cy.get('#address').invoke('val', address_name);
+        cy.get('#road-address').invoke('val', road_address_name);
+        cy.get('#longitude').invoke('val', x);
+        cy.get('#latitude').invoke('val', y);
+        cy.get('#address-detail').invoke('val', '1-1'); // 상세 주소
+    });
 
     cy.get('#address-detail').invoke('val', '1-1'); // 상세 주소
     cy.get('#biz-email').type(Cypress.env('TestEmail')); // 이메일
