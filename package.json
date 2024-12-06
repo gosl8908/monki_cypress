@@ -6,7 +6,7 @@
   },
   "devDependencies": {
     "@4tw/cypress-drag-drop": "^2.2.5",
-    "cypress": "^13.16.0",
+    "cypress": "^13.16.1",
     "cypress-clipboard": "^1.0.3",
     "cypress-file-upload": "^5.0.8",
     "cypress-iframe": "^1.0.1",
@@ -23,6 +23,7 @@
     "axios": "^1.7.7",
     "dotenv": "^16.4.5",
     "glob": "^10.4.5",
+    "imap": "^0.8.19",
     "nodemailer": "^6.9.13"
   }
 }

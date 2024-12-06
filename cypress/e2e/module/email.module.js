@@ -66,7 +66,7 @@ function email({ TestFails, describeTitle, EmailTitle, TestRange, Screenshots, c
 }
 
 module.exports = {
-    email: email,
-    screenshot: screenshot,
-    screenshot2: screenshot2,
+    email,
+    screenshot,
+    screenshot2,
 };

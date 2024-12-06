@@ -9,6 +9,7 @@ function login({ Site, Type = undefined, Id, Password }) {
             Type = '사장님';
         }
     }
+
     cy.visit(Site, {
         timeout: 60 * 1000,
         passOnStatusCode: false,

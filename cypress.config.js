@@ -32,6 +32,8 @@ module.exports = defineConfig({
         saveAllAttempts: false,
     },
     e2e: {
+        chromeWebSecurity: false, // Cross-Origin 에러 방지
+        defaultCommandTimeout: 10000, // 기본 명령 타임아웃 연장
         setupNodeEvents(on, config) {
             // implement node event listeners here
             require('cypress-mochawesome-reporter/plugin')(on);
@@ -167,6 +169,7 @@ module.exports = defineConfig({
             AdminPwd: doorayEmailPwd,
             TestPwd: 'test123!',
             TestPwd2: 'test1234',
+            TestPwd3: 'rnrmf0215!',
 
             /* Number */
             Phone: Phone,

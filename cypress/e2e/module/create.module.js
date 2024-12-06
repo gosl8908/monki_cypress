@@ -168,7 +168,7 @@ function store(ID, PWD, StoreName, TableOrder) {
 }
 
 module.exports = {
-    store: store,
+    store,
     menu,
     menuGroup,
 };
