@@ -147,10 +147,28 @@ function store(ID, PWD, StoreName, TableOrder) {
     cy.get('#account-user').type('예금주'); // 예금주명
     cy.get('#btn-reg-store').click();
     cy.get('#global_modal_body').contains('입력한 정보로 생성하시겠습니까?');
-    // cy.get('#global_modal_confirm').click();
+    cy.get('#global_modal_confirm').click();
     cy.wait(1 * 1000);
 
-    cy.contains(StoreName).should('be.visible', { timeout: 5 * 1000 });
+    let pageIndex = 1; // Start from page 1
+
+    function checkStoreOnPage(pageIndex) {
+        cy.get('#vueContainer').then($container => {
+            const isStoreVisible =
+                $container.find('span').filter((i, el) => el.textContent.trim() === StoreName).length > 0;
+
+            if (isStoreVisible) {
+                cy.contains('span', StoreName).should('be.visible'); // Check if the store is visible
+                cy.log('검색 성공', StoreName);
+            } else {
+                cy.wait(1000); // Wait for 1 second before navigating to the next page
+                cy.get('.page-item').contains(pageIndex).click(); // Click the page navigation button
+                checkStoreOnPage(pageIndex + 1); // Recursively check for the store on the next page
+            }
+        });
+    }
+
+    checkStoreOnPage(pageIndex);
 
     if (TableOrder === 'Y') {
         /* 연동 정보 */

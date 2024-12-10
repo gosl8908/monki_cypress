@@ -22,6 +22,8 @@ module.exports = defineConfig({
     pageLoadTimeout: 60 * 1000,
     redirectionLimit: 30,
     experimentalStudio: true,
+    chromeWebSecurity: false, // Cross-Origin 에러 방지
+    defaultCommandTimeout: 10000, // 기본 명령 타임아웃 연장
     projectId: 'k9i7ip',
     reporter: 'cypress-mochawesome-reporter',
     reporterOptions: {
@@ -32,8 +34,6 @@ module.exports = defineConfig({
         saveAllAttempts: false,
     },
     e2e: {
-        chromeWebSecurity: false, // Cross-Origin 에러 방지
-        defaultCommandTimeout: 10000, // 기본 명령 타임아웃 연장
         setupNodeEvents(on, config) {
             // implement node event listeners here
             require('cypress-mochawesome-reporter/plugin')(on);
@@ -56,24 +56,6 @@ module.exports = defineConfig({
                             }
                         });
                     }
-                    // if (screenshotFileNames && screenshotFileNames.length > 0) {
-                    //     screenshotFileNames.forEach(screenshotFileName => {
-                    //         const path = `./cypress/screenshots/${screenshotFileName}`;
-                    //         const cloudPath = `/home/runner/work/monki_cypress/monki_cypress/cypress/screenshots/**/${screenshotFileName}`;
-                    //         const cloudMatches = glob.sync(cloudPath);
-                    //         const filePath = fs.existsSync(path)
-                    //             ? path
-                    //             : cloudMatches.length > 0
-                    //               ? cloudMatches[0]
-                    //               : null;
-
-                    //         attachments.push({
-                    //             filename: screenshotFileName,
-                    //             encoding: 'base64',
-                    //             path: filePath,
-                    //         });
-                    //     });
-                    // }
                     // 두레이 메일용 transporter
                     const dooraytransporter = nodemailer.createTransport({
                         host: 'smtp.dooray.com',

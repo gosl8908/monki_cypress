@@ -17,10 +17,10 @@ describe('매장등록', () => {
         });
     });
 
-    const StoreName = '예진Store(STG)';
+    const StoreName = '메이트매장(STG)';
 
     it('Store create', () => {
-        createModule.store('yjhwang', 'test1234', StoreName, 'Y');
+        createModule.store(Cypress.env('monkitest')[4], Cypress.env('TestPwd2'), StoreName, 'Y');
     });
 
     afterEach('Status Check', function () {
