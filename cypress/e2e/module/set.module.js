@@ -1,11 +1,13 @@
-function TimeSet(StoreName) {
+function TimeSet(StoreName = undefined) {
     /* 영업시간 */
     cy.get('#operation').click();
     cy.wait(1 * 1000);
 
-    cy.get('#operation-store-no').select(StoreName);
-    cy.wait(1 * 1000);
-    cy.contains('전환').click();
+    if (StoreName) {
+        cy.get('#operation-store-no').select(StoreName);
+        cy.wait(1 * 1000);
+        cy.contains('전환').should('be.visible').click();
+    }
 
     /* 평일 */
     cy.get(':nth-child(1) > .p-0 > :nth-child(1) > .card-header > .btn').click();
@@ -60,10 +62,11 @@ function groundSet(StoreName, ground_name, ground_sort_order) {
     cy.get('#tableinfo').click();
     cy.wait(1 * 1000);
 
-    cy.get('#basic-store-no').select(StoreName);
-    cy.wait(1 * 1000);
-    cy.contains('전환').click();
-
+    if (StoreName) {
+        cy.get('#basic-store-no').select(StoreName);
+        cy.wait(1 * 1000);
+        cy.contains('전환').click();
+    }
     /* 구역 추가 */
     cy.get('#btnSerialAdd').click(); // 구역 추가
     cy.wait(1 * 1000);
@@ -85,9 +88,11 @@ function tableSet(StoreName, ground_name, resource_name) {
     cy.get('#tableinfo').click();
     cy.wait(1 * 1000);
 
-    cy.get('#basic-store-no').select(StoreName);
-    cy.wait(1 * 1000);
-    cy.contains('전환').click();
+    if (StoreName) {
+        cy.get('#basic-store-no').select(StoreName);
+        cy.wait(1 * 1000);
+        cy.contains('전환').click();
+    }
 
     /* 테이블추가 */
     cy.contains('div', ground_name) // 구역에서 테이블 추가
@@ -113,10 +118,11 @@ function cuponSet(StoreName) {
     cy.get('[style="display: block;"] > .container-fluid > .d-flex').contains('쿠폰관리').click();
     cy.wait(1 * 1000);
 
-    cy.get('#coupon-store-no').select(StoreName);
-    cy.wait(1 * 1000);
-    cy.contains('전환').click();
-
+    if (StoreName) {
+        cy.get('#coupon-store-no').select(StoreName);
+        cy.wait(1 * 1000);
+        cy.contains('전환').click();
+    }
     cy.get('.col-12 > .btn').contains('쿠폰 등록').click();
 
     /* 쿠폰 정보 */

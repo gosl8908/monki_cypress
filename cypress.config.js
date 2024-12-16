@@ -13,6 +13,12 @@ const doorayEmailId = process.env.DOORAY_EMAIL_ID;
 const doorayEmailId2 = process.env.DOORAY_EMAIL_ID2;
 const doorayEmailPwd = process.env.DOORAY_EMAIL_PWD;
 const Phone = process.env.PHONE;
+const ADMIN = process.env.ADMIN;
+const CEO = process.env.CEO;
+const STG_ADMIN = process.env.STG_ADMIN;
+const STG_CEO = process.env.STG_CEO;
+const DEV_ADMIN = process.env.DEV_ADMIN;
+const DEV_CEO = process.env.DEV_CEO;
 
 module.exports = defineConfig({
     // viewportWidth: 1920,
@@ -116,17 +122,12 @@ module.exports = defineConfig({
         },
 
         env: {
-            /* Prod Sit */
-            Admin: 'https://crew.monki.net/users/login', //Prod 통합
-            Ceo: 'https://ceo.monki.net/users/login', //Prod 사장님
-
-            /* STG Site */
-            StgAdmin: 'http://staging-mngr.monthlykitchen.kr/users/login', //STG 통합
-            StgCeo: 'https://staging-ceo.monthlykitchen.kr/users/login', //STG 사장님
-
-            /* DEV Site */
-            DevAdmin: 'http://develop-mngr.monthlykitchen.kr/users/login', //DEV 통합
-            DevCeo: 'http://develop-ceo.monthlykitchen.kr/users/login', //DEV 사장님
+            Admin: process.env.ADMIN,
+            Ceo: process.env.CEO,
+            StgAdmin: process.env.STG_ADMIN,
+            StgCeo: process.env.STG_CEO,
+            DevAdmin: process.env.DEV_ADMIN,
+            DevCeo: process.env.DEV_CEO,
 
             /* email */
             AdminEmail: doorayEmailId,
