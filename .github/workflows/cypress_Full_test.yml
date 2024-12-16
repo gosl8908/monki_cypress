@@ -85,6 +85,12 @@ env:
     DOORAY_EMAIL_ID: ${{ secrets.DOORAY_EMAIL_ID }}
     DOORAY_EMAIL_ID2: ${{ secrets.DOORAY_EMAIL_ID2 }}
     DOORAY_EMAIL_PWD: ${{ secrets.DOORAY_EMAIL_PWD }}
+    ADMIN: ${{ secrets.ADMIN}}
+    CEO: ${{secrets.CEO}}
+    STG_ADMIN: ${{ secrets.STG_ADMIN}}
+    STG_CEO: ${{secrets.STG_CEO}}
+    DEV_ADMIN: ${{ secrets.DEV_ADMIN}}
+    DEV_CEO: ${{secrets.DEV_CEO}}
 
 jobs:
     # cypress-run-test1:
