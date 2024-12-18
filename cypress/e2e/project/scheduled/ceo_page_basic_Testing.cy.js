@@ -235,7 +235,7 @@ describe('Scheduled ceo page basic Testing', () => {
         function registerOptionGroup(optionGroup) {
             const { size, options } = optionGroup;
 
-            cy.get('.col-12 > .btn').click();
+            cy.contains('옵션그룹 등록').click();
             cy.get('[id="OP_002"]').click(); // 다중
             cy.get('[id="requireYn_false"]').click(); // 선택
             cy.get('[name="optionGroupNm"]').type(size); // 그룹명
@@ -250,7 +250,8 @@ describe('Scheduled ceo page basic Testing', () => {
 
             cy.get('.ms-auto').click();
             cy.wait(1000); // 1 second wait
-            cy.get('#global_modal_confirm').click();
+            cy.get('.modal.show > .modal-dialog > .modal-content').contains('등록하시겠습니까?');
+            cy.get('#global_modal_confirm').contains('확인').click();
         }
 
         const optionsArray = `${Cypress.env('optionPrices2')}`
