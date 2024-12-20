@@ -29,8 +29,8 @@ project-directory/
 ├── .vscode/             # VSCode 설정  
 ├── cypress/             # Cypress 테스트 관련 파일  
 │   ├── fixtures/        # 테스트 데이터  
-│   ├── integration/     # 테스트 스크립트  
-│   ├── plugins/         # Cypress 플러그인 설정  
+│   ├── e2e/             # 테스트 스크립트  
+│   ├── reports/         # 테스트 결과 리포트  
 │   ├── support/         # 공통 함수 및 명령어  
 ├── node_modules/        # 프로젝트 의존성  
 ├── shell/               # Shell 스크립트  
