@@ -23,7 +23,7 @@ Backoffice 관리 시스템의 주요 기능을 효율적으로 검증하기 위
 
 ---
 ## ⚙️ 디렉토리 구조  
-
+```
 project-directory/  
 ├── .github/workflows/   # GitHub Actions 설정 파일  
 ├── .vscode/             # VSCode 설정  
@@ -44,7 +44,7 @@ project-directory/
 ├── package.json         # 프로젝트 메타데이터 및 의존성  
 ├── yarn.lock            # Yarn 종속성 잠금 파일  
 └── README.md            # 프로젝트 문서 
-
+```
 ---
 
 ## 🧪 GitHub Actions 통합
